@@ -1,0 +1,10 @@
+Options -Indexes +FollowSymLinks
+
+Header set Access-Control-Allow-Origin "http://xzor.dev"
+
+#SetEnvIf Host ^192|127|localhost APP_ENV=testing
+#SetEnvIf Host ^.*\.dev$ APP_ENV=testing
+#SetEnvIf Host ^.*\.dev$ APP_ENV=office
+
+RewriteEngine On
+RewriteRule "(.*)" "main.php" [PT,QSA]
