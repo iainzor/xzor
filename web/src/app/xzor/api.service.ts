@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { environment } from '../../environments/environment';
+import {Injectable} from '@angular/core';
+import {Http, URLSearchParams} from '@angular/http';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class ApiService
@@ -11,11 +11,11 @@ export class ApiService
 		return environment.xzorApiUrl +"/"+ uri;
 	}
 
-	get(uri:string) : Promise<any> {
+	get(uri:string, params:URLSearchParams = null) : Promise<any> {
 		let url = this.url(uri);
 		return new Promise<any>((resolve, reject) => {
 			this.http
-				.get(url)
+				.get(url, { search: params })
 				.subscribe(
 					(response) => { resolve(response.json()); },
 					(error) => { reject(error.json ? error.json() : error); }

@@ -1,0 +1,18 @@
+<form class="search" (submit)="search()">
+	<input theme-border
+		type="search" 
+		class="form-control" 
+		placeholder="Find a game..." 
+		name="q" 
+		[(ngModel)]="q">
+	
+	<button>
+		<i class="material-icons">search</i>
+	</button>
+</form>
+
+<div class="games">
+	<a class="game" [@game] [routerLink]="[game.slug]" *ngFor="let game of games">
+		<game-tile [game]="game" theme-background></game-tile>
+	</a>
+</div>

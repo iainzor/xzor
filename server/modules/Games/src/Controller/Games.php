@@ -1,19 +1,15 @@
 <?php
 namespace Games\Controller;
 
+use Games\DbTable,
+	Http\Request;
+
 class Games
 {
-	public function listAction()
+	public function listAction(DbTable\Games $games, Request $request) : array
 	{	
-		return [
-			[
-				"id" => 1,
-				"title" => "For Honor"
-			], 
-			[
-				"id" => 2,
-				"title" => "Battlefield 1"
-			]
-		];
+		return $games->findAll(
+			$request->inputGet("q")
+		);
 	}
 }

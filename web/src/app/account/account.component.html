@@ -1,0 +1,19 @@
+<div style="height: 150px; margin-bottom: 20px;" theme-background></div>
+
+<div class="container">
+	<h1>Account</h1>
+
+	<form (submit)="submit()" style="background-color: #fff; padding: 20px;">
+		<div class="form-group">
+			<label>Background Color</label>
+			<input type="color" [(ngModel)]="theme.backgroundColor" name="backgroundColor">
+		</div>
+
+		<div class="form-group">
+			<label>Border Color</label>
+			<input type="color" [(ngModel)]="theme.borderColor" name="borderColor">
+		</div>
+
+		<input type="submit" value="Save"> 
+	</form>
+</div>

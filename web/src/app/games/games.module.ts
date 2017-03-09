@@ -1,22 +1,36 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import {NgModule} from "@angular/core";
+import {CommonModule} from "@angular/common";
+import {FormsModule} from "@angular/forms";
+import {RouterModule} from "@angular/router";
 
-import { GameListComponent } from './game-list.component';
-import { GamesService } from './games.service';
+import {UIModule} from "../ui/ui.module";
+
+import {GamesComponent} from "./games.component";
+import {GameComponent} from "./game.component";
+import {GameTileComponent} from "./game-tile/game-tile.component";
+
+import {GamesService} from "./games.service";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild([
-      { path: "", component: GameListComponent }
-    ])
-  ],
-  declarations: [
-    GameListComponent
-  ],
-  providers: [
-    GamesService
-  ]
+	imports: [
+		CommonModule,
+		FormsModule,
+		RouterModule.forChild([{ 
+			path: "", children: [
+				{ path: "", component: GamesComponent },
+				{ path: ":slug", component: GameComponent }
+			]
+		}]),
+
+		UIModule
+	],
+	declarations: [
+		GamesComponent,
+		GameComponent,
+		GameTileComponent
+	],
+	providers: [
+		GamesService
+	]
 })
 export class GamesModule { }

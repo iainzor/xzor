@@ -1,0 +1,11 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+.outlet {
+	position: relative;
+	flex-grow: 1;
+	padding-bottom: 90px;
+}
