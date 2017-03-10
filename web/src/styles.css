@@ -13,3 +13,7 @@ a {
 a:hover {
 	color: #fff;
 }
+
+h1, h2 {
+	font-weight: normal;
+}

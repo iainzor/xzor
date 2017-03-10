@@ -1,0 +1,14 @@
+header {
+	display: flex;
+	height: 200px;
+	align-items: flex-end;
+	overflow: hidden;
+	padding: 0 20px;
+}
+	header .info {
+		background-color: #fff;
+		box-shadow: 0 3px 10px rgba(0,0,0,.2);
+		color: #212121;
+		padding: 20px;
+	}
+	

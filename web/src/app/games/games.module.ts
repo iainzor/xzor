@@ -10,6 +10,7 @@ import {GameComponent} from "./game.component";
 import {GameTileComponent} from "./game-tile/game-tile.component";
 
 import {GamesService} from "./games.service";
+import {GameService} from "./game.service";
 
 @NgModule({
 	imports: [
