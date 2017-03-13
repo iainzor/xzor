@@ -1,7 +1,8 @@
 <?php
 namespace Xzor;
 
-use Core\ConfigurableModuleInterface;
+use Core\ConfigurableModuleInterface,
+	Database\PDO;
 
 class Module implements ConfigurableModuleInterface
 {	

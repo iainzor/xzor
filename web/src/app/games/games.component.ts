@@ -1,7 +1,11 @@
 import {Component, OnInit, OnDestroy} from "@angular/core";
 import {animate, trigger, transition, style, state} from "@angular/core";
+import {Router, ActivatedRoute} from "@angular/router";
+import {Subscription} from "rxjs/Subscription";
 
 import {routeAnimation} from "../ui/utilities/route-animation";
+
+import {UINavService} from "../ui/ui-nav.service";
 import {GamesService} from "./games.service";
 import {GameInterface} from "./game.interface";
 
@@ -36,28 +40,61 @@ import {GameInterface} from "./game.interface";
 })
 export class GamesComponent implements OnInit, OnDestroy
 {
-	private routeSub;
+	private routeSub:Subscription;
     private games:GameInterface[] = [];
 
 	q:string = "";
 
-    constructor(private GamesService:GamesService) {}
+    constructor(
+		private GamesService:GamesService, 
+		private Nav:UINavService,
+		private Router:Router,
+		private Route:ActivatedRoute
+	) {}
 
     ngOnInit() {
-        this.search();
+		/*
+		this.Nav.setSubNav([
+			{ title: "Add Game", icon: "add", callback: this.addGame.bind(this) }
+		]);
+		*/
+		this.routeSub = this.Route.queryParams.subscribe((params) => {
+			this.q = params["q"] || "";
+        	this.load();
+		});
     }
 
-	ngOnDestroy() {}
+	ngOnDestroy() {
+		this.routeSub.unsubscribe();
+	}
 
 	search() {
+		this.Router.navigate(["/games"], {
+			queryParams: {
+				q: this.q
+			}
+		});
+	}
+
+	addGame() {
+		console.log("ADDING GAME!");
+	}
+
+	private load() {
 		this.GamesService.find(this.q).then(games => { 
-			this.staggerIn(games);
+			//this.staggerIn(games);
+			window.setTimeout(() => {
+				this.games = games;
+			}, 100);
+			//this.games = games;
 		});
 	}
 
 	private staggerIn(games:GameInterface[]) {
 		this.games = [];
 
+		let totalTime = 2000;
+		let timeout = totalTime / games.length;
 		let i = 0;
 		let timer = window.setInterval(() => {
 			if (!games[i]) {
@@ -66,6 +103,6 @@ export class GamesComponent implements OnInit, OnDestroy
 				this.games.push(games[i]);
 				i += 1;
 			}
-		}, 100);
+		}, timeout);
 	}
 }

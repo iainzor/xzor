@@ -5,15 +5,14 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import {UIModule} from "./ui/ui.module";
+import {UINavService} from "./ui/ui-nav.service";
 import {AppComponent} from "./app.component";
-import {AppNavComponent} from "./app-nav.component";
 import {ThemeService} from "./ui/theme.service";
 import {ApiService} from "./xzor/api.service";
 
 @NgModule({
 	declarations: [
-		AppComponent,
-		AppNavComponent
+		AppComponent
 	],
 	imports: [
 		BrowserModule,
@@ -29,6 +28,7 @@ import {ApiService} from "./xzor/api.service";
 	],
 	providers: [
 		ApiService,
+		UINavService,
 		ThemeService
 	],
 	bootstrap: [AppComponent]

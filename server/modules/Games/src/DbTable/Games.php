@@ -1,40 +1,45 @@
 <?php
 namespace Games\DbTable;
 
-use Xzor\PDO;
+use Database\Driver\MySQL\AbstractTable,
+	Database\PDO,
+	Games\Game;
 
-class Games
+class Games extends AbstractTable
 {
-	/**
-	 * @var PDO
-	 */
-	private $db;
+	const NAME = "games";
+	
+	public function getName() : string { return self::NAME; }
 	
 	/**
-	 * Constructor
+	 * Find all games matching a search string
 	 * 
-	 * @param PDO $db
+	 * @param string $search
+	 * @return Game[]
 	 */
-	public function __construct(PDO $db)
-	{
-		$this->db = $db;
-	}
-	
 	public function findAll(string $search = null) : array 
 	{
 		$statement = $this->db->prepare("
 			SELECT * 
 			FROM `games` 
 			WHERE `title` LIKE :search
+			LIMIT 24
 		");
 		$statement->execute([
 			":search" => "%". $search ."%"
 		]);
 		
-		return $statement->fetchAll(PDO::FETCH_ASSOC);
+		return $statement->fetchAll(PDO::FETCH_CLASS, Game::class);
 	}
 	
-	public function find(string $slug) : array
+	/**
+	 * Find a single game using its slug
+	 * 
+	 * @param string $slug
+	 * @return Game
+	 * @throws \Exception
+	 */
+	public function find(string $slug) : Game
 	{
 		$statement = $this->db->prepare("
 			SELECT	*
@@ -45,12 +50,22 @@ class Games
 		$statement->execute([
 			":slug" => $slug
 		]);
-		$row = $statement->fetch(PDO::FETCH_ASSOC);
+		$row = $statement->fetchObject(Game::class);
 		
 		if (!$row) {
 			throw new \Exception("Could not find game '{$slug}'");
 		}
 		
 		return $row;
+	}
+	
+	public function giantBombGameExists(int $giantBombId) : bool
+	{
+		$statement = $this->db->prepare("SELECT `id` FROM `games` WHERE `giantBombId` = :id");
+		$statement->execute([
+			":id" => $giantBombId
+		]);
+		
+		return $statement->fetch() ? true : false;
 	}
 }

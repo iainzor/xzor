@@ -14,9 +14,10 @@ class Module implements BootableModuleInterface
 				->controller("games")
 				->action("list");
 			
-			$router->when("/^games\/([a-z0-9-]+)$/i")
+			$router->when("/^games\/([a-z0-9-]+)\/?([a-z0-9-]+)?$/i")
 				->params([
-					1 => "slug"
+					1 => "slug",
+					2 => "action"
 				])
 				->module("games")
 				->controller("game")

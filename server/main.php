@@ -25,6 +25,7 @@ $modules->registerAll($blissRoot . DIRECTORY_SEPARATOR . "modules", [
 	"Logs"
 ]);
 $modules->registerAll(__DIR__ . DIRECTORY_SEPARATOR . "modules");
+$modules->registerAll(__DIR__ . DIRECTORY_SEPARATOR . "vendor");
 $app->config()->load([
 	__DIR__ . DIRECTORY_SEPARATOR . "config.php",
 	dirname(__DIR__) . DIRECTORY_SEPARATOR . "private" . DIRECTORY_SEPARATOR . "config.php"
@@ -33,6 +34,8 @@ $app->config()->load([
 try {
 	$app->run();
 } catch (\Exception $e) {
+	header("Content-type: text/html");
+	
 	echo "<h1>Oops...</h1>";
 	echo "<h4>". $e->getMessage() ."</h4>";
 	echo "<pre>";

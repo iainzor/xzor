@@ -1,14 +1,14 @@
 <?php
 namespace Games\Controller;
 
-use Games\DbTable,
+use Games\GamesLoader,
 	Http\Request;
 
 class Games
 {
-	public function listAction(DbTable\Games $games, Request $request) : array
+	public function listAction(GamesLoader $loader, Request $request) : array
 	{	
-		return $games->findAll(
+		return $loader->load(
 			$request->inputGet("q")
 		);
 	}

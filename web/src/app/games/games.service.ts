@@ -9,10 +9,9 @@ export class GamesService
 {
 	constructor(private api:ApiService) {}
 
-	public find(q:string = "", format:string = "list") : Promise<GameInterface[]> {
+	public find(q:string = "") : Promise<GameInterface[]> {
 		let params = new URLSearchParams();
 		params.set("q", q);
-		params.set("format", format);
 		
 		return new Promise<GameInterface[]>((resolve, reject) => {
 			this.api.get("games.json", params).then(

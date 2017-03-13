@@ -9,3 +9,13 @@
 	flex-grow: 1;
 	padding-bottom: 90px;
 }
+
+.nav {
+	position: fixed;
+	bottom: 20px;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	z-index: 100;
+}
