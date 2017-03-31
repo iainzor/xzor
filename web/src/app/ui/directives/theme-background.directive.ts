@@ -14,7 +14,7 @@ export class ThemeBackgroundDirective extends AbstractThemeDirective
 
 	adjust(theme:ThemeInterface) {
 		this.style({
-			backgroundColor: theme.backgroundColor
+			background: theme.background
 		});
 	}
 }

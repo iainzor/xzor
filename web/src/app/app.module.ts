@@ -1,14 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
+import {BrowserModule} from "@angular/platform-browser";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {NgModule} from "@angular/core";
+import {FormsModule} from "@angular/forms";
+import {HttpModule} from "@angular/http";
+import {RouterModule} from "@angular/router";
 
-import {UIModule} from "./ui/ui.module";
-import {UINavService} from "./ui/ui-nav.service";
+import {UIModule, UINavService} from "./ui/ui.module";
 import {AppComponent} from "./app.component";
+import {AppService} from "./app.service";
 import {ThemeService} from "./ui/theme.service";
-import {ApiService} from "./xzor/api.service";
+import {XzorModule} from "./xzor/xzor.module";
+import {XzorService} from "./xzor/xzor.service";
 
 @NgModule({
 	declarations: [
@@ -16,6 +18,7 @@ import {ApiService} from "./xzor/api.service";
 	],
 	imports: [
 		BrowserModule,
+		BrowserAnimationsModule,
 		FormsModule,
 		HttpModule,
 		RouterModule.forRoot([
@@ -24,12 +27,14 @@ import {ApiService} from "./xzor/api.service";
 			{ path: "games", loadChildren: "./games/games.module#GamesModule" }
 		]),
 
-		UIModule
+		UIModule,
+		XzorModule
 	],
 	providers: [
-		ApiService,
-		UINavService,
-		ThemeService
+		AppService,
+		ThemeService,
+		XzorService,
+		UINavService
 	],
 	bootstrap: [AppComponent]
 })

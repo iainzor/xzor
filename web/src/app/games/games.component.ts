@@ -3,9 +3,9 @@ import {animate, trigger, transition, style, state} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 
+import {AppService} from "../app.service";
 import {routeAnimation} from "../ui/utilities/route-animation";
-
-import {UINavService} from "../ui/ui-nav.service";
+import {UINavService} from "../ui/ui.module";
 import {GamesService} from "./games.service";
 import {GameInterface} from "./game.interface";
 
@@ -41,12 +41,15 @@ import {GameInterface} from "./game.interface";
 export class GamesComponent implements OnInit, OnDestroy
 {
 	private routeSub:Subscription;
-    private games:GameInterface[] = [];
-
+    
+	games:GameInterface[];
 	q:string = "";
+	loading:boolean = false;
+	showSources:boolean = false;
 
     constructor(
-		private GamesService:GamesService, 
+		private App:AppService,
+		private Games:GamesService, 
 		private Nav:UINavService,
 		private Router:Router,
 		private Route:ActivatedRoute
@@ -62,6 +65,8 @@ export class GamesComponent implements OnInit, OnDestroy
 			this.q = params["q"] || "";
         	this.load();
 		});
+
+
     }
 
 	ngOnDestroy() {
@@ -81,12 +86,14 @@ export class GamesComponent implements OnInit, OnDestroy
 	}
 
 	private load() {
-		this.GamesService.find(this.q).then(games => { 
+		this.loading = true;
+		this.App.setLoading(true);
+		this.Games.find(this.q).then(games => {
+			this.App.setLoading(false);
+			this.loading = false;
+			this.games = games;
+			this.showSources = games.length === 0;
 			//this.staggerIn(games);
-			window.setTimeout(() => {
-				this.games = games;
-			}, 100);
-			//this.games = games;
 		});
 	}
 

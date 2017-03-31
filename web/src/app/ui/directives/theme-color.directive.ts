@@ -14,7 +14,8 @@ export class ThemeColorDirective extends AbstractThemeDirective
 
 	adjust(theme:ThemeInterface) {
 		this.style({
-			color: theme.color
+			color: theme.color,
+			fill: theme.color
 		});
 	}
 }

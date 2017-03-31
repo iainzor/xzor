@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  xzorApiUrl: "https://api.xzor.net"
+  xzorApiUrl: "https://xzor.net/api"
 };

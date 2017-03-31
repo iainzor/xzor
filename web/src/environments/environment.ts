@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  xzorApiUrl: "http://api.xzor.dev"
+  xzorApiUrl: "http://xzor.dev/api"
 };

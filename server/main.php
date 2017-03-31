@@ -1,4 +1,5 @@
 <?php
+$start = microtime(true);
 $dir = __DIR__;
 $i = 0;
 while (!is_dir($dir . DIRECTORY_SEPARATOR . "Bliss")) {
@@ -32,7 +33,24 @@ $app->config()->load([
 ]);
 
 try {
-	$app->run();
+	ob_start();
+	
+	$uri = trim(
+		filter_input(INPUT_SERVER, "PATH_INFO"),
+		"/"
+	);
+	$app->run($uri);
+	$result = ob_get_clean();
+	$end = microtime(true);
+	$totalTime = $end - $start;
+	
+	if (isset($_GET["_stats_"])) {
+		echo "Time:\t". $totalTime ."ms\n";
+		echo "Memory Used:\t". (memory_get_peak_usage() / 1024) ."kb";
+		exit;
+	}
+	
+	echo $result;
 } catch (\Exception $e) {
 	header("Content-type: text/html");
 	

@@ -1,6 +1,6 @@
 export interface ThemeInterface
 {
-	borderColor:string;
-	backgroundColor:string;
+	background:string;
+	border:string;
 	color:string;
 }

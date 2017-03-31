@@ -1,0 +1,97 @@
+:host {
+	display: block;
+}
+
+:host(.spin) .logo,
+:host(.spin) .logo > polygon {
+	animation-iteration-count: infinite;
+	animation-duration: 3s;
+	animation-timing-function: cubic-bezier(0.5, 0, 0, 1.25);
+	fill: inherit;
+}
+
+:host(.spin) .logo { animation-name: hostmovement; transform-origin: 50% 50%; }
+	:host(.spin) .logo > polygon.top { animation-name: topmovement; }
+	:host(.spin) .logo > polygon.bottom { animation-name: bottommovement; }
+
+@keyframes hostmovement {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	25% {
+		transform: rotate(0deg);
+	}
+
+	50% {
+		transform: rotate(180deg);
+	}
+
+	75% {
+		transform: rotate(180deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes topmovement {
+	0% {
+		transform: translate(0,0);
+	}
+
+	25% {
+		transform: translate(0,0);
+	}
+
+	50% {
+		transform: translate(-125px, 125px);
+	}
+
+	75% {
+		transform: translate(-125px, 125px);
+	}
+
+	100% {
+		transform: translate(0,0);
+	}
+}
+
+
+@keyframes bottommovement {
+	0% {
+		transform: translate(0,0);
+	}
+
+	25% {
+		transform: translate(0,0);
+	}
+	
+	50% {
+		transform: translate(175px, -175px);
+	}
+
+	75% {
+		transform: translate(175px, -175px);
+	}
+
+	100% {
+		transform: translate(0,0);
+	}
+}
+
+@keyframes pulse {
+	from {
+		transform: scale(1);
+	}
+
+	50% {
+		transform: scale(.75);
+		filter: blur(5px);
+	}
+
+	to {
+		transform: scale(1);
+	}
+}

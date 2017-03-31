@@ -14,7 +14,7 @@ export class ThemeBorderDirective extends AbstractThemeDirective
 
 	adjust(theme:ThemeInterface) {
 		this.style({
-			borderColor: theme.borderColor
+			borderColor: theme.border
 		});
 	}
 }

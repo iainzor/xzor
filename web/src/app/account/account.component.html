@@ -3,15 +3,20 @@
 <div class="container">
 	<h1>Account</h1>
 
-	<form (submit)="submit()" style="background-color: #fff; padding: 20px;">
+	<form (submit)="submit()" style="padding: 20px;" theme-background theme-color>
 		<div class="form-group">
 			<label>Background Color</label>
-			<input type="color" [(ngModel)]="theme.backgroundColor" name="backgroundColor">
+			<input type="color" [(ngModel)]="theme.background" name="background">
 		</div>
 
 		<div class="form-group">
 			<label>Border Color</label>
-			<input type="color" [(ngModel)]="theme.borderColor" name="borderColor">
+			<input type="color" [(ngModel)]="theme.border" name="border">
+		</div>
+
+		<div class="form-group">
+			<label>Text Color</label>
+			<input type="color" [(ngModel)]="theme.color" name="color">
 		</div>
 
 		<input type="submit" value="Save"> 

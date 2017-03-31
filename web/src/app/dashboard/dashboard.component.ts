@@ -1,4 +1,6 @@
 import {Component} from "@angular/core";
+
+import {AppService} from "../app.service";
 import {routeAnimation} from "../ui/utilities/route-animation";
 
 @Component({
@@ -12,4 +14,15 @@ import {routeAnimation} from "../ui/utilities/route-animation";
 	}
 })
 export class DashboardComponent
-{}
+{
+	private _loading:boolean = false;
+
+	constructor(private App:AppService) {}
+
+	toggle(e:MouseEvent) {
+		e.preventDefault();
+
+		this._loading = !this._loading;
+		this.App.setLoading(this._loading);
+	}
+}

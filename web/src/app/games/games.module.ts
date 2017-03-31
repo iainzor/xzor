@@ -4,6 +4,7 @@ import {FormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
 
 import {UIModule} from "../ui/ui.module";
+import {SourcesModule} from "../sources/sources.module";
 
 import {GamesComponent} from "./games.component";
 import {GameComponent} from "./game.component";
@@ -23,6 +24,7 @@ import {GameService} from "./game.service";
 			]
 		}]),
 
+		SourcesModule,
 		UIModule
 	],
 	declarations: [
