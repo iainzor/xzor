@@ -36,9 +36,6 @@ form.search {
 			text-decoration: none;
 			margin-bottom: 1em;
 		}
-		.search-results > section .game:last-child {
-			margin-bottom: 0;
-		}
 		.search-results > section .game:hover,
 		.search-results > section .game:focus {
 			text-decoration: none;

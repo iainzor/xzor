@@ -23,7 +23,7 @@
 <div class="search-results" *ngIf="games">
 	<section class="local">
 		<div class="row" *ngIf="games.length > 0">
-			<div class="col col-sm-6 col-md-4 col-lg-3 col-xl-2" *ngFor="let game of games">
+			<div class="col-md-4 col-lg-3 col-xl-2" *ngFor="let game of games">
 				<a class="game" [@game] [routerLink]="[game.slug]" theme-background z="1">
 					<game-tile [game]="game"></game-tile>
 				</a>
@@ -32,9 +32,9 @@
 	</section>
 </div>
 
-<template [ngIf]="q && !loading">
+<ng-template [ngIf]="q && !loading">
 	<div class="info sources">
 		Search other sources for "{{q}}"
 	</div>
 	<sources-search [q]="q"></sources-search>
-</template>
+</ng-template>

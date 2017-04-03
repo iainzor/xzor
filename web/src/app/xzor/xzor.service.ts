@@ -22,4 +22,18 @@ export class XzorService
 				);
 		});
 	}
+
+	post(uri:string, data:string) : Promise<any> {
+		let url = this.url(uri);
+
+		return new Promise<any>((resolve, reject) => {
+			this.http
+				.post(url, data)
+				.map(res => res.json())
+				.subscribe(
+					(response) => { resolve(response); },
+					(error) => { reject(error.json ? error.json() : error); }
+				);
+		});
+	}
 }

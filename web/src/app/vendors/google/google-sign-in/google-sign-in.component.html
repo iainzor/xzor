@@ -1,0 +1,9 @@
+<h1>Signed In: {{signedIn ? 'YES' : 'NO'}}</h1>
+
+<div [hidden]="signedIn">
+	<div id="google-sign-in-button"></div>
+</div>
+
+<div [hidden]="!signedIn">
+	<button (click)="signOut()">Sign Out</button>
+</div>

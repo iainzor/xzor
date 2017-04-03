@@ -5,10 +5,13 @@ import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {RouterModule} from "@angular/router";
 
-import {UIModule, UINavService} from "./ui/ui.module";
+import {AccountService} from "./account/account.service";
+import {AccountModule} from "./account/account.module";
 import {AppComponent} from "./app.component";
 import {AppService} from "./app.service";
 import {ThemeService} from "./ui/theme.service";
+import {UIModule, UINavService} from "./ui/ui.module";
+import {VendorsModule} from "./vendors/vendors.module";
 import {XzorModule} from "./xzor/xzor.module";
 import {XzorService} from "./xzor/xzor.service";
 
@@ -23,18 +26,19 @@ import {XzorService} from "./xzor/xzor.service";
 		HttpModule,
 		RouterModule.forRoot([
 			{ path: "", loadChildren: "./dashboard/dashboard.module#DashboardModule" },
-			{ path: "account", loadChildren: "./account/account.module#AccountModule" },
 			{ path: "games", loadChildren: "./games/games.module#GamesModule" }
 		]),
 
+		AccountModule,
 		UIModule,
+		VendorsModule,
 		XzorModule
 	],
 	providers: [
 		AppService,
 		ThemeService,
-		XzorService,
-		UINavService
+		UINavService,
+		XzorService
 	],
 	bootstrap: [AppComponent]
 })

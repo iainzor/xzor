@@ -24,7 +24,7 @@ export class UICardComponent implements OnInit, OnDestroy
 	}
 
 	get theme() : ThemeInterface {
-		return this._theme || this.defaultTheme || {
+		return this._theme || {
 			background: "#f2f2f2",
 			border: "#f2f2f2",
 			color: "#212121"

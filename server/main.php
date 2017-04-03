@@ -11,6 +11,8 @@ while (!is_dir($dir . DIRECTORY_SEPARATOR . "Bliss")) {
 	}
 }
 
+date_default_timezone_set("America/Los_Angeles");
+
 $blissRoot = $dir . DIRECTORY_SEPARATOR . "Bliss";
 $httpRoot = $blissRoot . DIRECTORY_SEPARATOR . "modules" . DIRECTORY_SEPARATOR . "Http";
 
