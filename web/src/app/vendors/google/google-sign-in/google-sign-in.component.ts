@@ -1,48 +1,35 @@
-import {Component, NgZone, OnInit, OnDestroy, Output, EventEmitter, AfterViewInit} from "@angular/core";
-import {Subscription} from  "rxjs";
+import {Component, OnInit, OnDestroy} from "@angular/core";
+import {Subscription} from "rxjs";
+import {ProviderSessionInterface} from "../../../account/provider-session.interface";
 import {GoogleAuthService} from "../google-auth.service";
 
 @Component({
 	selector: "google-sign-in",
 	templateUrl: "./google-sign-in.component.html"
 })
-export class GoogleSignInComponent implements OnDestroy, AfterViewInit
+export class GoogleSignInComponent implements OnInit, OnDestroy
 {
-	private userSub:Subscription;
-	
-	signedIn:boolean = false;
+	private authSub:Subscription;
 
-	@Output() success:EventEmitter<gapi.auth2.AuthResponse> = new EventEmitter<gapi.auth2.AuthResponse>();
+	session:ProviderSessionInterface = { isValid: false };
 
-	constructor(
-		private NgZone:NgZone,
+	constructor(private Auth:GoogleAuthService) {}
 
-		private Auth:GoogleAuthService
-	) {
-		this.userSub = this.Auth.user.subscribe((user) => {
-			this.signedIn = user.isSignedIn();
-
-			if (this.signedIn) {
-				this.success.emit(user.getAuthResponse());
-			}
-		});
+	signIn(e:MouseEvent) {
+		this.Auth.signIn();
 	}
 
-	ngAfterViewInit() {
-		this.drawButton();
+	signOut(e:MouseEvent) {
+		this.Auth.signOut();
+	}
+
+	ngOnInit() {
+		this.authSub = this.Auth.subscribe((session) => {
+			this.session = session;
+		});
 	}
 
 	ngOnDestroy() {
-		this.userSub.unsubscribe();
-	}
-
-	drawButton() {
-		gapi.signin2.render("google-sign-in-button", {
-			longtitle: true
-		});
-	}
-
-	signOut() {
-		this.Auth.signOut();
+		this.authSub.unsubscribe();
 	}
 }

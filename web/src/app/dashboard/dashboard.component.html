@@ -1,3 +1,13 @@
 <div class="container">
-	<button class="btn btn-primary" (click)="toggle($event)">Toggle</button>
+	<div class="row justify-content-center">
+		<form class="col-lg-6 text-center" (submit)="search()">
+			<xzor-logo size="300" [spinning]="spin" (click)="spinLogo()"></xzor-logo>
+
+			<h1 class="display-3">Welcome to xZor</h1>
+			<h3>A community built for gamers, by gamers</h3>
+			<p>
+				<input [(ngModel)]="query" name="q" type="text" class="form-control form-control-lg" placeholder="Enter a game name..." autofocus>
+			</p>
+		</form>
+	</div>
 </div>

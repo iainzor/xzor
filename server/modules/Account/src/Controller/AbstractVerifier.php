@@ -2,7 +2,7 @@
 namespace Account\Controller;
 
 use Account\DbTable\Accounts,
-	Account\DbTable\AccountServices,
+	Account\DbTable\AccountProviders,
 	Account\Session,
 	Http\Request,
 	Http\Route;
@@ -13,21 +13,21 @@ abstract class AbstractVerifier
 	abstract public function getAccountId() : string;
 	abstract public function getAccountName() : string;
 	
-	public function verifyAction(Accounts $accounts, AccountServices $services, Request $request, Route $route) 
+	public function verifyAction(Accounts $accounts, AccountProviders $providers, Request $request, Route $route) 
 	{
 		$session = new Session();
 		
 		if ($this->isValid($request)) {
 			$serviceName = $route->param("service");
 			$serviceAccountId = $this->getAccountId();
-			$service = $services->load($serviceName, $serviceAccountId);
+			$provider = $providers->load($serviceName, $serviceAccountId);
 			
-			if ($service->accountId) {
-				$account = $accounts->load($service->accountId);
+			if ($provider->accountId) {
+				$account = $accounts->load($provider->accountId);
 			} else {
 				$account = $accounts->create($this->getAccountName());
-				$service->accountId = $account->id;
-				$services->save($service);
+				$provider->accountId = $account->id;
+				$providers->save($provider);
 			}
 			
 			$session->setAccount($account);

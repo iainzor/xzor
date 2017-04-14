@@ -1,14 +1,28 @@
-<ng-template [ngIf]="account">
+<ng-template [ngIf]="account.isValid">
 	<header theme-background theme-color z="2">
 		<div class="container" *ngIf="account">
 			<h2>{{account.name}}</h2>
 		</div>
 	</header>
 
-	<google-sign-in></google-sign-in>
+	<div class="container">
+		<div class="row">
+			<div class="col"></div>
+			<div class="col-sm-6 col-lg-4">
+				<ui-card z="1">
+					<h4 class="text-center">Linked Accounts</h4>
+					<hr>
+					<div class="row justify-content-center">
+						<google-sign-in></google-sign-in>
+						<twitch-sign-in></twitch-sign-in>
+					</div>
+				</ui-card>
+			</div>
+		</div>
+	</div>
 </ng-template>
 
-<div class="container guest" *ngIf="!loading && !account">
+<div class="container guest" *ngIf="!loading && !account.isValid">
 	<div class="row justify-content-center">
 		<div class="col-md-6 col-lg-4">
 			<ui-card z="5">

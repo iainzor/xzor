@@ -2,19 +2,20 @@
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
+	padding-top: 70px;
 }
 
 .outlet {
 	position: relative;
 	flex-grow: 1;
-	padding-bottom: 90px;
 }
 
 .nav {
 	position: fixed;
-	bottom: 20px;
+	top: 0;
 	left: 0;
 	right: 0;
+	height: 70px;
 	display: flex;
 	justify-content: center;
 	z-index: 100;

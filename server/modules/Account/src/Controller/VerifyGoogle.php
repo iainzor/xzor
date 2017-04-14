@@ -12,15 +12,9 @@ class VerifyGoogle extends AbstractVerifier
 	private $verifier;
 	
 	/**
-	 * @var Accounts
-	 */
-	private $accounts;
-	
-	/**
 	 * Constructor
 	 * 
 	 * @param Verifier $verifier
-	 * @param Accounts $accounts
 	 */
 	public function __construct(Verifier $verifier)
 	{

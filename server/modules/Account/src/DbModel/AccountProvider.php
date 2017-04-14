@@ -3,12 +3,12 @@ namespace Account\DbModel;
 
 use Database\Model\AbstractModel;
 
-class AccountService extends AbstractModel
+class AccountProvider extends AbstractModel
 {
 	public $id;
 	public $accountId;
-	public $serviceName;
-	public $serviceAccountId;
+	public $name;
+	public $token;
 	public $created;
 	public $updated;
 }

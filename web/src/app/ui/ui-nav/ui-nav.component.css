@@ -1,13 +1,14 @@
 :host {
 	display: flex;
 	flex-direction: column;
-	flex-grow: 0;
+	flex-grow: 1;
 	flex-shrink: 0;
 	align-items: stretch;
 }
 
 a {
 	color: inherit;
+	fill: inherit;
 }
 a:hover {
 	text-decoration: none;
@@ -19,45 +20,48 @@ nav {
 	align-items: stretch;
 	position: relative;
 	z-index: 2;
+	flex-grow: 1;
 }
 
 nav ul {
 	margin: 0;
-	padding: 15px 10px;
+	padding: 0;
 	list-style: none;
 	display: flex;
 	flex-direction: row;
-	align-items: center;
-	justify-content: center;
+	flex-grow: 1;
+	align-items: stretch;
+	background-color: rgba(0,0,0,.1);
 }
-	
-nav li { 
-	margin: 0 5px; 
-}
+	nav ul > li {
+		display: flex;
+		flex-direction: column;
+	}
+		nav ul > li > a {
+			display: flex;
+			flex-grow: 1;
+			padding: 0 20px;
+			box-sizing: content-box;
+			align-items: center;
+			justify-content: center;
+			transition: all .3s ease-in-out;
+			transform-origin: center center;
+			text-decoration: none !important;
+			border-right: 1px solid rgba(0,0,0,.1);
+		}
 
-nav li.divider {
-	width: 1px;
-	margin: 0 10px;
-	align-self: stretch;
-	background-color: rgba(0,0,0,.75);
-}
+		nav ul > li:last-child > a { 
+			border-right: none;
+		}
 
-nav a {
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transition: all .3s ease-in-out;
-	transform-origin: center center;
-	text-decoration: none !important;
-}
-nav a.active {
-	background-color: rgba(0,0,0,.75);
-	color: #F5F5F5;
-	transform: scale(1.2);
-}
+		nav ul > li.logo > a {
+			padding: 0 10px;
+		}
+
+		nav ul > li > a.active {
+			background-color: rgba(0,0,0,.75);
+			color: #F5F5F5;
+		}
 
 
 nav.sub-nav {

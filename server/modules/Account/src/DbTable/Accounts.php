@@ -45,7 +45,7 @@ class Accounts extends AbstractTable
 		$statement->execute([
 			":id" => $id
 		]);
-		$account =  $statement->fetchObject(Account::class);
+		$account = $statement->fetchObject(Account::class);
 		
 		if ($account === false) {
 			throw new \Exception("Could not load account");

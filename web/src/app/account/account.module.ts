@@ -3,7 +3,6 @@ import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 
-import {GoogleAuthService} from "../vendors/google/google-auth.service";
 import {UIModule} from "../ui/ui.module";
 import {VendorsModule} from "../vendors/vendors.module";
 import {AccountComponent} from "./account.component";
@@ -26,8 +25,7 @@ import {AuthService} from "./auth.service";
 	],
 	providers: [
 		AccountService,
-		AuthService,
-		GoogleAuthService
+		AuthService
 	]
 })
 export class AccountModule

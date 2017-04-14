@@ -13,25 +13,21 @@
 
 <nav theme-background theme-color>
 	<ul>
-		<li>
+		<li class="logo">
 			<a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-				<i class="material-icons">home</i>
+				<xzor-logo size="60" [spinning]="loading"></xzor-logo>
 			</a>
 		</li>
+		
 		<li>
 			<a routerLink="/games" routerLinkActive="active">
 				<i class="material-icons">videogame_asset</i>
 			</a>
 		</li>
-		<li class="divider"></li>
+		
 		<li>
 			<a routerLink="/account" routerLinkActive="active">
 				<i class="material-icons">face</i>
-			</a>
-		</li>
-		<li>
-			<a routerLink="/settings">
-				<i class="material-icons">settings</i>
 			</a>
 		</li>
 	</ul>

@@ -1,8 +1,9 @@
-import {Component} from "@angular/core";
+import {Component, OnInit, OnDestroy} from "@angular/core";
 import {animate, style, state, trigger, transition} from "@angular/core";
 import {RouterModule} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 
+import {AppService} from "../../app.service";
 import {UINavService} from "./ui-nav.service";
 import {UINavItemInterface} from "./ui-nav-item.interface";
 
@@ -31,16 +32,30 @@ import {UINavItemInterface} from "./ui-nav-item.interface";
 		])
 	]
 })
-export class UINavComponent
+export class UINavComponent implements OnInit, OnDestroy
 {
 	private navSub:Subscription;
+	private loadingSub:Subscription;
 
 	subNavItems:UINavItemInterface[] = [];
+	loading:boolean = false;
 
-	constructor(private Nav:UINavService) {
-		this.navSub = Nav.subNav.subscribe((items) => {
+	constructor(private App:AppService, private Nav:UINavService) {
+		
+	}
+
+	ngOnInit() {
+		this.loadingSub = this.App.loading.subscribe((loading) => {
+			this.loading = loading;
+		});
+		this.navSub = this.Nav.subNav.subscribe((items) => {
 			this.subNavItems = items;
 		});
+	}
+
+	ngOnDestroy() {
+		this.navSub.unsubscribe();
+		this.loadingSub.unsubscribe();
 	}
 
 	onItemClick(e:MouseEvent, item:UINavItemInterface) {

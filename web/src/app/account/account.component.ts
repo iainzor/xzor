@@ -21,7 +21,7 @@ export class AccountComponent implements OnInit, OnDestroy
 	private accountSub:Subscription;
 	private loadingSub:Subscription;
 
-	account:AccountInterface;
+	account:AccountInterface = { isValid: false };
 	loading:boolean = true;
 
 	constructor(

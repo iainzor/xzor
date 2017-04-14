@@ -6,6 +6,7 @@ import {routeAnimation} from "../ui/utilities/route-animation";
 @Component({
 	selector: "dashboard",
 	templateUrl: "./dashboard.component.html",
+	styleUrls: ["./dashboard.component.css"],
 	animations: [
 		routeAnimation("dashboard")
 	],
@@ -15,14 +16,18 @@ import {routeAnimation} from "../ui/utilities/route-animation";
 })
 export class DashboardComponent
 {
-	private _loading:boolean = false;
+	spin:boolean = false;
+	query:string;
 
-	constructor(private App:AppService) {}
+	spinLogo() {
+		this.spin = !this.spin;
+		setTimeout(() => {
+			//this.spin = false;
+		}, 100);
+	}
 
-	toggle(e:MouseEvent) {
-		e.preventDefault();
-
-		this._loading = !this._loading;
-		this.App.setLoading(this._loading);
+	search() {
+		this.spin = true;
+		console.log(this.query);
 	}
 }

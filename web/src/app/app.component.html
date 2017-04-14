@@ -1,11 +1,7 @@
+<div class="nav">
+	<ui-nav></ui-nav>
+</div>
+
 <div class="outlet">
 	<router-outlet></router-outlet>
 </div>
-
-<div class="nav">
-	<ui-nav z="2"></ui-nav>
-</div>
-
-<ui-spinner [@spinner] [active]="loading" *ngIf="loading">
-	<xzor-logo [spinning]="loading" size="50"></xzor-logo>
-</ui-spinner>
