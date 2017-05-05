@@ -7,6 +7,7 @@ import {RouterModule} from "@angular/router";
 
 import {AccountService} from "./account/account.service";
 import {AccountModule} from "./account/account.module";
+import {GamesModule} from "./games/games.module";
 import {AppComponent} from "./app.component";
 import {AppService} from "./app.service";
 import {ThemeService} from "./ui/theme.service";

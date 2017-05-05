@@ -1,50 +1,46 @@
-ui-card {
-	height: 300px;
-	padding: 10px;
+:host {
 	display: flex;
+	flex-direction: column;
+}
+ui-card {
+	padding: 0px;
+	display: flex;
+	flex-grow: 1;
 	flex-direction: column;
 	justify-content: flex-end;
 	overflow: hidden;
 	position: relative;
+	transition: all .2s ease-in-out;
 }
 	.info {
+		display: flex;
+		flex-direction: column;
 		position: relative;
-		padding: 20px;
+		padding: 15px;
 		background-color: #fff;
 		color: #212121;
-		transition: all .2s ease-in-out;
-		transform: translateY(50%);
-		height: 280px;
-		overflow: hidden;
 		z-index: 2;
+		flex-grow: 1;
 	}
-	ui-card:hover .info {
-		transform: translateY(0);
-	}
-		.info::after {
-			content: "";
-			display: block;
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			height: 50px;
-			background-image: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1));
-		}
-		
 		.info > .desc {
 			margin: 0;
+			flex-grow: 1;
+			overflow: hidden;
 		}
 	
-	.background {
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		width: 100%;
+	.cover {
+		flex-shrink: 0;
+		max-height: 150px;
+		overflow: hidden;
 		z-index: 1;
-		background-position: 50% 0;
-		background-size: 100%;
-		background-repeat: no-repeat;
 	}
+		.cover > img {
+			transition: all .2s ease-in-out;
+			width: 100%;
+		}
+
+		.cover > img.hidden {
+			opacity: 0;
+			transform: scale(1.4) translateY(-30px);
+			height: 0;
+		}

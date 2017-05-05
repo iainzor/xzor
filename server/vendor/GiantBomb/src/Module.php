@@ -4,11 +4,11 @@ namespace GiantBomb;
 use Core\AbstractApplication,
 	Core\BootableModuleInterface,
 	Core\ConfigurableModuleInterface,
+	Core\DI,
 	Core\ModuleConfig,
+	Sources\SourceContainer,
 	Sources\SourceProviderInterface,
-	Sources\SourceRegistry,
-	Sources\Source,
-	UI\Theme;
+	Sources\SourceRegistry;
 
 class Module implements BootableModuleInterface, ConfigurableModuleInterface, SourceProviderInterface
 {
@@ -32,12 +32,14 @@ class Module implements BootableModuleInterface, ConfigurableModuleInterface, So
 		});
 	}
 	
-	public function registerSource(SourceRegistry $registry) 
+	public function registerSource(SourceRegistry $registry, DI $di) 
 	{
-		$service = new SourceService();
-		$theme = new Theme("#981616", "#981616", "#ffffff");
-		$source = new Source("GiantBomb", "https://giantbomb.com", $service, $theme);
-		
-		$registry->register($source);
+		$di->call(function(Source $source) use ($registry) {
+			$registry->register(
+				new SourceContainer($source, [
+					"games" => GamesSourceService::class
+				])
+			);
+		});
 	}
 }

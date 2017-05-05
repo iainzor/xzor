@@ -1,0 +1,11 @@
+.row [class^=col-] {
+	margin-bottom: 30px;
+}
+
+h6 { margin-bottom: 0; }
+
+.games a.game { 
+	display: block;
+	text-decoration: none; 
+}
+.games game-tile { height: 300px; }

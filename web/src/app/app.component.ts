@@ -1,6 +1,6 @@
 import {animate, transition, trigger, style, state} from "@angular/animations";
 import {Component, OnInit, OnDestroy} from "@angular/core";
-import {Router, NavigationStart} from "@angular/router";
+import {Router, NavigationStart, NavigationCancel, NavigationEnd, NavigationError} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 
 import {AppService} from "./app.service";
@@ -49,8 +49,16 @@ export class AppComponent implements OnInit, OnDestroy
 			this.loading = loading;
 		});
 		this.routerSub = this.Router.events.subscribe((e) => {
-			if (e instanceof  NavigationStart) {
+			let started = e instanceof NavigationStart;
+			let canceled = e instanceof NavigationCancel;
+			let error = e instanceof NavigationError;
+			let end = e instanceof NavigationEnd;
+
+			if (e instanceof NavigationStart) {
 				this.Nav.clearSubNav();
+				this.App.setLoading(true);
+			} else if (canceled || error || end) {
+				this.App.setLoading(false);
 			}
 		});
 	}

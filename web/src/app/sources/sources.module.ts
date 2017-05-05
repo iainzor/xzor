@@ -3,23 +3,21 @@ import {CommonModule} from "@angular/common";
 
 import {UIModule} from "../ui/ui.module";
 import {XzorModule} from "../xzor/xzor.module";
+
+import {SourceSearchModule} from "./source-search/source-search.module";
 import {SourcesService} from "./sources.service";
-import {SourcesSearchComponent} from "./sources-search/sources-search.component";
 
 @NgModule({
 	imports: [
 		CommonModule,
+		
 		UIModule,
-		XzorModule
-	],
-	declarations: [
-		SourcesSearchComponent
+		XzorModule,
+
+		SourceSearchModule
 	],
 	exports: [
-		SourcesSearchComponent
-	],
-	providers: [
-		SourcesService
+		SourceSearchModule
 	]
 })
 export class SourcesModule

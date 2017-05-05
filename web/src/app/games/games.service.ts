@@ -3,19 +3,26 @@ import {URLSearchParams} from "@angular/http";
 
 import {XzorService} from "../xzor/xzor.service";
 import {GameInterface} from "./game.interface";
+import {GameSearchResponse} from "./game-search-response/game-search-response";
 
 @Injectable()
 export class GamesService
 {
 	constructor(private Xzor:XzorService) {}
 
-	public find(q:string = "") : Promise<GameInterface[]> {
+	find(q:string = "") : Promise<GameSearchResponse> {
 		let params = new URLSearchParams();
 		params.set("q", q);
 		
-		return new Promise<GameInterface[]>((resolve, reject) => {
+		return new Promise<GameSearchResponse>((resolve, reject) => {
 			this.Xzor.get("games.json", params).then(
-				(response) => { resolve(response); }
+				(response) => { 
+					resolve({
+						q: q,
+						results: response.results,
+						sources: response.sources
+					}); 
+				}
 			);
 		});
 	}

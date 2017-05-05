@@ -1,0 +1,37 @@
+<div class="row">
+	<div class="col-lg-3 col-md-4 col-sm-6">
+		<ui-card z="1" class="info">
+			<h6 *ngIf="!loading">
+				Showing {{games.length}} Games
+			</h6>
+			<h6 *ngIf="loading" class="text-muted">
+				<em>Searching...</em>
+			</h6>
+		</ui-card>
+	</div>
+	<div class="col" *ngIf="showSources">
+		<div class="row sources">
+			<div class="col-lg-4 col-md-6" *ngFor="let source of sources">
+				<source-search [q]="response.q" [source]="source" (response)="onSourceResponse($event)"></source-search>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row games">
+	<div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let game of games">
+		<a class="game" 
+			[routerLink]="[game.slug]" 
+			[z]="game.z || 1" 
+			(mouseenter)="game.z=3"
+			(mousedown)="game.z=5"
+			(mouseleave)="game.z=1" 
+			*ngIf="game.id"
+		>
+			<game-tile [game]="game"></game-tile>
+		</a>
+		<a class="game" [routerLink]="['import', game.source, game.sourceId]" *ngIf="!game.id">
+			<game-tile [game]="game"></game-tile>
+		</a>
+	</div>
+</div>

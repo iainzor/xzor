@@ -2,7 +2,7 @@ import {ThemeInterface} from "./theme.interface";
 
 export class DefaultTheme implements ThemeInterface
 {
-	border = "#4e9fc7";
-	background = "#4e9fc7";
-	color = "#f2f2f2";
+	border = "#FF5722";
+	background = "#FF5722";
+	color = "#ffffff";
 }

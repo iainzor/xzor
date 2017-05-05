@@ -1,6 +1,9 @@
 <ui-card>
-	<div class="info" [z]="infoZ">
-		<h6>{{game.title}}</h6>
-		<p class="text-muted desc" *ngIf="game.description">{{game.description}}</p>
+	<div class="cover" [hidden]="!coverLoaded" *ngIf="game.coverImage">
+		<img [src]="game.coverImage" (load)="onCoverLoad($event)">
+	</div>
+	<div class="info" [themeBackground]="game.theme" [themeColor]="game.theme" z="1">
+		<h5>{{game.title}}</h5>
+		<p class="desc" *ngIf="game.description">{{game.description}}</p>
 	</div>
 </ui-card>

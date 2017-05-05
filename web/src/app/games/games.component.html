@@ -1,40 +1,12 @@
-<form class="search" (submit)="search()" theme-border>
-	<input
-		type="search" 
-		class="form-control" 
-		placeholder="Find a game..." 
-		name="q" 
-		autocomplete="off"
-		[(ngModel)]="q">
-	
-	<button>
-		<i class="material-icons">search</i>
-	</button>
-</form>
-
-<div class="info" *ngIf="loading">
-	Loading games...
-</div>
-
-<div class="info" *ngIf="!loading && games && !games.length">
-	No games could be found matching "{{q}}".
-</div>
-
-<div class="search-results" *ngIf="games">
-	<section class="local">
-		<div class="row" *ngIf="games.length > 0">
-			<div class="col-md-4 col-lg-3 col-xl-2" *ngFor="let game of games">
-				<a class="game" [@game] [routerLink]="[game.slug]" theme-background z="1">
-					<game-tile [game]="game"></game-tile>
-				</a>
-			</div>
-		</div>
-	</section>
-</div>
-
-<ng-template [ngIf]="q && !loading">
-	<div class="info sources">
-		Search other sources for "{{q}}"
+<ui-header>
+	<div class="container">
+		<game-search [(q)]="q"></game-search>
 	</div>
-	<sources-search [q]="q"></sources-search>
-</ng-template>
+</ui-header>
+
+<div class="container">
+	<game-search-response 
+		[response]="response" 
+		[loading]="loading"
+		[showSources]="showSources"></game-search-response>
+</div>

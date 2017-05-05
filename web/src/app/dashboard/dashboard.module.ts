@@ -3,6 +3,8 @@ import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
 
+import {GameComponentsModule} from "../games/game-components.module";
+import {UIModule} from "../ui/ui.module";
 import {XzorModule} from "../xzor/xzor.module";
 import {DashboardComponent} from "./dashboard.component";
 
@@ -14,6 +16,8 @@ import {DashboardComponent} from "./dashboard.component";
 			{ path: "", component: DashboardComponent }
 		]),
 
+		GameComponentsModule,
+		UIModule,
 		XzorModule
 	],
 	declarations: [

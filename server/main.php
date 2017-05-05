@@ -53,7 +53,7 @@ try {
 	}
 	
 	echo $result;
-} catch (\Exception $e) {
+} catch (Error $e) {
 	header("Content-type: text/html");
 	
 	echo "<h1>Oops...</h1>";

@@ -3,7 +3,7 @@ namespace Games\DbTable;
 
 use Database\Driver\MySQL\AbstractTable,
 	Database\PDO,
-	Games\DbModel\Game;
+	Games\Model\Game;
 
 class Games extends AbstractTable
 {

@@ -1,27 +1,39 @@
-import {Directive, ElementRef, OnInit, OnDestroy} from "@angular/core";
+import {Directive, ElementRef, OnInit, OnDestroy, OnChanges} from "@angular/core";
 import {Subscription} from "rxjs/Subscription";
 import {ThemeService} from "../theme.service";
 import {ThemeInterface} from "../theme.interface";
 
-export abstract class AbstractThemeDirective implements OnInit, OnDestroy
+export abstract class AbstractThemeDirective implements OnInit, OnDestroy, OnChanges
 {
+	private theme:ThemeInterface;
 	private themeSub:Subscription;
 	private elRef:ElementRef;
-	private theme:ThemeService;
+	private Themes:ThemeService;
 
-	constructor(elRef:ElementRef, theme:ThemeService) {
+	customTheme:ThemeInterface;
+
+	constructor(elRef:ElementRef, Themes:ThemeService) {
 		this.elRef = elRef;
-		this.theme = theme;
+		this.Themes = Themes;
 	}
 
 	ngOnInit() {
-		this.themeSub = this.theme.subscribe((theme) => {
-			this.adjust(theme);
+		this.themeSub = this.Themes.subscribe((theme) => {
+			this.theme = theme;
+			this.adjust(this.customTheme || theme);
 		});
 	}
 
 	ngOnDestroy() {
 		this.themeSub.unsubscribe();
+	}
+
+	ngOnChanges() {
+		this.adjust(this.customTheme || this.theme || {
+			background: null,
+			border: null,
+			color: null
+		});
 	}
 
 	style(styles:{[name:string]: any}) {

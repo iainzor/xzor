@@ -12,4 +12,6 @@ interface SourceInterface
 	public function website() : string;
 	
 	public function theme() : Theme;
+	
+	public function loader() : SourceLoaderInterface;
 }

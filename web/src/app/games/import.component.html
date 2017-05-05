@@ -1,0 +1,9 @@
+<game-container [game]="game" *ngIf="game && source">
+	<ui-card z="1">
+		<h5>Game Import</h5>
+		<p>
+			This game has not yet been added to xZor.  Use the form below to import the game
+			from <a [routerLink]="['/sources', source.slug]">{{source.name}}</a>.
+		</p>
+	</ui-card>
+</game-container>

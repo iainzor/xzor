@@ -1,6 +1,6 @@
-import {animate, trigger, transition, style, state} from "@angular/core";
+import {animate, trigger, transition, style, state, AnimationTriggerMetadata} from "@angular/animations";
 
-export function routeAnimation(name:string) {
+export function routeAnimation(name:string) : AnimationTriggerMetadata {
 	return trigger(name, [
 		transition(":enter", [
 			style({
@@ -9,6 +9,7 @@ export function routeAnimation(name:string) {
 				top: 0,
 				left: 0,
 				width: "100%",
+				transform: "translateY(-10px)",
 				zIndex: 1
 			}),
 			animate("0.3s 0.2s ease-in-out", style({
@@ -25,7 +26,8 @@ export function routeAnimation(name:string) {
 				width: "100%"
 			}),
 			animate("0.2s ease-in-out", style({
-				opacity: 0
+				opacity: 0,
+				transform: "translateY(-10px)"
 			}))
 		])
 	]);

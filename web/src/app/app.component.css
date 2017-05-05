@@ -2,7 +2,6 @@
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
-	padding-top: 70px;
 }
 
 .outlet {
@@ -10,16 +9,48 @@
 	flex-grow: 1;
 }
 
-.nav {
+nav {
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
-	height: 70px;
+	height: 60px;
 	display: flex;
 	justify-content: center;
+	align-items: stretch;
 	z-index: 100;
+	background-color: rgba(0,0,0,.25);
 }
+	nav xzor-logo { display: block; }
+
+	nav > section {
+		display: flex;
+		flex-direction: row;
+		align-items: stretch; 
+		width: 50%;
+	}
+	nav > section.right {
+		justify-content: flex-end;
+	}
+	nav > section.center {
+		width: 80px;
+		justify-content: center;
+	}
+		nav > section > a { 
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			min-width: 60px;
+			text-decoration: none;
+		}
+		nav > section > a:hover,
+		nav > section > a:focus {
+			text-decoration: none;
+		}
+		nav > section > a.active {
+			background-color: rgba(0,0,0,.15);
+		}
 
 ui-spinner {
 	position: fixed;
