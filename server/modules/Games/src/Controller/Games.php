@@ -12,4 +12,9 @@ class Games
 			(string) $request->inputGet("q")
 		);
 	}
+	
+	public function importAction(Request $request) : array
+	{
+		return $request->json()->data();
+	}
 }

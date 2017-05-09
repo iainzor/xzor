@@ -12,6 +12,11 @@ class Module implements RouteProviderInterface
 			->module("games")
 			->controller("games")
 			->action("list");
+		
+		$router->when("/^import-game$/i")
+			->module("games")
+			->controller("games")
+			->action("import");
 
 		$router->when("/^games\/([a-z0-9-]+)\/?([a-z0-9-]+)?$/i")
 			->params([

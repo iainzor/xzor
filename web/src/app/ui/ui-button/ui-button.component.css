@@ -1,0 +1,31 @@
+:host {
+	display: inline-block;
+	margin: 0 5px;
+}
+:host(:first-child) {
+	margin-left: 0;
+}
+:host(:last-child) {
+	margin-right: 0;
+}
+
+button {
+	display: flex;
+	flex-direction: row;
+	height: 40px;
+	align-items: center;
+	padding: 0 10px;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 14px;
+	text-transform: uppercase;
+	border: none;
+	background: transparent;
+	transition: all .2s ease-in-out;
+}
+button:hover {
+	background-color: rgba(0,0,0,.1);
+}
+button:focus {
+	background-color: rgba(0,0,0,.2);
+}
