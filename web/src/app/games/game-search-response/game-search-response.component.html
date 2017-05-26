@@ -18,7 +18,11 @@
 	</div>
 </div>
 
-<div class="row games">
+<div class="import" *ngIf="importGame" [@slideIn]>
+	<game-importer [game]="importGame" [source]="importGameSource" (cancel)="onImportCancel($event)"></game-importer>
+</div>
+
+<div class="row games" *ngIf="!importGame" [@slideIn]>
 	<div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let game of games">
 		<a class="game" 
 			[routerLink]="[game.slug]" 
@@ -30,7 +34,15 @@
 		>
 			<game-tile [game]="game"></game-tile>
 		</a>
-		<a class="game" [routerLink]="['import', game.source, game.sourceId]" *ngIf="!game.id">
+		<a class="game" 
+			href="#" 
+			[z]="game.z || 1" 
+			(mouseenter)="game.z=3"
+			(mousedown)="game.z=5"
+			(mouseleave)="game.z=1" 
+			(click)="import($event, game)" 
+			*ngIf="!game.id"
+		>
 			<game-tile [game]="game"></game-tile>
 		</a>
 	</div>

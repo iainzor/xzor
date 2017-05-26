@@ -2,19 +2,22 @@
 namespace Games\Controller;
 
 use Games\GamesLoader,
+	Games\GameSaver,
 	Http\Request;
 
 class Games
 {
 	public function listAction(GamesLoader $loader, Request $request) : array
 	{	
-		return $loader->load(
+		return $loader->search(
 			(string) $request->inputGet("q")
 		);
 	}
 	
-	public function importAction(Request $request) : array
+	public function importAction(GameSaver $saver, Request $request) : GameSaver
 	{
-		return $request->json()->data();
+		return $saver->save(
+			$request->json()->data()
+		);
 	}
 }

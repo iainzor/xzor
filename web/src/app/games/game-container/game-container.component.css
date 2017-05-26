@@ -3,3 +3,9 @@
 }
 
 ui-header { margin-bottom: 30px; }
+
+game-image {
+	max-height: 200px;
+	margin-bottom: 20px;
+	overflow: hidden;
+}

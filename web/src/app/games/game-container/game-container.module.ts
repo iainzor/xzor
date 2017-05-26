@@ -3,6 +3,7 @@ import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 
 import {UIModule} from "../../ui/ui.module";
+import {GameImageModule} from "../game-image/game-image.module";
 import {GameTileModule} from "../game-tile/game-tile.module";
 import {GameContainerComponent} from "./game-container.component";
 
@@ -11,6 +12,7 @@ import {GameContainerComponent} from "./game-container.component";
 		CommonModule,
 		RouterModule,
 
+		GameImageModule,
 		GameTileModule,
 		UIModule
 	],

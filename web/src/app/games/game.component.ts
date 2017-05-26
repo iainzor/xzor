@@ -14,10 +14,7 @@ import {GameInterface} from "./game.interface";
 	],
 	host: {
 		"[@game]": ""
-	},
-	providers: [
-		GameService
-	]
+	}
 })
 export class GameComponent implements OnInit, OnDestroy
 {

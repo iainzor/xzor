@@ -2,7 +2,7 @@
 namespace Games\Controller;
 
 use Http\Route,
-	Games\DbTable;
+	Games\GamesLoader;
 
 class Game
 {
@@ -15,11 +15,11 @@ class Game
 	 * Constructor
 	 * 
 	 * @param Route $route
-	 * @param \Games\DbTable\Games $games
+	 * @param \Games\GamesLoader $gamesLoader
 	 */
-	public function __construct(Route $route, DbTable\Games $games)
+	public function __construct(Route $route, GamesLoader $gamesLoader)
 	{
-		$this->game = $games->find(
+		$this->game = $gamesLoader->load(
 			$route->param("slug")
 		);
 	}

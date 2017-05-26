@@ -9,7 +9,7 @@
 	margin-right: 0;
 }
 
-button {
+.button {
 	display: flex;
 	flex-direction: row;
 	height: 40px;
@@ -22,10 +22,11 @@ button {
 	border: none;
 	background: transparent;
 	transition: all .2s ease-in-out;
+	color: inherit;
 }
-button:hover {
+.button:hover {
 	background-color: rgba(0,0,0,.1);
 }
-button:focus {
+.button:focus {
 	background-color: rgba(0,0,0,.2);
 }

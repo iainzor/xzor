@@ -1,6 +1,15 @@
 :host {
 	display: block;
-	background-color: #f2f2f2;
+	background-color: #fff;
 	color: #212121;
 	padding: 1em;
+}
+
+:host /deep/ footer {
+	border-top: 1px solid rgba(0,0,0,.1);
+	margin: 0 -1em;
+	padding: .5em;
+}
+:host /deep/ footer:last-child {
+	margin-bottom: -1em;
 }

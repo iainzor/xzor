@@ -1,18 +1,11 @@
 <ng-template [ngIf]="!!game && !!source">
 	<ui-header z="1" [theme]="game.theme">
 		<div class="container">
-			<div class="row align-items-center">
-				<div class="col-md-8">
-					<h1>{{game.title}}</h1>
-				</div>
-				<div class="col col-auto">
-					
-				</div>
-			</div>
+			<h1>{{game.title}}</h1>
 			<p class="lead">{{game.description}}</p>
 			<p>
 				<small>
-					Provided by 
+					Data provided by 
 					<a [routerLink]="['/sources', source.slug]">{{source.name}}</a>
 				</small>
 			</p>

@@ -76,13 +76,12 @@ export class GamesComponent implements OnInit, OnDestroy
 		});
 	}
 
-	addGame() {
-		console.log("ADDING GAME!");
-	}
-
 	private load() {
-		this.loading = true;
 		this.App.setLoading(true);
+
+		this.loading = true;
+		this.response = null;
+		
 		this.Games.find(this.q).then(response => {
 			this.App.setLoading(false);
 			this.loading = false;

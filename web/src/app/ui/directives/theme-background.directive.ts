@@ -8,7 +8,10 @@ import {AbstractThemeDirective} from "./abstract-theme-directive";
 })
 export class ThemeBackgroundDirective extends AbstractThemeDirective
 {
-	@Input("themeBackground") customTheme:ThemeInterface;
+	@Input("themeBackground") set _custom(value:string) {
+		this.customTheme["background"] = value;
+		this.update();
+	}
 
 	constructor(elRef:ElementRef, theme:ThemeService) {
 		super(elRef, theme);
@@ -16,7 +19,7 @@ export class ThemeBackgroundDirective extends AbstractThemeDirective
 
 	adjust(theme:ThemeInterface) {
 		this.style({
-			background: theme.background
+			background: theme ? theme.background : null
 		});
 	}
 }

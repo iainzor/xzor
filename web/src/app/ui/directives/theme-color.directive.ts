@@ -8,7 +8,10 @@ import {AbstractThemeDirective} from "./abstract-theme-directive";
 })
 export class ThemeColorDirective extends AbstractThemeDirective
 {
-	@Input("themeColor") customTheme:ThemeInterface;
+	@Input("themeColor") set _custom(value:string) {
+		this.customTheme["text"] = value;
+		this.update();	
+	}
 
 	constructor(elRef:ElementRef, theme:ThemeService) {
 		super(elRef, theme);
@@ -16,8 +19,8 @@ export class ThemeColorDirective extends AbstractThemeDirective
 
 	adjust(theme:ThemeInterface) {
 		this.style({
-			color: theme.color,
-			fill: theme.color
+			color: theme ? theme.text : null,
+			fill: theme ? theme.text : null
 		});
 	}
 }

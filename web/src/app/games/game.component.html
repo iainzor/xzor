@@ -1,8 +1,5 @@
-<header theme-background>
-	<div class="info" *ngIf="game">
-		<h1>{{game.title}}</h1>
-		<p class="lead text-muted" *ngIf="game.description">
-			{{game.description}}
-		</p>
+<game-container [game]="game" *ngIf="game">
+	<div class="container">
+		...
 	</div>
-</header>
+</game-container>

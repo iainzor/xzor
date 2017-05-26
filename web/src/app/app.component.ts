@@ -37,6 +37,7 @@ export class AppComponent implements OnInit, OnDestroy
 	private loadingSub:Subscription;
 
 	loading:boolean = true;
+	menuOpen:boolean = false;
 
 	constructor(
 		private App:AppService,
@@ -67,4 +68,17 @@ export class AppComponent implements OnInit, OnDestroy
 		this.routerSub.unsubscribe();
 		this.loadingSub.unsubscribe();
 	}
+
+	toggleMenu(e:MouseEvent) {
+		e.preventDefault();
+		if (this.menuOpen) {
+			this.closeMenu();
+		} else {
+			this.openMenu();
+		}
+	}
+
+	closeMenu() { this.menuOpen = false; }
+
+	openMenu() { this.menuOpen = true; }
 }

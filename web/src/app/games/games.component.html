@@ -5,7 +5,7 @@
 </ui-header>
 
 <div class="container">
-	<game-search-response 
+	<game-search-response *ngIf="response"
 		[response]="response" 
 		[loading]="loading"
 		[showSources]="showSources"></game-search-response>

@@ -13,10 +13,11 @@ import {GameTileComponent} from "./game-tile/game-tile.component";
 
 import {GamesComponent} from "./games.component";
 import {GameComponent} from "./game.component";
-import {ImportComponent} from "./import.component";
 
 import {GamesService} from "./games.service";
 import {GameService} from "./game.service";
+
+import {GameResolver} from "./game.resolver";
 import {SourceGameResolver} from "./source-game.resolver";
 
 @NgModule({
@@ -25,9 +26,8 @@ import {SourceGameResolver} from "./source-game.resolver";
 		FormsModule,
 		RouterModule.forChild([
 			{ path: "", component: GamesComponent },
-			{ path: ":slug", component: GameComponent },
-			{ path: "import/:source/:sourceId", component: ImportComponent, resolve: 
-				{ game: SourceGameResolver } 
+			{ path: ":slug", component: GameComponent, resolve:
+				{ game: GameResolver } 
 			}
 		]),
 
@@ -37,12 +37,13 @@ import {SourceGameResolver} from "./source-game.resolver";
 	],
 	declarations: [
 		GamesComponent,
-		GameComponent,
-		ImportComponent
+		GameComponent
 	],
 	providers: [
 		GamesService,
+		GameService,
 		SourcesService,
+		GameResolver,
 		SourceGameResolver
 	]
 })

@@ -12,10 +12,12 @@ import {SourceSearchResponse} from "./source-search-response";
 export class SourceSearchComponent
 {
 	lastResponse:SourceSearchResponse;
-	active:boolean = true;
 	loading:boolean = false;
 
+	@Input() active:boolean = true;
 	@Input() source:SourceInterface;
+
+	@Output() activeChange:EventEmitter<boolean> = new EventEmitter<boolean>();
 	@Output() response:EventEmitter<SourceSearchResponse> = new EventEmitter<SourceSearchResponse>();
 	
 	constructor(private Sources:SourcesService) {}
@@ -43,6 +45,7 @@ export class SourceSearchComponent
 				new SourceSearchResponse(this.source, "", {})
 			);
 		}
+		this.activeChange.emit(this.active);
 	}
 
 	load(q:string) : Promise<SourceSearchResponse> {

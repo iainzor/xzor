@@ -25,7 +25,8 @@ $modules->registerAll($blissRoot . DIRECTORY_SEPARATOR . "modules", [
 	"Core",
 	"Database",
 	"Http",
-	"Logs"
+	"Logs",
+	"Acl"
 ]);
 $modules->registerAll(__DIR__ . DIRECTORY_SEPARATOR . "modules");
 $modules->registerAll(__DIR__ . DIRECTORY_SEPARATOR . "vendor");

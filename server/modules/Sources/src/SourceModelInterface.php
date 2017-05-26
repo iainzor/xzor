@@ -1,10 +1,10 @@
 <?php
 namespace Sources;
 
-use UI\Theme;
+use UI\ThemeInterface;
 
 interface SourceModelInterface
 {
-	public function setSourceTheme(Theme $theme);
-	public function getSourceTheme() : Theme;
+	public function setSourceTheme(ThemeInterface $theme);
+	public function getSourceTheme() : ThemeInterface;
 }

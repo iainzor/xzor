@@ -10,6 +10,14 @@ export class SourceSearchResponse
 		this.source = source;
 		this.q = q;
 		this.results = results;
+
+		for (let slug in this.results) {
+			this.results[slug].forEach((item) => {
+				if (!item.theme) {
+					item.theme = source.theme;
+				}
+			});
+		}
 	}
 
 	get totalResults() : number {

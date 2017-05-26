@@ -1,23 +1,13 @@
 <?php
 namespace UI;
 
-class Theme
+class Theme implements ThemeInterface
 {
-	public $background;
-	public $border;
-	public $color;
+	use ThemeTrait;
 	
-	/**
-	 * Constructor
-	 * 
-	 * @param string $background
-	 * @param string $border
-	 * @param string $color
-	 */
-	public function __construct(string $background, string $border, string $color)
+	public function __construct(string $background, string $text)
 	{
 		$this->background = $background;
-		$this->border = $border;
-		$this->color = $color;
+		$this->text = $text;
 	}
 }

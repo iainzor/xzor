@@ -2,9 +2,11 @@
 namespace Games;
 
 use Http\Router,
-	Http\RouteProviderInterface;
+	Http\RouteProviderInterface,
+	Sources\SourceCategoryRegistry,
+	Sources\SourceCategoryProviderInterface;
 
-class Module implements RouteProviderInterface
+class Module implements RouteProviderInterface, SourceCategoryProviderInterface
 {
 	public function registerRoutes(Router $router) 
 	{
@@ -26,5 +28,12 @@ class Module implements RouteProviderInterface
 			->module("games")
 			->controller("game")
 			->action("index");
+	}
+	
+	public function registerSourceCategory(SourceCategoryRegistry $registry)
+	{
+		$registry->register("games", function(GameSources $sources) {
+			return $sources;
+		});
 	}
 }

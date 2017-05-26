@@ -32,7 +32,7 @@ class Source implements SourceInterface
 	public function website() : string { return self::WEBSITE; }
 	
 	public function theme() : Theme {
-		return new Theme("#981616", "#981616", "#ffffff");
+		return new Theme("#981616", "#ffffff");
 	}
 	
 	public function loader() : SourceLoaderInterface {

@@ -1,11 +1,24 @@
+:host {
+	display: block;
+	position: relative;
+}
+
 .row [class^=col-] {
 	margin-bottom: 30px;
 }
 
 h6 { margin-bottom: 0; }
 
-.games a.game { 
-	display: block;
-	text-decoration: none; 
+.games {
+	overflow: hidden;
 }
-.games game-tile { height: 300px; }
+	.games a.game { 
+		display: block;
+		text-decoration: none; 
+		transition: all .2s ease-in-out;
+	}
+	.games game-tile { height: 300px; }
+
+.import {
+	overflow: hidden;
+}

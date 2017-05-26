@@ -1,19 +1,45 @@
 <nav>
-	<section class="left">
-		<a routerLink="/games" routerLinkActive="active">
-			<i class="material-icons">videogame_asset</i>
-		</a>
-	</section>
-	<section class="center">
-		<a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-			<xzor-logo size="60" [spinning]="loading"></xzor-logo>
-		</a>
-	</section>
-	<section class="right">
-		<a routerLink="/account" routerLinkActive="active">
-			<i class="material-icons">face</i>
-		</a>
-	</section>
+	<ul class="left">
+		<li (mouseenter)="openMenu()" (mouseleave)="closeMenu()">
+			<a href="#" (click)="$event.preventDefault()" [class.open]="menuOpen">
+				<i class="material-icons">menu</i>
+			</a>
+			<ul theme-background *ngIf="menuOpen">
+				<li>
+					<a routerLink="/games" routerLinkActive="active">
+						<i class="material-icons">videogame_asset</i>
+						<span>Games</span>
+					</a>
+				</li>
+				<li>
+					<a routerLink="/players" routerLinkActive="active">
+						<i class="material-icons">person</i>
+						<span>Players</span>
+					</a>
+				</li>
+				<li>
+					<a routerLink="/teams" routerLinkActive="active">
+						<i class="material-icons">group</i>
+						<span>Teams</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<ul class="center">
+		<li>
+			<a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+				<xzor-logo size="60" [spinning]="loading"></xzor-logo>
+			</a>
+		</li>
+	</ul>
+	<ul class="right">
+		<li>
+			<a routerLink="/account" routerLinkActive="active">
+				<i class="material-icons">face</i>
+			</a>
+		</li>
+	</ul>
 </nav>
 
 <div class="outlet">

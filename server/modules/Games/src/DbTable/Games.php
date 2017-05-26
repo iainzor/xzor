@@ -59,13 +59,49 @@ class Games extends AbstractTable
 		return $row;
 	}
 	
-	public function giantBombGameExists(int $giantBombId) : bool
+	/**
+	 * Check if a slug has already been registered
+	 * 
+	 * @param string $slug
+	 * @return bool
+	 */
+	public function isSlug(string $slug) : bool 
 	{
-		$statement = $this->db->prepare("SELECT `id` FROM `games` WHERE `giantBombId` = :id");
+		$statement = $this->db->prepare("
+			SELECT	COUNT(*)
+			FROM	`games`
+			WHERE	`slug` = :slug
+		");
 		$statement->execute([
-			":id" => $giantBombId
+			":slug" => $slug
 		]);
+		return (int) $statement->fetchColumn() > 0;
+	}
+	
+	/**
+	 * Update or insert a game record
+	 * 
+	 * @param Game $game
+	 * @return Game
+	 */
+	public function save(Game $game) : Game
+	{
+		$data = [
+			"slug" => $game->slug,
+			"title" => $game->title,
+			"description" => $game->description,
+			"source" => $game->source,
+			"sourceId" => $game->sourceId
+		];
 		
-		return $statement->fetch() ? true : false;
+		if ($game->id) {
+			$this->update($data, [
+				"id" => $game->id
+			]);
+		} else {
+			$game->id = $this->insert($data);
+		}
+		
+		return $game;
 	}
 }
