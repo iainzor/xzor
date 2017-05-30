@@ -3,9 +3,9 @@ import {animate, trigger, transition, style, state} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 
+import {AppService} from "../app.service";
 import {routeAnimation} from "../ui/utilities/route-animation";
-
-import {UINavService} from "../ui/ui-nav.service";
+import {GameSearchResponse} from "./game-search-response/game-search-response";
 import {GamesService} from "./games.service";
 import {GameInterface} from "./game.interface";
 
@@ -41,23 +41,23 @@ import {GameInterface} from "./game.interface";
 export class GamesComponent implements OnInit, OnDestroy
 {
 	private routeSub:Subscription;
-    private games:GameInterface[] = [];
-
+    
+	response:GameSearchResponse;
 	q:string = "";
+	loading:boolean = false;
 
     constructor(
-		private GamesService:GamesService, 
-		private Nav:UINavService,
+		private App:AppService,
+		private Games:GamesService, 
 		private Router:Router,
 		private Route:ActivatedRoute
 	) {}
 
+	get showSources() : boolean {
+		return (!this.loading && this.q.length) ? true : false;
+	}
+
     ngOnInit() {
-		/*
-		this.Nav.setSubNav([
-			{ title: "Add Game", icon: "add", callback: this.addGame.bind(this) }
-		]);
-		*/
 		this.routeSub = this.Route.queryParams.subscribe((params) => {
 			this.q = params["q"] || "";
         	this.load();
@@ -76,33 +76,16 @@ export class GamesComponent implements OnInit, OnDestroy
 		});
 	}
 
-	addGame() {
-		console.log("ADDING GAME!");
-	}
-
 	private load() {
-		this.GamesService.find(this.q).then(games => { 
-			//this.staggerIn(games);
-			window.setTimeout(() => {
-				this.games = games;
-			}, 100);
-			//this.games = games;
+		this.App.setLoading(true);
+
+		this.loading = true;
+		this.response = null;
+		
+		this.Games.find(this.q).then(response => {
+			this.App.setLoading(false);
+			this.loading = false;
+			this.response = response;
 		});
-	}
-
-	private staggerIn(games:GameInterface[]) {
-		this.games = [];
-
-		let totalTime = 2000;
-		let timeout = totalTime / games.length;
-		let i = 0;
-		let timer = window.setInterval(() => {
-			if (!games[i]) {
-				window.clearInterval(timer);
-			} else {
-				this.games.push(games[i]);
-				i += 1;
-			}
-		}, timeout);
 	}
 }

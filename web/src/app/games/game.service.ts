@@ -3,7 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 import {ReplaySubject} from "rxjs/ReplaySubject";
 
-import {ApiService} from "../xzor/api.service";
+import {XzorService} from "../xzor/xzor.service";
 import {GameInterface} from "./game.interface";
 
 @Injectable()
@@ -12,22 +12,19 @@ export class GameService
 	private routeSub:Subscription;
 	private subject:ReplaySubject<GameInterface> = new ReplaySubject<GameInterface>(1);
 
-	constructor(private xzor:ApiService, private route:ActivatedRoute) {
-		this.routeSub = this.route.params.subscribe((params) => {
-			this.load(params["slug"]).then((game) => {
-				this.subject.next(game);	
-			});
-		});
-	}
+	constructor(private Xzor:XzorService) {}
 
-	private load(slug:string) : Promise<GameInterface> {
-		return new Promise<GameInterface>((resolve, reject) => {
-			this.xzor
+	load(slug:string) : Promise<GameInterface> {
+		let promise = new Promise<GameInterface>((resolve, reject) => {
+			this.Xzor
 				.get("games/"+ slug +".json")
 				.then((game) => { 
-					resolve(game); 
+					resolve(game);
 				});
 		});
+		promise.then((game) => { this.subject.next(game); });
+
+		return promise;
 	}
 	
 	subscribe(onNext:((game:GameInterface) => void)) : Subscription {

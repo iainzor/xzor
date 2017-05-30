@@ -9,4 +9,11 @@ import {GameInterface} from "../game.interface";
 export class GameTileComponent
 {
 	@Input() game:GameInterface;
+	
+	coverLoaded:boolean = false;
+
+	onCoverLoad(e:Event) {
+		this.coverLoaded = true;
+	}
+
 }

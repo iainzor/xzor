@@ -1,1 +1,2 @@
-@import "elements/body.css";
+@import "./bootstrap.css";
+@import "./elements.css";

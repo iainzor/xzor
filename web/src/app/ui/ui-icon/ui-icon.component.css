@@ -1,0 +1,9 @@
+:host {
+	display: flex;
+	position: relative;
+	align-items: center;
+	justify-content: center;
+}
+	:host > .previous {
+		position: absolute;
+	}

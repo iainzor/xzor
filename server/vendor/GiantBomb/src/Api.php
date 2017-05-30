@@ -62,6 +62,8 @@ class Api
 		curl_setopt_array($ch, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_SSL_VERIFYHOST => false,
+			CURLOPT_SSL_VERIFYPEER => false,
 			CURLOPT_HTTPHEADER => [
 				"User-Agent: ". $this->userAgent
 			]

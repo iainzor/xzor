@@ -1,0 +1,19 @@
+<form (submit)="submit()">
+	<input 	name="game" 
+			type="text" 
+			class="query form-control form-control-lg" 
+			placeholder="Enter a game name..." 
+			autofocus
+			autocomplete="off"
+			[ngModel]="q"
+			(ngModelChange)="onChange($event)">
+</form>
+<!--
+<nav class="titles">
+	<ul class="nav nav-pills flex-column">
+		<li class="nav-item" *ngFor="let title of titles">
+			<a class="nav-link" href="#">{{title}}</a>
+		</li>
+	</ul>
+</nav>
+-->

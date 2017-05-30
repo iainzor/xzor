@@ -1,23 +1,12 @@
-<form class="search" (submit)="search()" theme-border>
-	<input
-		type="search" 
-		class="form-control" 
-		placeholder="Find a game..." 
-		name="q" 
-		autocomplete="off"
-		[(ngModel)]="q">
-	
-	<button>
-		<i class="material-icons">search</i>
-	</button>
-</form>
-
-<div class="games">
-	<div class="row">
-		<div class="col col-md-6 col-lg-4" *ngFor="let game of games">
-			<a class="game" [@game] [routerLink]="[game.slug]">
-				<game-tile [game]="game" theme-background></game-tile>
-			</a>
-		</div>
+<ui-header theme>
+	<div class="container">
+		<game-search [(q)]="q"></game-search>
 	</div>
+</ui-header>
+
+<div class="container">
+	<game-search-response *ngIf="response"
+		[response]="response" 
+		[loading]="loading"
+		[showSources]="showSources"></game-search-response>
 </div>

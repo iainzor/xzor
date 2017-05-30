@@ -1,19 +1,22 @@
-<div style="height: 150px; margin-bottom: 20px;" theme-background></div>
-
-<div class="container">
-	<h1>Account</h1>
-
-	<form (submit)="submit()" style="background-color: #fff; padding: 20px;">
-		<div class="form-group">
-			<label>Background Color</label>
-			<input type="color" [(ngModel)]="theme.backgroundColor" name="backgroundColor">
+<ng-template [ngIf]="account.isValid">
+	<ui-header z="2" theme>
+		<div class="container">
+			<h2>{{account.name}}</h2>
+			<button (click)="signOut()">Sign Out</button>
 		</div>
+	</ui-header>
 
-		<div class="form-group">
-			<label>Border Color</label>
-			<input type="color" [(ngModel)]="theme.borderColor" name="borderColor">
+	<div class="container">
+		<h1 class="display-1 text-center">Coming Soon</h1>
+	</div>
+</ng-template>
+
+<ng-template [ngIf]="!account.isValid">
+	<div class="container guest">
+		<div class="row justify-content-center">
+			<div class="col-md-6 col-lg-4">
+				<account-sign-in></account-sign-in>
+			</div>
 		</div>
-
-		<input type="submit" value="Save"> 
-	</form>
-</div>
+	</div>
+</ng-template>

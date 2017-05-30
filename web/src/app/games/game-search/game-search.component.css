@@ -1,0 +1,14 @@
+:host { 
+	display: block; 
+	position: relative;
+}
+
+.query {
+	padding: 1em;
+}
+
+.titles {
+	position: absolute;
+	top: 100%;
+	left: 0;
+}

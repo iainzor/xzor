@@ -1,0 +1,2 @@
+<button *ngIf="session.isValid" (click)="signOut($event)">Sign out of Google</button>
+<button *ngIf="!session.isValid" (click)="signIn($event)">Sign in with Google</button>

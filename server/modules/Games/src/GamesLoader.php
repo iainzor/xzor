@@ -1,78 +1,91 @@
 <?php
 namespace Games;
 
-use Common\StringOperations;
+use Sources\SourceRegistry;
 
 class GamesLoader
 {
 	/**
 	 * @var DbTable\Games
 	 */
-	private $localGames;
+	private $gamesTable;
 	
 	/**
-	 * @var \GiantBomb\Resource\Games
+	 * @var GameImageLoader
 	 */
-	private $giantBombGames;
+	private $imageLoader;
 	
 	/**
-	 * @var \GiantBomb\Resource\Game
+	 *
+	 * @var GameThemeLoader
 	 */
-	private $giantBombGame;
+	private $themeLoader;
+	
+	/**
+	 * @var \Sources\SourceRegistry
+	 */
+	private $sources;
 	
 	/**
 	 * Constructor
 	 * 
-	 * @param \Games\DbTable\Games $localGames
-	 * @param \GiantBomb\Api $giantBombGames
+	 * @param \Games\DbTable\Games $gamesTable
+	 * @param GameImageLoader $imageLoader
+	 * @param \Sources\SourceRegitry $sources
 	 */
 	public function __construct(
-		DbTable\Games $localGames, 
-		\GiantBomb\Resource\Games $giantBombGames,
-		\GiantBomb\Resource\Game $giantBombGame)
-	{
-		$this->localGames = $localGames;
-		$this->giantBombGames = $giantBombGames;
-		$this->giantBombGame = $giantBombGame;
+		DbTable\Games $gamesTable,
+		GameImageLoader $imageLoader,
+		GameThemeLoader $themeLoader,
+		SourceRegistry $sources
+	) {
+		$this->gamesTable = $gamesTable;
+		$this->imageLoader = $imageLoader;
+		$this->themeLoader = $themeLoader;
+		$this->sources = $sources;
 	}
 	
 	/**
-	 * Load all games matching the provided parameters.
+	 * Search for games matching the query string
 	 * 
 	 * @param string $search
 	 */
-	public function load(string $search = null) : array
+	public function search(string $search = "") : array
 	{
-		$games = $this->localGames->findAll($search);
+		$games = $this->gamesTable->findAll($search);
 		
-		if (strlen($search)) {
-			$gbGames = $this->searchGiantBomb($search);
-			$games = array_merge($games, $gbGames);
-		}
-		
-		return $games;
+		return $this->process($search, $games);
 	}
 	
-	public function searchGiantBomb(string $query) : array
+	/**
+	 * Load a single game by its slug
+	 * 
+	 * @param string $slug
+	 * @return \Games\Model\Game
+	 */
+	public function load(string $slug) : Model\Game
 	{
-		$stringOps = new StringOperations();
-		$gbGames = $this->giantBombGames->search($query);
-		$games = [];
+		$game = $this->gamesTable->find($slug);
 		
-		foreach ($gbGames as $gbGame) {
-			if (!$this->localGames->giantBombGameExists($gbGame->id)) {
-				$slug = $stringOps->hyphenate($gbGame->name, 32);
-				$this->localGames->insert([
-					"giantBombId" => $gbGame->id,
-					"title" => $gbGame->name,
-					"description" => $gbGame->deck ? $stringOps->truncate($gbGame->deck, 253, "...") : null,
-					"slug" => $slug
-				]);
-				$game = $this->localGames->find($slug);
-				$games[] = $game;
-			}
-		}
+		$this->process("", [$game]);
 		
-		return $games;
+		return $game;
+	}
+	
+	/**
+	 * @param string $search
+	 * @param Model\Game[] $games
+	 * @return Model\Game[]
+	 */
+	private function process(string $search, array $games) : array
+	{
+		$this->imageLoader->attachCoverImages($games);
+		$this->themeLoader->attachThemes($games);
+		
+		return [
+			"q" => $search,
+			"results" => $games,
+			"sources" => $this->sources->all()
+		];
 	}
 }

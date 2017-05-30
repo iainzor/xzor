@@ -1,0 +1,14 @@
+<ui-card z="1" [themeBackground]="source.theme" [themeColor]="source.theme" (click)="toggle($event)">
+	<section>
+		<ui-icon [icon]="active ? 'check_box' : 'check_box_outline_blank'"></ui-icon>
+	</section>
+
+	<h6>{{source.name}}</h6>
+
+	<section class="logo" *ngIf="loading">
+		<xzor-logo size="30" [spinning]="true"></xzor-logo>
+	</section>
+	<section class="count" *ngIf="!loading && !!lastResponse">
+		{{lastResponse.totalResults | number}}
+	</section>
+</ui-card>

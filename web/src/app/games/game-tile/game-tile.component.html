@@ -1,5 +1,9 @@
-<div class="info">
-	<h3>{{game.title}}</h3>
-	<p class="text-muted" *ngIf="game.description">{{game.description}}</p>
-</div>
-<div class="background"></div>
+<ui-card [themeBackground]="game.theme" [themeColor]="game.theme">
+	<div class="cover" *ngIf="game.coverImage">
+		<game-image [url]="game.coverImage"></game-image>
+	</div>
+	<div class="info">
+		<h5>{{game.title}}</h5>
+		<p class="desc" *ngIf="game.description">{{game.description}}</p>
+	</div>
+</ui-card>
