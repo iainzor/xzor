@@ -1,51 +1,36 @@
-import {animate, transition, trigger, style, state} from "@angular/animations";
 import {Component, OnInit, OnDestroy} from "@angular/core";
 import {Router, NavigationStart, NavigationCancel, NavigationEnd, NavigationError} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 
 import {AppService} from "./app.service";
-import {UINavService} from "./ui/ui.module";
+import {AccountInterface} from "./account/account.interface";
+import {AccountService} from "./account/account.service";
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.css'],
-	animations: [
-		trigger("spinner", [
-			transition(":enter", [
-				style({
-					transform: "scale(.5)",
-					opacity: 0
-				}),
-				animate(".1s ease-in-out", style({
-					transform: "scale(1)",
-					opacity: 1
-				}))
-			]),
-			transition(":leave", [
-				animate(".1s ease-in-out", style({
-					transform: "scale(.5)",
-					opacity: 0
-				}))
-			])
-		])
-	]
+	styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy 
 {
+	private accountSub:Subscription;
 	private routerSub:Subscription;
 	private loadingSub:Subscription;
 
+	account:AccountInterface;
 	loading:boolean = true;
 	menuOpen:boolean = false;
 
 	constructor(
 		private App:AppService,
-		private Router:Router, 
-		private Nav:UINavService
+		private Account:AccountService,
+		private Router:Router
 	) {}
 
 	ngOnInit() {
+		this.accountSub = this.Account.subscribe((account) => {
+			this.account = account;
+		});
 		this.loadingSub = this.App.loading.subscribe((loading) => {
 			this.loading = loading;
 		});
@@ -56,7 +41,6 @@ export class AppComponent implements OnInit, OnDestroy
 			let end = e instanceof NavigationEnd;
 
 			if (e instanceof NavigationStart) {
-				this.Nav.clearSubNav();
 				this.App.setLoading(true);
 			} else if (canceled || error || end) {
 				this.App.setLoading(false);
@@ -65,6 +49,7 @@ export class AppComponent implements OnInit, OnDestroy
 	}
 
 	ngOnDestroy() {
+		this.accountSub.unsubscribe();
 		this.routerSub.unsubscribe();
 		this.loadingSub.unsubscribe();
 	}

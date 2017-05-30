@@ -3,7 +3,6 @@ import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
 
-import {SourcesModule} from "../sources/sources.module";
 import {UIModule} from "../ui/ui.module";
 import {XzorModule} from "../xzor/xzor.module";
 
@@ -23,7 +22,6 @@ import {GamesService} from "./games.service";
 		FormsModule,
 		RouterModule,
 
-		SourcesModule,
 		UIModule,
 		XzorModule,
 

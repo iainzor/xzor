@@ -8,7 +8,10 @@ import {AbstractThemeDirective} from "./abstract-theme-directive";
 })
 export class ThemeBackgroundDirective extends AbstractThemeDirective
 {
-	@Input("themeBackground") set _custom(value:string) {
+	@Input("themeBackground") set _custom(value:any) {
+		if (value !== null && typeof value === "object") {
+			value = value["background"];
+		}
 		this.customTheme["background"] = value;
 		this.update();
 	}

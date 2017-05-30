@@ -1,9 +1,13 @@
 <?php
 namespace Account\Controller;
 
-use Account\DbTable\Accounts,
+use Core\ModuleConfig,
+	Account\Config,
+	Account\DbTable\Accounts,
 	Account\DbTable\AccountProviders,
-	Account\Session,
+	Account\DbTable\AccountSessions,
+	Account\DbModel\Account,
+	Account\DbModel\AccountSession,
 	Http\Request,
 	Http\Route;
 
@@ -13,9 +17,15 @@ abstract class AbstractVerifier
 	abstract public function getAccountId() : string;
 	abstract public function getAccountName() : string;
 	
-	public function verifyAction(Accounts $accounts, AccountProviders $providers, Request $request, Route $route) 
-	{
-		$session = new Session();
+	public function verifyAction(
+		Accounts $accounts, 
+		AccountProviders $providers,
+		AccountSessions $sessions,
+		ModuleConfig $config,
+		Request $request, 
+		Route $route
+	) {
+		$isValid = false;
 		
 		if ($this->isValid($request)) {
 			$serviceName = $route->param("service");
@@ -30,8 +40,22 @@ abstract class AbstractVerifier
 				$providers->save($provider);
 			}
 			
-			$session->setAccount($account);
+			$isValid = true;
+			$session = $this->createSession($account, $sessions, $config);
 		}
+		
+		return [
+			"isValid" => $isValid,
+			"session" => $session
+		];
+	}
+	
+	public function createSession(Account $account, AccountSessions $sessions, ModuleConfig $config) : AccountSession
+	{
+		$session = $sessions->create($account);
+		$name = $config->get(Config::SESSION_NAME);
+		
+		$_SESSION[$name] = $session->id;
 		
 		return $session;
 	}

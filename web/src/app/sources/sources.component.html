@@ -1,0 +1,24 @@
+<ui-header theme>
+	<div class="container">
+		<h1>Special Thanks to Our Sources</h1>
+		<p class="lead">
+			The following sites are used throughout xZor in order to provide the data neccessary 
+			to create this community for you.
+		</p>
+	</div>
+</ui-header>
+
+<div class="container">
+	<div class="row">
+		<div class="col col-sm-6" *ngFor="let source of sources">
+			<a class="source" [routerLink]="[source.slug]">
+				<ui-card z="1" [theme]="source.theme">
+					<h3>{{source.name}}</h3>
+					<p>
+						{{source.website}}
+					</p>
+				</ui-card>
+			</a>
+		</div>
+	</div>
+</div>

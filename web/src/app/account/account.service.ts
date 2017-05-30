@@ -1,36 +1,33 @@
 import {Injectable} from "@angular/core";
-import {Subscription, Subject, BehaviorSubject} from "rxjs";
+import {Subscription, Subject, ReplaySubject} from "rxjs";
 import {XzorService} from "../xzor/xzor.service";
 import {AppService} from "../app.service";
 import {AccountInterface} from "./account.interface";
-import {AuthService} from "./auth.service";
+import {ProvidersService} from "./providers.service";
 
 @Injectable()
 export class AccountService
 {
-	private account:AccountInterface = { isValid: false };
-	private accountSubject:BehaviorSubject<AccountInterface> = new BehaviorSubject<AccountInterface>(this.account);
+	private account:AccountInterface;
+	private accountSubject:ReplaySubject<AccountInterface> = new ReplaySubject<AccountInterface>(1);
 	
-	loading:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
-
 	constructor(
-		private App:AppService,
-		private Auth:AuthService,
-		private Xzor:XzorService
-	) {
-		Auth.subscribe((session) => {
-			console.log("Auth session change", session);
-			
-			if (session.isValid) {
-				this.account = session.account;
-			} else {
-				this.account = { isValid: false };
+		private Xzor:XzorService,
+		private Providers:ProvidersService
+	) {}
+
+	load() : Promise<AccountInterface> {
+		let promise = this.Xzor.get("account.json");
+		promise.then((account:AccountInterface) => {
+			this.account = account;
+			this.accountSubject.next(account);
+
+			if (!account.isValid) {
+				this.Providers.signOut();
 			}
-			this.accountSubject.next(this.account);
 		});
-		Auth.loading.subscribe((flag) => {
-			this.loading.next(flag);
-		});
+
+		return promise;
 	}
 
 	subscribe(onNext:((account:AccountInterface) => void)) : Subscription {
@@ -41,5 +38,15 @@ export class AccountService
 		}
 
 		return sub;
+	}
+
+	signOut() : Promise<AccountInterface> {
+		let promise = this.Xzor.post("sign-out.json", "");
+		promise.then((account) => {
+			this.account = account;
+			this.accountSubject.next(account);
+		});
+
+		return promise;
 	}
 }

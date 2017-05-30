@@ -1,16 +1,16 @@
 import {NgModule} from "@angular/core";
 
 import {GoogleModule} from "./google/google.module";
-import {TwitchModule} from "./twitch/twitch.module";
+//import {TwitchModule} from "./twitch/twitch.module";
 
 @NgModule({
 	imports: [
 		GoogleModule,
-		TwitchModule
+		//TwitchModule
 	],
 	exports: [
 		GoogleModule,
-		TwitchModule
+		//TwitchModule
 	]
 })
 export class VendorsModule

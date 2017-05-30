@@ -20,6 +20,11 @@ class Source
 		);
 	}
 	
+	public function indexAction()
+	{
+		return $this->source;
+	}
+	
 	public function routeAction()
 	{
 		return $this->source;

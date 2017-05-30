@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {AuthService} from "../../account/auth.service";
+import {ProvidersService} from "../../account/providers.service";
 import {GoogleAuthService} from "./google-auth.service";
 import {GoogleSignInComponent} from "./google-sign-in/google-sign-in.component";
 
@@ -20,9 +20,7 @@ import {GoogleSignInComponent} from "./google-sign-in/google-sign-in.component";
 })
 export class GoogleModule
 {
-	constructor(Auth:AuthService, GoogleAuth:GoogleAuthService) {
-		console.log("Constructed module");
-		
-		Auth.registerProvider(GoogleAuth);
+	constructor(Providers:ProvidersService, GoogleAuth:GoogleAuthService) {
+		Providers.registerProvider(GoogleAuth);
 	}
 }

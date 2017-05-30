@@ -1,6 +1,4 @@
-import {Component, Input} from "@angular/core";
-
-import {ThemeInterface} from "../theme.interface";
+import {Component} from "@angular/core";
 
 @Component({
 	selector: "ui-header",
@@ -8,6 +6,4 @@ import {ThemeInterface} from "../theme.interface";
 	styleUrls: ["./ui-header.component.css"]
 })
 export class UIHeaderComponent
-{
-	@Input() theme:ThemeInterface;
-}
+{}

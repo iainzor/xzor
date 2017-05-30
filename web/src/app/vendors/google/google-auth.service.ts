@@ -1,6 +1,5 @@
 import {Injectable, NgZone} from "@angular/core";
-import {Subject, Subscription} from "rxjs";
-import {AuthService} from "../../account/auth.service";
+import {BehaviorSubject, Subscription} from "rxjs";
 import {ProviderInterface} from "../../account/provider.interface";
 import {ProviderSessionInterface} from "../../account/provider-session.interface";
 import {environment} from "../../../environments/environment";
@@ -8,11 +7,16 @@ import {environment} from "../../../environments/environment";
 @Injectable()
 export class GoogleAuthService implements ProviderInterface
 {
-	name:string = "google";
+	slug:string = "google";
+	name:string = "Google";
+	theme = {
+		background: "#2196F3",
+		text: "#fff"
+	};
 
 	private auth:gapi.auth2.GoogleAuth;
-	private session:ProviderSessionInterface;
-	private sessionSubject:Subject<ProviderSessionInterface> = new Subject<ProviderSessionInterface>();
+	private session:ProviderSessionInterface = { isValid: false, isVerified: false };
+	private sessionSubject:BehaviorSubject<ProviderSessionInterface> = new BehaviorSubject<ProviderSessionInterface>(this.session);
 
 	constructor(
 		private NgZone:NgZone
@@ -22,26 +26,28 @@ export class GoogleAuthService implements ProviderInterface
 				client_id: environment.googleAuthClientId
 			});
 
-			this.auth.then(this.check.bind(this));
-			this.auth.isSignedIn.listen(this.check.bind(this));
+			this.auth.then(() => {
+				this.check();
+				this.auth.isSignedIn.listen(this.check.bind(this));
+			});
 		});
 	}
 
 	private check() {
+		let signedIn = this.auth.isSignedIn.get();
+
 		this.NgZone.run(() => {
-			this.session = {
-				isValid: this.auth.isSignedIn.get()
-			};
+			this.session.isValid = signedIn;
+
+			if (!signedIn) {
+				this.session.isVerified = false;
+			}
 			this.sessionSubject.next(this.session);
 		});
 	}
 	
 	subscribe(onNext:((provider:ProviderSessionInterface) => void)) : Subscription {
-		let sub = this.sessionSubject.subscribe(onNext);
-		if (this.session) {
-			this.sessionSubject.next(this.session);
-		}
-		return sub;
+		return this.sessionSubject.subscribe(onNext);
 	}
 
 	verificationData() {
@@ -57,11 +63,32 @@ export class GoogleAuthService implements ProviderInterface
 		}
 	}
 
-	signIn() {
-		this.auth.signIn();
+	signIn() : Promise<ProviderSessionInterface> {
+		return new Promise<ProviderSessionInterface>((resolve) => {
+			let signedIn = this.auth.isSignedIn.get();
+			if (signedIn && this.session.isValid) {
+				resolve(this.session);
+			} else {
+				this.auth.isSignedIn.listen((signedIn) => {
+					this.session.isValid = signedIn;
+					resolve(this.session);
+				});
+				this.auth.signIn();
+			}
+		});
 	}
 
-	signOut() {
-		this.auth.signOut();
+	signOut() : Promise<any> {
+		return new Promise<any>((resolve) => {
+			let sub = this.subscribe((session) => {
+				if (session.isValid) {
+					this.auth.signOut()
+				}
+				if (sub) {
+					sub.unsubscribe();
+				}
+				resolve();
+			});
+		});
 	}
 }

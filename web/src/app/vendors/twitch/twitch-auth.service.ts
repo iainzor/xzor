@@ -9,7 +9,16 @@ export class TwitchAuthService implements ProviderInterface
 	private session:ProviderSessionInterface = { isValid: false };
 	private sessionSubject:BehaviorSubject<ProviderSessionInterface> = new BehaviorSubject<ProviderSessionInterface>(this.session);
 	
-	name:string = "twitch";
+	slug:string = "twitch";
+	name:string = "Twitch";
+
+	signIn() : Promise<ProviderSessionInterface> {
+		return Promise.resolve({});
+	}
+
+	signOut() : Promise<any> {
+		return Promise.resolve();
+	}
 
 	subscribe(onNext:(session:ProviderSessionInterface) => void) : Subscription {
 		return this.sessionSubject.subscribe(onNext);

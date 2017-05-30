@@ -15,5 +15,9 @@ class Account extends AbstractModel
 		parent::__construct($properties, $map);
 		
 		$this->isValid = (boolean) $this->isValid;
+		
+		if (empty($this->created)) {
+			$this->created = time();
+		}
 	}
 }

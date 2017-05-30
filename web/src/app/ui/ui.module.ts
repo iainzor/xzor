@@ -20,5 +20,3 @@ import {ComponentsModule} from "./components.module";
 })
 export class UIModule
 {}
-
-export {UINavService} from "./ui-nav/ui-nav.service";

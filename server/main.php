@@ -31,7 +31,7 @@ $modules->registerAll($blissRoot . DIRECTORY_SEPARATOR . "modules", [
 $modules->registerAll(__DIR__ . DIRECTORY_SEPARATOR . "modules");
 $modules->registerAll(__DIR__ . DIRECTORY_SEPARATOR . "vendor");
 $app->config()->load([
-	__DIR__ . DIRECTORY_SEPARATOR . "config.php",
+	__DIR__ . DIRECTORY_SEPARATOR . "config/config.php",
 	dirname(__DIR__) . DIRECTORY_SEPARATOR . "private" . DIRECTORY_SEPARATOR . "config.php"
 ]);
 

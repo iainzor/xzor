@@ -1,41 +1,22 @@
 <ng-template [ngIf]="account.isValid">
-	<ui-header z="2">
-		<div class="container" *ngIf="account">
+	<ui-header z="2" theme>
+		<div class="container">
 			<h2>{{account.name}}</h2>
+			<button (click)="signOut()">Sign Out</button>
 		</div>
 	</ui-header>
 
 	<div class="container">
-		<div class="row">
-			<div class="col"></div>
-			<div class="col-sm-6 col-lg-4">
-				<ui-card z="1">
-					<h4 class="text-center">Linked Accounts</h4>
-					<hr>
-					<div class="row justify-content-center">
-						<google-sign-in></google-sign-in>
-						<twitch-sign-in></twitch-sign-in>
-					</div>
-				</ui-card>
+		<h1 class="display-1 text-center">Coming Soon</h1>
+	</div>
+</ng-template>
+
+<ng-template [ngIf]="!account.isValid">
+	<div class="container guest">
+		<div class="row justify-content-center">
+			<div class="col-md-6 col-lg-4">
+				<account-sign-in></account-sign-in>
 			</div>
 		</div>
 	</div>
 </ng-template>
-
-<div class="container guest" *ngIf="!loading && !account.isValid">
-	<div class="row justify-content-center">
-		<div class="col-md-6 col-lg-4">
-			<ui-card z="5">
-				<h1>Sign Into xZor</h1>
-				<p class="lead">
-					Use one of the following services to sign into xZor.  Once signed in, you 
-					will be able to link your account with any other services.
-				</p>
-				
-				<hr>
-
-				<google-sign-in></google-sign-in>
-			</ui-card>
-		</div>
-	</div>
-</div>

@@ -19,10 +19,8 @@ import {AccountInterface} from "./account.interface";
 export class AccountComponent implements OnInit, OnDestroy
 {
 	private accountSub:Subscription;
-	private loadingSub:Subscription;
 
-	account:AccountInterface = { isValid: false };
-	loading:boolean = true;
+	account:AccountInterface;
 
 	constructor(
 		private App:AppService,
@@ -33,14 +31,13 @@ export class AccountComponent implements OnInit, OnDestroy
 		this.accountSub = this.Account.subscribe((account) => {
 			this.account = account;
 		});
-		this.loadingSub = this.Account.loading.subscribe((flag) => {
-			this.App.setLoading(flag);
-			this.loading = flag;
-		});
 	}
 
 	ngOnDestroy() {
 		this.accountSub.unsubscribe();
-		this.loadingSub.unsubscribe();
+	}
+
+	signOut() {
+		this.Account.signOut();
 	}
 }

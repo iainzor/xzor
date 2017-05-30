@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {AuthService} from "../../account/auth.service";
+import {ProvidersService} from "../../account/providers.service";
 import {TwitchAuthService} from "./twitch-auth.service";
 import {TwitchSignInComponent} from "./twitch-sign-in/twitch-sign-in.component";
 
@@ -20,7 +20,7 @@ import {TwitchSignInComponent} from "./twitch-sign-in/twitch-sign-in.component";
 })
 export class TwitchModule
 {
-	constructor(Auth:AuthService, TwitchAuth:TwitchAuthService) {
-		Auth.registerProvider(TwitchAuth);
+	constructor(Providers:ProvidersService, TwitchAuth:TwitchAuthService) {
+		Providers.registerProvider(TwitchAuth);
 	}
 }

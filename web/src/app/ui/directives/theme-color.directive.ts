@@ -8,7 +8,10 @@ import {AbstractThemeDirective} from "./abstract-theme-directive";
 })
 export class ThemeColorDirective extends AbstractThemeDirective
 {
-	@Input("themeColor") set _custom(value:string) {
+	@Input("themeColor") set _custom(value:any) {
+		if  (value !== null && typeof value === "object") {
+			value = value["text"];
+		}
 		this.customTheme["text"] = value;
 		this.update();	
 	}

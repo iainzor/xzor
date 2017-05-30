@@ -2,7 +2,7 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 
-import {SourcesModule} from "../../sources/sources.module";
+import {SourceSearchModule} from "../../sources/source-search/source-search.module";
 import {UIModule} from "../../ui/ui.module";
 
 import {GameImporterModule} from "../game-importer/game-importer.module";
@@ -14,7 +14,7 @@ import {GameSearchResponseComponent} from "./game-search-response.component";
 		CommonModule,
 		RouterModule,
 
-		SourcesModule,
+		SourceSearchModule,
 		UIModule,
 
 		GameImporterModule,

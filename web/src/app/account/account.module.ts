@@ -5,27 +5,30 @@ import {FormsModule} from "@angular/forms";
 
 import {UIModule} from "../ui/ui.module";
 import {VendorsModule} from "../vendors/vendors.module";
+
+import {AccountSignInModule} from "./account-sign-in/account-sign-in.module";
 import {AccountComponent} from "./account.component";
-import {AccountService} from "./account.service";
-import {AuthService} from "./auth.service";
+import {AccountResolver} from "./account.resolver";
 
 @NgModule({
 	imports: [
 		CommonModule,
 		FormsModule,
-		RouterModule.forRoot([
-			{ path: "account", component: AccountComponent }
+		RouterModule.forChild([
+			{ path: "", component: AccountComponent, resolve: 
+				{ account: AccountResolver } 
+			}
 		]),
 
 		UIModule,
-		VendorsModule
+		VendorsModule,
+		AccountSignInModule
 	],
 	declarations: [
 		AccountComponent
 	],
 	providers: [
-		AccountService,
-		AuthService
+		AccountResolver
 	]
 })
 export class AccountModule

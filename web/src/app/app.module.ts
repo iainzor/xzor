@@ -6,12 +6,13 @@ import {HttpModule} from "@angular/http";
 import {RouterModule} from "@angular/router";
 
 import {AccountService} from "./account/account.service";
+import {ProvidersService} from "./account/providers.service";
 import {AccountModule} from "./account/account.module";
 import {GamesModule} from "./games/games.module";
 import {AppComponent} from "./app.component";
 import {AppService} from "./app.service";
 import {ThemeService} from "./ui/theme.service";
-import {UIModule, UINavService} from "./ui/ui.module";
+import {UIModule} from "./ui/ui.module";
 import {VendorsModule} from "./vendors/vendors.module";
 import {XzorModule} from "./xzor/xzor.module";
 import {XzorService} from "./xzor/xzor.service";
@@ -27,18 +28,22 @@ import {XzorService} from "./xzor/xzor.service";
 		HttpModule,
 		RouterModule.forRoot([
 			{ path: "", loadChildren: "./dashboard/dashboard.module#DashboardModule" },
-			{ path: "games", loadChildren: "./games/games.module#GamesModule" }
+			{ path: "account", loadChildren: "./account/account.module#AccountModule" },
+			{ path: "games", loadChildren: "./games/games.module#GamesModule" },
+			{ path: "gamers", loadChildren: "./gamers/gamers.module#GamersModule" },
+			{ path: "teams", loadChildren: "./teams/teams.module#TeamsModule" },
+			{ path: "sources", loadChildren: "./sources/sources.module#SourcesModule" }
 		]),
 
-		AccountModule,
 		UIModule,
 		VendorsModule,
 		XzorModule
 	],
 	providers: [
 		AppService,
+		AccountService,
+		ProvidersService,
 		ThemeService,
-		UINavService,
 		XzorService
 	],
 	bootstrap: [AppComponent]
