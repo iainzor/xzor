@@ -15,7 +15,7 @@ class AccountSessions extends AbstractTable
 	 * Attempt to load a user's existing session information.  If no session ID
 	 * can be found, a blank session (guest) will be returned
 	 * 
-	 * @param string $sessionName
+	 * @param string $sessionId
 	 * @param int $sessionLifetime
 	 * @return AccountSession
 	 */
@@ -36,7 +36,7 @@ class AccountSessions extends AbstractTable
 			$session = $statement->fetchObject(AccountSession::class);
 		}
 		
-		return isset($session) ? $session : new AccountSession();
+		return !empty($session) ? $session : new AccountSession();
 	}
 	
 	/**

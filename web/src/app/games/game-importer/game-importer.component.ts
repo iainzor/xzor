@@ -12,7 +12,7 @@ import {GamesService} from "../games.service";
 })
 export class GameImporterComponent
 {
-	@Input() game:GameInterface = {};
+	@Input() game:GameInterface;
 	@Input() source:SourceInterface;
 	@Output() cancel:EventEmitter<GameInterface> = new EventEmitter<GameInterface>();
 
