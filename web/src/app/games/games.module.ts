@@ -11,6 +11,7 @@ import {GameSearchComponent} from "./game-search/game-search.component";
 import {GameTileComponent} from "./game-tile/game-tile.component";
 import {GamesComponent} from "./games.component";
 import {GameComponent} from "./game.component";
+import {ImportComponent} from "./import.component";
 import {GamesService} from "./games.service";
 import {GameService} from "./game.service";
 import {GameResolver} from "./game.resolver";
@@ -24,6 +25,9 @@ import {SourceGameResolver} from "./source-game.resolver";
 			{ path: "", component: GamesComponent },
 			{ path: ":slug", component: GameComponent, resolve:
 				{ game: GameResolver } 
+			},
+			{ path: "import/:sourceName/:sourceId", component: ImportComponent, resolve: 
+				{ game: SourceGameResolver }
 			}
 		]),
 
@@ -33,7 +37,8 @@ import {SourceGameResolver} from "./source-game.resolver";
 	],
 	declarations: [
 		GamesComponent,
-		GameComponent
+		GameComponent,
+		ImportComponent
 	],
 	providers: [
 		GamesService,

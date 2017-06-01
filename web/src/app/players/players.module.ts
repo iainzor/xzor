@@ -2,18 +2,18 @@ import {NgModule} from "@angular/core";
 import {RouterModule} from "@angular/router";
 import {UIModule} from "../ui/ui.module";
 
-import {GamersComponent} from "./gamers.component";
+import {PlayersComponent} from "./players.component";
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{ path: "", component: GamersComponent }
+			{ path: "", component: PlayersComponent }
 		]),
 		UIModule
 	],
 	declarations: [
-		GamersComponent
+		PlayersComponent
 	]
 })
-export class GamersModule
+export class PlayersModule
 {}

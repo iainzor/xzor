@@ -30,7 +30,7 @@ import {XzorService} from "./xzor/xzor.service";
 			{ path: "", loadChildren: "./dashboard/dashboard.module#DashboardModule" },
 			{ path: "account", loadChildren: "./account/account.module#AccountModule" },
 			{ path: "games", loadChildren: "./games/games.module#GamesModule" },
-			{ path: "gamers", loadChildren: "./gamers/gamers.module#GamersModule" },
+			{ path: "players", loadChildren: "./players/players.module#PlayersModule" },
 			{ path: "teams", loadChildren: "./teams/teams.module#TeamsModule" },
 			{ path: "sources", loadChildren: "./sources/sources.module#SourcesModule" }
 		]),

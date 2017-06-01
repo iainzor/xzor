@@ -74,7 +74,7 @@ export class GameSearchResponseComponent
 	import(e:MouseEvent, game:GameInterface) {
 		e.preventDefault();
 		
-		this.importGame = JSON.parse(JSON.stringify(game));
+		this.importGame = game;
 		this.importGameSource = this.sourceResponses[game.source].source;
 
 		window.scrollTo(0,0);

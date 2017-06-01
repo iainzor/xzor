@@ -12,7 +12,13 @@ import {GamesService} from "../games.service";
 })
 export class GameImporterComponent
 {
-	@Input() game:GameInterface;
+	game:GameInterface;
+
+	@Input("game") set _game(game:GameInterface) {
+		if (game) {
+			this.game = JSON.parse(JSON.stringify(game));
+		}	
+	}
 	@Input() source:SourceInterface;
 	@Output() cancel:EventEmitter<GameInterface> = new EventEmitter<GameInterface>();
 

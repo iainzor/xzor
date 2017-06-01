@@ -2,14 +2,14 @@ import {Component} from "@angular/core";
 import {routeAnimation} from "../ui/utilities/route-animation";
 
 @Component({
-	selector: "gamers",
-	templateUrl: "./gamers.component.html",
+	selector: "players",
+	templateUrl: "./players.component.html",
 	animations: [
-		routeAnimation("gamers")
+		routeAnimation("players")
 	],
 	host: {
-		"[@gamers]": ""
+		"[@players]": ""
 	}
 })
-export class GamersComponent
+export class PlayersComponent
 {}

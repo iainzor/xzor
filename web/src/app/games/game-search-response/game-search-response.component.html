@@ -35,12 +35,11 @@
 			<game-tile [game]="game"></game-tile>
 		</a>
 		<a class="game" 
-			href="#" 
+			[routerLink]="['import', game.source, game.sourceId]" 
 			[z]="game.z || 1" 
 			(mouseenter)="game.z=3"
 			(mousedown)="game.z=5"
 			(mouseleave)="game.z=1" 
-			(click)="import($event, game)" 
 			*ngIf="!game.id"
 		>
 			<game-tile [game]="game"></game-tile>
