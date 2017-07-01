@@ -14,5 +14,6 @@ RewriteCond %{REQUEST_FILENAME} -l
 RewriteRule ^.*$ - [NC,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^img\/(.*)$ api.php/img/$1 [NC,L]
 RewriteRule ^api\/(.*)$ api.php/$1 [NC,L]
 RewriteRule ^.*$ index.html [NC,L]

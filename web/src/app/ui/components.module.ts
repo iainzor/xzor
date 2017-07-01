@@ -5,16 +5,15 @@ import {RouterModule} from "@angular/router";
 import {XzorModule} from "../xzor/xzor.module";
 import {DirectivesModule} from "./directives.module";
 import {UIButtonModule} from "./ui-button/ui-button.module";
-import {UICardComponent} from "./ui-card/ui-card.component";
+import {UICardModule} from "./ui-card/ui-card.module";
+import {UIControlsModule} from "./ui-controls/ui-controls.module";
 import {UIHeaderComponent} from "./ui-header/ui-header.component";
 import {UIIconComponent} from "./ui-icon/ui-icon.component";
-import {UISpinnerComponent} from "./ui-spinner/ui-spinner.component";
+import {UIFileSelectorModule} from "./ui-file-selector/ui-file-selector.module";
 
 let COMPONENTS = [
-	UICardComponent,
 	UIHeaderComponent,
-	UIIconComponent,
-	UISpinnerComponent
+	UIIconComponent
 ];
 
 @NgModule({
@@ -24,13 +23,21 @@ let COMPONENTS = [
 
 		XzorModule,
 		DirectivesModule,
-		UIButtonModule
+
+		UIButtonModule,
+		UICardModule,
+		UIControlsModule,
+		UIFileSelectorModule
 	],
 	declarations: [
 		...COMPONENTS
 	],
 	exports: [
 		UIButtonModule,
+		UICardModule,
+		UIControlsModule,
+		UIFileSelectorModule,
+		
 		...COMPONENTS
 	]
 })

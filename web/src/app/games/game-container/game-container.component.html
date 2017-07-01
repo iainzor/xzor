@@ -1,9 +1,9 @@
-<ng-template [ngIf]="!!game && !!source">
+<ng-template [ngIf]="!!game">
 	<ui-header z="1" [theme]="game.theme">
 		<div class="container">
 			<h1>{{game.title}}</h1>
 			<p class="lead">{{game.description}}</p>
-			<p>
+			<p *ngIf="source">
 				<small>
 					Data provided by 
 					<a [routerLink]="['/sources', source.slug]">{{source.name}}</a>

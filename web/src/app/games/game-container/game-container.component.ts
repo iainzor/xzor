@@ -20,7 +20,7 @@ export class GameContainerComponent
 	
 	@Input("game") set _game(game:GameInterface) {
 		this.game = game;
-		this.Sources.getSourceService(game.source).then((service) => { 
+		this.Sources.getSourceService(game.sourceName).then((service) => { 
 			this.sourceService = service;
 			this.source = service.source;
 		});

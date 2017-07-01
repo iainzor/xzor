@@ -1,0 +1,13 @@
+
+<input id="file" name="file" type="file" (change)="onFileChange($event)" [attr.accept]="accept.join(' ')" hidden>
+
+<label for="file">
+	<i class="material-icons icon">attach_file</i>
+	<div class="message">
+		<span *ngIf="!file">Click here to select a file</span>
+		<span *ngIf="file">{{file.name}}</span>
+	</div>
+	<a *ngIf="file" class="clear" href="#" (click)="clear($event)" title="Clear">
+		<i class="material-icons">close</i>
+	</a>
+</label>

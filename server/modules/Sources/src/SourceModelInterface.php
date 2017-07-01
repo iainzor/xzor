@@ -1,10 +1,8 @@
 <?php
 namespace Sources;
 
-use UI\ThemeInterface;
-
-interface SourceModelInterface
+interface SourceModelInterface extends \JsonSerializable
 {
-	public function setSourceTheme(ThemeInterface $theme);
-	public function getSourceTheme() : ThemeInterface;
+	public function setSource(SourceInterface $source);
+	public function getSource() : SourceInterface;
 }

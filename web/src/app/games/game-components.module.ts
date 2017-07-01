@@ -7,9 +7,9 @@ import {UIModule} from "../ui/ui.module";
 import {XzorModule} from "../xzor/xzor.module";
 
 import {GameContainerModule} from "./game-container/game-container.module";
+import {GameFormModule} from "./game-form/game-form.module";
 import {GameImageModule} from "./game-image/game-image.module";
 import {GameImageEditorModule} from "./game-image-editor/game-image-editor.module";
-import {GameImporterModule} from "./game-importer/game-importer.module";
 import {GameSearchModule} from "./game-search/game-search.module";
 import {GameSearchResponseModule} from "./game-search-response/game-search-response.module";
 import {GameTileModule} from "./game-tile/game-tile.module";
@@ -28,7 +28,7 @@ import {GamesService} from "./games.service";
 		GameContainerModule,
 		GameImageModule,
 		GameImageEditorModule,
-		GameImporterModule,
+		GameFormModule,
 		GameSearchModule,
 		GameSearchResponseModule,
 		GameTileModule
@@ -37,7 +37,7 @@ import {GamesService} from "./games.service";
 		GameContainerModule,
 		GameImageModule,
 		GameImageEditorModule,
-		GameImporterModule,
+		GameFormModule,
 		GameSearchModule,
 		GameSearchResponseModule,
 		GameTileModule

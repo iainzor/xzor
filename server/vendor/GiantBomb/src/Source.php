@@ -1,11 +1,11 @@
 <?php
 namespace GiantBomb;
 
-use Sources\SourceInterface,
+use Sources\AbstractSource,
 	Sources\SourceLoaderInterface,
 	UI\Theme;
 
-class Source implements SourceInterface
+class Source extends AbstractSource
 {
 	const SLUG = "giantbomb";
 	const NAME = "GiantBomb";

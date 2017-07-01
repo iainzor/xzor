@@ -3,14 +3,13 @@ namespace Games\Model;
 
 use Database\Model\AbstractModel,
 	Sources\SourceModelInterface,
-	UI\ThemeInterface,
-	UI\Theme;
+	Sources\SourceInterface;
 
 class Game extends AbstractModel implements SourceModelInterface
 {
 	public $id;
-	public $source;
-	public $sourceId;
+	public $sourceName = null;
+	public $sourceId = null;
 	public $title;
 	public $slug;
 	public $description;
@@ -26,6 +25,15 @@ class Game extends AbstractModel implements SourceModelInterface
 	 */
 	public $images = [];
 	
+	/**
+	 * @var SourceInterface
+	 */
+	public $source;
+	
+	/**
+	 * @param array $properties
+	 * @param array $map
+	 */
 	public function __construct(array $properties = array(), array $map = array()) {
 		parent::__construct($properties, $map);
 		
@@ -34,14 +42,21 @@ class Game extends AbstractModel implements SourceModelInterface
 		}
 	}
 	
-	public function getSourceTheme() : ThemeInterface {
-		if (!isset($this->theme)) {
-			return new Theme("#ffffff", "#ffffff", "#212121");
-		}
-		return $this->theme;
+	/**
+	 * @return SourceInterface
+	 */
+	public function getSource() : SourceInterface {
+		return $this->source;
 	}
 
-	public function setSourceTheme(ThemeInterface $theme) {
-		$this->theme = $theme;
+	/**
+	 * @param SourceInterface $source
+	 */
+	public function setSource(SourceInterface $source) {
+		$this->source = $source;
+		
+		if (!isset($this->theme)) {
+			$this->theme = $source->theme();
+		}
 	}
 }

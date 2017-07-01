@@ -1,0 +1,14 @@
+<ui-header [theme]="account?.theme">
+	<div class="container">
+		<game-search [(q)]="q"></game-search>
+	</div>
+</ui-header>
+
+<div class="container">
+	<ui-controls [controls]="controls"></ui-controls>
+
+	<game-search-response *ngIf="response"
+		[response]="response" 
+		[loading]="loading"
+		[showSources]="showSources"></game-search-response>
+</div>

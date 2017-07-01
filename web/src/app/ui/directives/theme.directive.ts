@@ -1,31 +1,49 @@
-import {Directive, Input, ElementRef} from "@angular/core";
+import {Directive, Input, ElementRef, OnInit, OnDestroy} from "@angular/core";
+import {Subscription} from "rxjs";
+
 import {ThemeInterface} from "../theme.interface";
-import {ThemeService} from "../theme.service";
-import {AbstractThemeDirective} from "./abstract-theme-directive";
+import {ThemesService} from "../themes.service";
+
+const CUSTOM_THEME = "_CUSTOM_";
 
 @Directive({
-	selector: "[theme]"
+	selector: "[theme]",
+	host: {
+		"[style.background]": "_theme?.background",
+		"[style.color]": "_theme?.text",
+		"[style.transition]": "'.2s ease-in-out'"
+	}
 })
-export class ThemeDirective extends AbstractThemeDirective
+export class ThemeDirective implements OnInit, OnDestroy /*extends AbstractThemeDirective*/
 {
-	@Input("theme") set _custom(theme:ThemeInterface) {
-		if (theme !== null) {
-			this.customTheme["background"] = theme.background;
-			this.customTheme["text"] = theme.text;
-		} else {
-			this.customTheme = {};
-		}
-		this.update();
-	}
+	private themesSub:Subscription;
+	private themes:{[name:string]:ThemeInterface} = {};
+	private themeName:string = CUSTOM_THEME;
+	private theme:ThemeInterface;
 
-	constructor(elRef:ElementRef, theme:ThemeService) {
-		super(elRef, theme);
-	}
+	constructor(private Themes:ThemesService, private ElRef:ElementRef) {}
 
-	adjust(theme:ThemeInterface) {
-		this.style({
-			background: theme ? theme.background : null,
-			color: theme ? theme.text : null
+	ngOnInit() {
+		this.themesSub = this.Themes.subscribe((themes) => {
+			this.themes = themes;
 		});
+	}
+
+	ngOnDestroy() {
+		this.themesSub.unsubscribe();
+	}
+
+	@Input("theme") set _theme(theme:any) {
+		if (typeof theme === "string") {
+			this.themeName = theme;
+			this.theme = null;
+		} else {
+			this.themeName = CUSTOM_THEME;
+			this.theme = theme;
+		}
+	}
+
+	get _theme() : any {
+		return this.themeName === CUSTOM_THEME ? this.theme : this.Themes.get(this.themeName);
 	}
 }

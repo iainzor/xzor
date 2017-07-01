@@ -1,4 +1,5 @@
 import {ThemeInterface} from "../ui/theme.interface";
+import {SourceInterface} from "../sources/source.interface";
 
 export interface GameInterface
 {
@@ -6,8 +7,9 @@ export interface GameInterface
 	slug?:string;
 	title?:string;
 	description?:string;
-	source?:string;
+	sourceName?:string;
 	sourceId?:string;
+	source?:SourceInterface;
 	theme?:ThemeInterface;
 	coverImage?:string;
 }

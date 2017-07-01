@@ -1,3 +1,5 @@
+import {ThemeInterface} from "../ui/theme.interface";
+
 export interface AccountInterface
 {
 	id?:number;
@@ -5,4 +7,5 @@ export interface AccountInterface
 	created?:number;
 	updated?:number;
 	isValid:boolean;
+	theme:ThemeInterface;
 }

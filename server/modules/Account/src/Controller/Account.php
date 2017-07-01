@@ -1,8 +1,7 @@
 <?php
 namespace Account\Controller;
 
-use Account\DbModel,
-	Account\AccountLoader,
+use Account\AccountLoader,
 	Account\Config,
 	Core\ModuleConfig,
 	Http\Request;
@@ -16,7 +15,7 @@ class Account
 	
 	/**
 	 *
-	 * @var \Account\DbModel\Account
+	 * @var \Account\Account
 	 */
 	private $account;
 	
@@ -32,14 +31,14 @@ class Account
 	}
 	
 	/**
-	 * @return \Account\DbModel\Account
+	 * @return \Account\Account
 	 */
-	public function indexAction() : DbModel\Account
+	public function indexAction() : \Account\Account
 	{
 		return $this->account;
 	}
 	
-	public function signOutAction(Request $request, ModuleConfig $config) : DbModel\Account 
+	public function signOutAction(Request $request, ModuleConfig $config) : \Account\Account
 	{
 		if (!$request->methodIsPost()) {
 			throw new \Exception("Only POST requests are allowed");

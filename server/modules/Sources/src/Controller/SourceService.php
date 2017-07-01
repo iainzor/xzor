@@ -28,7 +28,7 @@ class SourceService
 		$service = $source->service($serviceName, $di);
 		$result = $service->load($id);
 		
-		$result->setSourceTheme($source->source()->theme());
+		$result->setSource($source->source());
 		
 		return $result;
 	}

@@ -1,0 +1,11 @@
+<div class="row">
+	<div class="col" *ngFor="let control of controls" [class.col-auto]="!control.divider">
+		<ng-template [ngIf]="!control.divider">
+			<a *ngIf="control.route" [routerLink]="control.route">
+				<ui-control *ngIf="!control.divider" [control]="control" [z]="control.z"></ui-control>
+			</a>
+			
+			<ui-control *ngIf="!control.route" [control]="control" [z]="control.z"></ui-control>
+		</ng-template>
+	</div>
+</div>

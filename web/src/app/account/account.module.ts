@@ -10,13 +10,33 @@ import {AccountSignInModule} from "./account-sign-in/account-sign-in.module";
 import {AccountComponent} from "./account.component";
 import {AccountResolver} from "./account.resolver";
 
+import {PageAccountOverviewComponent} from "./page-account-overview/page-account-overview.component";
+import {PageSignInComponent} from "./page-sign-in/page-sign-in.component";
+
 @NgModule({
 	imports: [
 		CommonModule,
 		FormsModule,
 		RouterModule.forChild([
-			{ path: "", component: AccountComponent, resolve: 
-				{ account: AccountResolver } 
+			{ 
+				path: "", 
+				component: AccountComponent,
+				resolve: {
+					account: AccountResolver
+				},
+				children: [
+					{ 
+						path: "", 
+						component: PageAccountOverviewComponent
+					}
+				]
+			},
+			{
+				path: "sign-in",
+				component: PageSignInComponent,
+				resolve: {
+					account: AccountResolver
+				}
 			}
 		]),
 
@@ -25,7 +45,9 @@ import {AccountResolver} from "./account.resolver";
 		AccountSignInModule
 	],
 	declarations: [
-		AccountComponent
+		AccountComponent,
+		PageAccountOverviewComponent,
+		PageSignInComponent
 	],
 	providers: [
 		AccountResolver

@@ -1,0 +1,14 @@
+<ui-header [theme]="account?.theme">
+	<div class="container">
+		<h1>Add A Game</h1>
+		<p class="lead">
+			Use the form below to add a new game to xZor
+		</p>
+	</div>
+</ui-header>
+
+<form (ngSubmit)="onSubmit()">
+	<div class="container">
+		<game-form [(game)]="game"></game-form>
+	</div>
+</form>

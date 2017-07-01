@@ -1,0 +1,33 @@
+:host {
+	display: block;
+	position: relative;
+}
+
+:host > ui-file-selector {
+	height: 60px;
+	position: relative;
+	z-index: 1;
+	transition: .2s ease-in-out;
+}
+:host(.is-loading) > ui-file-selector {
+	opacity: .25;
+	filter: blur(2px);
+}
+
+:host > .loading {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 60px;
+	height: 60px;
+	margin-left: -30px;
+	z-index: -1;
+	opacity: 0;
+	visibility: hidden;
+	transition: .2s ease-in-out;
+}
+:host(.is-loading) > .loading {
+	opacity: 1;
+	visibility: visible;
+	z-index: 2;
+}

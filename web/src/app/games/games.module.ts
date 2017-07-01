@@ -7,14 +7,9 @@ import {UIModule} from "../ui/ui.module";
 import {SourceSearchModule} from "../sources/source-search/source-search.module";
 import {SourcesService} from "../sources/sources.service";
 import {GameComponentsModule} from "./game-components.module";
-import {GameSearchComponent} from "./game-search/game-search.component";
-import {GameTileComponent} from "./game-tile/game-tile.component";
-import {GamesComponent} from "./games.component";
-import {GameComponent} from "./game.component";
-import {ImportComponent} from "./import.component";
+import {PageGamesComponent} from "./page-games/page-games.component";
+import {PageAddGameComponent} from "./page-add-game/page-add-game.component";
 import {GamesService} from "./games.service";
-import {GameService} from "./game.service";
-import {GameResolver} from "./game.resolver";
 import {SourceGameResolver} from "./source-game.resolver";
 
 @NgModule({
@@ -22,13 +17,8 @@ import {SourceGameResolver} from "./source-game.resolver";
 		CommonModule,
 		FormsModule,
 		RouterModule.forChild([
-			{ path: "", component: GamesComponent },
-			{ path: ":slug", component: GameComponent, resolve:
-				{ game: GameResolver } 
-			},
-			{ path: "import/:sourceName/:sourceId", component: ImportComponent, resolve: 
-				{ game: SourceGameResolver }
-			}
+			{ path: "", component: PageGamesComponent },
+			{ path: "add", component: PageAddGameComponent }
 		]),
 
 		GameComponentsModule,
@@ -36,15 +26,12 @@ import {SourceGameResolver} from "./source-game.resolver";
 		UIModule
 	],
 	declarations: [
-		GamesComponent,
-		GameComponent,
-		ImportComponent
+		PageGamesComponent,
+		PageAddGameComponent
 	],
 	providers: [
 		GamesService,
-		GameService,
 		SourcesService,
-		GameResolver,
 		SourceGameResolver
 	]
 })
