@@ -6,10 +6,12 @@ import {XzorModule} from "../xzor/xzor.module";
 import {DirectivesModule} from "./directives.module";
 import {UIButtonModule} from "./ui-button/ui-button.module";
 import {UICardModule} from "./ui-card/ui-card.module";
+import {UIColorPickerModule} from "./ui-color-picker/ui-color-picker.module";
 import {UIControlsModule} from "./ui-controls/ui-controls.module";
 import {UIHeaderComponent} from "./ui-header/ui-header.component";
 import {UIIconComponent} from "./ui-icon/ui-icon.component";
 import {UIFileSelectorModule} from "./ui-file-selector/ui-file-selector.module";
+import {UIThemeEditorModule} from "./ui-theme-editor/ui-theme-editor.module";
 
 let COMPONENTS = [
 	UIHeaderComponent,
@@ -26,8 +28,10 @@ let COMPONENTS = [
 
 		UIButtonModule,
 		UICardModule,
+		UIColorPickerModule,
 		UIControlsModule,
-		UIFileSelectorModule
+		UIFileSelectorModule,
+		UIThemeEditorModule
 	],
 	declarations: [
 		...COMPONENTS
@@ -35,8 +39,10 @@ let COMPONENTS = [
 	exports: [
 		UIButtonModule,
 		UICardModule,
+		UIColorPickerModule,
 		UIControlsModule,
 		UIFileSelectorModule,
+		UIThemeEditorModule,
 		
 		...COMPONENTS
 	]

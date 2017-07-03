@@ -6,6 +6,7 @@ import {FormsModule} from "@angular/forms";
 import {UIModule} from "../ui/ui.module";
 import {VendorsModule} from "../vendors/vendors.module";
 
+import {AccountFormModule} from "./account-form/account-form.module";
 import {AccountSignInModule} from "./account-sign-in/account-sign-in.module";
 import {AccountComponent} from "./account.component";
 import {AccountResolver} from "./account.resolver";
@@ -21,9 +22,6 @@ import {PageSignInComponent} from "./page-sign-in/page-sign-in.component";
 			{ 
 				path: "", 
 				component: AccountComponent,
-				resolve: {
-					account: AccountResolver
-				},
 				children: [
 					{ 
 						path: "", 
@@ -33,24 +31,19 @@ import {PageSignInComponent} from "./page-sign-in/page-sign-in.component";
 			},
 			{
 				path: "sign-in",
-				component: PageSignInComponent,
-				resolve: {
-					account: AccountResolver
-				}
+				component: PageSignInComponent
 			}
 		]),
 
 		UIModule,
 		VendorsModule,
+		AccountFormModule,
 		AccountSignInModule
 	],
 	declarations: [
 		AccountComponent,
 		PageAccountOverviewComponent,
 		PageSignInComponent
-	],
-	providers: [
-		AccountResolver
 	]
 })
 export class AccountModule

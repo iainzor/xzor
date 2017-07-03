@@ -1,24 +1,13 @@
 <?php
 namespace Account;
 
-use Core\ModuleConfig;
-
 class AccountLoader
 {
-	/**
-	 * @var ModuleConfig
-	 */
-	private $config;
-	
 	/**
 	 * @var \Account\DbTable\Accounts
 	 */
 	private $accounts;
 	
-	/**
-	 * @var \Account\DbTable\AccountSessions
-	 */
-	private $sessions;
 	
 	/**
 	 * @var \Account\DbTable\AccountThemes
@@ -28,44 +17,29 @@ class AccountLoader
 	/**
 	 * Constructor
 	 * 
-	 * @param \Core\ModuleConfig $config
 	 * @param \Account\DbTable\Accounts $accounts
-	 * @param \Account\DbTable\AccountSessions $sessions
 	 * @param \Account\DbTable\AccountThemes $themes
 	 */
 	public function __construct(
-		ModuleConfig $config, 
 		DbTable\Accounts $accounts, 
-		DbTable\AccountSessions $sessions,
 		DbTable\AccountThemes $themes
 	)
 	{
-		$this->config = $config;
 		$this->accounts = $accounts;
-		$this->sessions = $sessions;
 		$this->themes = $themes;
 	}
 	
 	/**
-	 * Attempt to load a user's account from an existing session.  If a session
-	 * does not exists, or is invalid, a guest account instance will be returned.
+	 * Attempt to load a user account.  If no ID is provided, a guest account
+	 * instance will be returned.
 	 * 
+	 * @param int $id
 	 * @return \Account\Account
 	 */
-	public function load() : Account
+	public function load(int $id = null) : Account
 	{
-		$sessionName = $this->config->get(Config::SESSION_NAME);
-		$lifetime = $this->config->get(Config::SESSION_LIFETIME);
-		$sessionId = filter_input(INPUT_COOKIE, $sessionName);
-		
-		if (empty($sessionId)) {
-			$sessionId = isset($_SESSION[$sessionName]) ? $_SESSION[$sessionName] : "";
-		}
-		
-		$session = $this->sessions->load($sessionId, $lifetime);
-		
-		if ($session->id) {
-			$model = $this->accounts->load($session->accountId);
+		if ($id !== null) {
+			$model = $this->accounts->load($id);
 			$account = new Account((array) $model);
 		}
 		

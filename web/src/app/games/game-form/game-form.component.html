@@ -33,18 +33,7 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-						<div class="form-group">
-							<label>Background Color</label>
-							<p>
-								<input type="color" name="background" value="#ffffff" [(ngModel)]="game.theme.background">
-							</p>
-						</div>
-						<div class="form-group">
-							<label>Text Color</label>
-							<p>
-								<input type="color" name="text" value="#212121" [(ngModel)]="game.theme.text">
-							</p>
-						</div>
+						<ui-theme-editor [(model)]="game.theme"></ui-theme-editor>
 					</div>
 				</div>
 				

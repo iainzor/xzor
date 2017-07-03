@@ -35,7 +35,7 @@ export class AccountComponent implements OnInit, OnDestroy
 			this.account = account;
 
 			if (!account.isValid) {
-				this.Router.navigate(["/account", "sign-in"], { replaceUrl: true });
+				this.Router.navigate(["/account", "sign-in"]);
 			}
 		});
 	}
@@ -44,7 +44,9 @@ export class AccountComponent implements OnInit, OnDestroy
 		this.accountSub.unsubscribe();
 	}
 
-	signOut() {
+	signOut(e:MouseEvent) {
+		e.preventDefault();
+		
 		this.App.setLoading(true);
 		this.Account.signOut().then(() => {
 			this.App.setLoading(false);	

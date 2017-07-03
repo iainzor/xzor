@@ -6,6 +6,7 @@ import {HttpModule} from "@angular/http";
 import {RouterModule} from "@angular/router";
 
 import {AccountService} from "./account/account.service";
+import {AccountResolver} from "./account/account.resolver";
 import {ProvidersService} from "./account/providers.service";
 import {AccountModule} from "./account/account.module";
 import {ImagesService} from "./images/images.service";
@@ -31,7 +32,7 @@ import {XzorService} from "./xzor/xzor.service";
 		HttpModule,
 		RouterModule.forRoot([
 			{ path: "", loadChildren: "./dashboard/dashboard.module#DashboardModule" },
-			{ path: "account", loadChildren: "./account/account.module#AccountModule" },
+			{ path: "account", loadChildren: "./account/account.module#AccountModule", resolve: { account: AccountResolver } },
 			{ path: "games", loadChildren: "./games/games.module#GamesModule" },
 			{ path: "g/:slug", loadChildren: "./games/game.module#GameModule" },
 			{ path: "players", loadChildren: "./players/players.module#PlayersModule" },
@@ -46,6 +47,7 @@ import {XzorService} from "./xzor/xzor.service";
 	providers: [
 		AppService,
 		AccountService,
+		AccountResolver,
 		ImagesService,
 		ProvidersService,
 		ThemesService,

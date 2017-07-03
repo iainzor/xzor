@@ -1,22 +1,3 @@
 <div class="container">
-	<ui-card z="1">
-		<form (ngSubmit)="submit">
-			<div class="form-group">
-				<label>Display Name</label>
-				<input type="text" name="name" [(ngModel)]="account.name" class="form-control" required>
-			</div>
-			<div class="form-group">
-				<label>Profile URL</label>
-				<div class="input-group">
-					<div class="input-group-addon">
-						/u/
-					</div>
-					<input type="text" name="slug" [(ngModel)]="account.slug" class="form-control">
-				</div>
-				<small class="text-muted form-text">
-					If provided, this will be the direct URL to your public profile.
-				</small>
-			</div>
-		</form>
-	</ui-card>
+	<account-form [account]="account"></account-form>
 </div>

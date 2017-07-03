@@ -37,4 +37,22 @@ abstract class AbstractThemeTable extends AbstractTable
 		}
 		return $theme;
 	}
+	
+	/**
+	 * Save changes to an existing theme
+	 * 
+	 * @param mixed $id
+	 * @param array $data
+	 */
+	public function save($id, array $data)
+	{
+		$this->insert([
+			$this->getIdColumnName() => $id,
+			"background" => isset($data["background"]) ? $data["background"] : $this->getDefaultBackground(),
+			"text" => isset($data["text"]) ? $data["text"] : $this->getDefaultText()
+		], [
+			"background",
+			"text"
+		]);
+	}
 }

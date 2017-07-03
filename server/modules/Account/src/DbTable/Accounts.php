@@ -53,4 +53,30 @@ class Accounts extends AbstractTable
 		
 		return $account;
 	}
+	
+	/**
+	 * Check if a slug has been registered.
+	 * 
+	 * @param string $slug
+	 * @param Account $ignoreAccount An account to ignore when searching.
+	 * @return bool
+	 */
+	public function slugExists(string $slug, Account $ignoreAccount = null) : bool
+	{
+		$statement = $this->db->prepare("
+			SELECT	*
+			FROM	`". $this->getName() ."`
+			WHERE	`slug` = :slug
+		");
+		$statement->execute([
+			":slug" => $slug
+		]);
+		$account = $statement->fetchObject(Account::class);
+		
+		if ($account !== false && isset($ignoreAccount) && $ignoreAccount->id !== $account->id) {
+			return true;
+		}
+		
+		return false;
+	}
 }

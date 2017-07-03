@@ -1,8 +1,9 @@
 import {Component, OnInit, OnDestroy} from "@angular/core";
-import {Router, ActivatedRoute} from "@angular/router";
+import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
 
 import {AppService} from "../../app.service";
+import {AccountService} from "../account.service";
 import {AccountInterface} from "../account.interface";
 
 @Component({
@@ -18,13 +19,13 @@ export class PageSignInComponent implements OnInit, OnDestroy
 
 	constructor(
 		private App:AppService,
-		private Router:Router,
-		private Route:ActivatedRoute
+		private Account:AccountService,
+		private Router:Router
 	) {}
 
 	ngOnInit() {
-		this.accountSub = this.Route.data.subscribe((data) => {
-			this.account = data["account"];
+		this.accountSub = this.Account.subscribe((account) => {
+			this.account = account;
 
 			if (this.account.isValid) {
 				this.Router.navigate(["/account"]);
@@ -33,7 +34,7 @@ export class PageSignInComponent implements OnInit, OnDestroy
 	}
 
 	ngOnDestroy() {
-
+		this.accountSub.unsubscribe();
 	}
 
 	onSignInStart() {
