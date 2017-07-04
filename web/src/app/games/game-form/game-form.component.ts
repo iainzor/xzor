@@ -20,7 +20,7 @@ export class GameFormComponent
 	loading:boolean = false;
 	isValid:boolean = true;
 	success:boolean = false;
-	errors:{[field:string]:string} = {};
+	errors:any = {};
 	environment = environment;
 
 	constructor(private Games:GamesService, private Router:Router) {}

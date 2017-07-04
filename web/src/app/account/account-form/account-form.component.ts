@@ -12,7 +12,7 @@ export class AccountFormComponent
 	@Input() account:AccountInterface;
 
 	isValid:boolean = true;
-	errors:{[field:string]:string} = {};
+	errors:any = {};
 
 	constructor(
 		private Account:AccountService
