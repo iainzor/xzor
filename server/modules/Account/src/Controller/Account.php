@@ -1,9 +1,10 @@
 <?php
 namespace Account\Controller;
 
-use Account\DbModel,
-	Account\AccountLoader,
+use Account\AccountLoader,
+	Account\AccountSessionLoader,
 	Account\Config,
+	Account\Form\AccountForm,
 	Core\ModuleConfig,
 	Http\Request;
 
@@ -12,34 +13,82 @@ class Account
 	/**
 	 * @var \Account\AccountLoader
 	 */
-	private $loader;
+	private $accountLoader;
 	
 	/**
 	 *
-	 * @var \Account\DbModel\Account
+	 * @var \Account\DbModel\AccountSession
+	 */
+	private $session;
+	
+	/**
+	 *
+	 * @var \Account\Account
 	 */
 	private $account;
 	
 	/**
 	 * Constructor
 	 * 
-	 * @param \Account\AccountLoader $loader
+	 * @param \Core\ModuleConfig $config
+	 * @param \Account\AccountSessionLoader $sessionLoader
+	 * @param \Account\AccountLoader $accountLoader
 	 */
-	public function __construct(AccountLoader $loader) 
+	public function __construct(ModuleConfig $config, AccountSessionLoader $sessionLoader, AccountLoader $accountLoader) 
 	{
-		$this->loader = $loader;
-		$this->account = $loader->load();
+		$this->session = $sessionLoader->load(
+			$config->get(Config::SESSION_NAME),
+			$config->get(Config::SESSION_LIFETIME)
+		);
+		$this->accountLoader = $accountLoader;
+		$this->account = $this->load();
 	}
 	
 	/**
-	 * @return \Account\DbModel\Account
+	 * @return \Account\Account
 	 */
-	public function indexAction() : DbModel\Account
+	private function load() : \Account\Account
 	{
+		return $this->accountLoader->load(
+			$this->session->accountId
+		);
+	}
+	
+	/**
+	 * @return \Account\Account
+	 */
+	public function indexAction() : \Account\Account
+	{	
 		return $this->account;
 	}
 	
-	public function signOutAction(Request $request, ModuleConfig $config) : DbModel\Account 
+	/**
+	 * Update an account
+	 * 
+	 * @param Request $request
+	 * @param AccountForm $form
+	 * @return AccountForm
+	 * @throws \Exception
+	 */
+	public function updateAction(Request $request, AccountForm $form) : AccountForm 
+	{
+		if (!$request->methodIsPost()) {
+			throw new \Exception("Only POST requests are allowed");
+		}
+		
+		if (!$this->account->isValid) {
+			throw new \Exception("Cannot update a non-existing account");
+		}
+		
+		$form->execute(
+			$this->account,
+			$request->json()->data()
+		);
+
+		return $form;
+	}
+	
+	public function signOutAction(Request $request, ModuleConfig $config) : \Account\Account
 	{
 		if (!$request->methodIsPost()) {
 			throw new \Exception("Only POST requests are allowed");
@@ -48,6 +97,6 @@ class Account
 		$name = $config->get(Config::SESSION_NAME);
 		unset($_SESSION[$name]);
 		
-		return $this->loader->load();
+		return $this->accountLoader->load();
 	}
 }

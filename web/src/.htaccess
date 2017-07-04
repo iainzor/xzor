@@ -1,5 +1,12 @@
 Options -Indexes +FollowSymLinks
 
+<If "%{HTTP_HOST} =~ /\.dev$/">
+	Header set Access-Control-Allow-Origin "http://xzor.dev"
+</If>
+<ElseIf "%{HTTP_HOST} =~ /\.net$/">
+	Header set Access-Control-Allow-Origin "http://xzor.net"
+</ElseIf>
+
 RewriteEngine On
 
 RewriteCond %{REQUEST_FILENAME} -s [OR]
@@ -7,5 +14,6 @@ RewriteCond %{REQUEST_FILENAME} -l
 RewriteRule ^.*$ - [NC,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^img\/(.*)$ api.php/img/$1 [NC,L]
 RewriteRule ^api\/(.*)$ api.php/$1 [NC,L]
 RewriteRule ^.*$ index.html [NC,L]

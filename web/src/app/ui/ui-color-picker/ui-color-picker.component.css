@@ -1,0 +1,19 @@
+:host {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+input.color {
+	padding: 0;
+	background: transparent;
+	width: 40px;
+	height: 40px;
+	border: none;
+	margin-right: 10px;
+}
+
+.info {
+	font-size: 14px;
+}
+	.info > strong { display: block; }

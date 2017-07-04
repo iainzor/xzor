@@ -2,14 +2,19 @@
 	display: block;
 	background-color: #fff;
 	color: #212121;
-	padding: 1em;
+	fill: #212121;
+	padding: 20px;
+}
+
+:host /deep/ > :last-child {
+	margin-bottom: 0;
 }
 
 :host /deep/ footer {
 	border-top: 1px solid rgba(0,0,0,.1);
-	margin: 0 -1em;
-	padding: .5em;
+	margin: 0 -20px;
+	padding: 20px;
 }
 :host /deep/ footer:last-child {
-	margin-bottom: -1em;
+	margin-bottom: -20px;
 }

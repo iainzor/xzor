@@ -3,6 +3,7 @@ import {Subscription, Subject, ReplaySubject} from "rxjs";
 import {XzorService} from "../xzor/xzor.service";
 import {AppService} from "../app.service";
 import {AccountInterface} from "./account.interface";
+import {AccountFormResponseInterface} from "./account-form/account-form-response.interface";
 import {ProvidersService} from "./providers.service";
 
 @Injectable()
@@ -31,13 +32,7 @@ export class AccountService
 	}
 
 	subscribe(onNext:((account:AccountInterface) => void)) : Subscription {
-		let sub = this.accountSubject.subscribe(onNext);
-
-		if (this.account) {
-			this.accountSubject.next(this.account);
-		}
-
-		return sub;
+		return this.accountSubject.subscribe(onNext);
 	}
 
 	signOut() : Promise<AccountInterface> {
@@ -47,6 +42,21 @@ export class AccountService
 			this.accountSubject.next(account);
 		});
 
+		return promise;
+	}
+
+	update(account:AccountInterface) : Promise<AccountFormResponseInterface> {
+		let promise = this.Xzor.post("account/update.json", JSON.stringify({
+			name: account.name,
+			slug: account.slug,
+			isPublic: account.isPublic,
+			theme: account.theme
+		}));
+		promise.then((response) => {
+			if (response.isValid) {
+				this.load();
+			};
+		});
 		return promise;
 	}
 }

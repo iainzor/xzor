@@ -1,5 +1,7 @@
 import {Component, OnInit, OnDestroy} from "@angular/core";
+import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
+
 import {routeAnimation} from "../ui/utilities/route-animation";
 import {AppService} from "../app.service";
 import {AccountService} from "./account.service";
@@ -24,12 +26,17 @@ export class AccountComponent implements OnInit, OnDestroy
 
 	constructor(
 		private App:AppService,
-		private Account:AccountService
+		private Account:AccountService,
+		private Router:Router
 	) {}
 
 	ngOnInit() {
 		this.accountSub = this.Account.subscribe((account) => {
 			this.account = account;
+
+			if (!account.isValid) {
+				this.Router.navigate(["/account", "sign-in"]);
+			}
 		});
 	}
 
@@ -37,7 +44,12 @@ export class AccountComponent implements OnInit, OnDestroy
 		this.accountSub.unsubscribe();
 	}
 
-	signOut() {
-		this.Account.signOut();
+	signOut(e:MouseEvent) {
+		e.preventDefault();
+		
+		this.App.setLoading(true);
+		this.Account.signOut().then(() => {
+			this.App.setLoading(false);	
+		});
 	}
 }

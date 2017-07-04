@@ -2,4 +2,6 @@
 	display: block;
 }
 
-img { max-width: 100%; }
+game-image {
+	margin-top: 10px;
+}

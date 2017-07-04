@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 
-import {XzorLogoComponent} from "./xzor-logo/xzor-logo.component";
+import {XzorLogoModule} from "./xzor-logo/xzor-logo.module";
 
 @NgModule({
-	declarations: [
-		XzorLogoComponent
+	imports: [
+		XzorLogoModule
 	],
 	exports: [
-		XzorLogoComponent
+		XzorLogoModule
 	]
 })
 export class XzorModule

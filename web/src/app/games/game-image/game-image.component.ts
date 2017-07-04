@@ -1,6 +1,8 @@
 import {animate, state, style, trigger, transition} from "@angular/animations";
 import {Component, Input} from "@angular/core";
 
+import {ImageInterface} from "../../images/image.interface";
+
 @Component({
 	selector: "game-image",
 	template: `<img [attr.src]="url" (load)="onImageLoad()">`,

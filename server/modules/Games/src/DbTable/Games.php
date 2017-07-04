@@ -90,7 +90,7 @@ class Games extends AbstractTable
 			"slug" => $game->slug,
 			"title" => $game->title,
 			"description" => $game->description,
-			"source" => $game->source,
+			"sourceName" => $game->sourceName,
 			"sourceId" => $game->sourceId
 		];
 		

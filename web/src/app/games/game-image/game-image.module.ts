@@ -1,4 +1,5 @@
 import {NgModule} from "@angular/core";
+
 import {GameImageComponent} from "./game-image.component";
 
 @NgModule({

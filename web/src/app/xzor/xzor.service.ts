@@ -23,7 +23,7 @@ export class XzorService
 		});
 	}
 
-	post(uri:string, data:string) : Promise<any> {
+	post(uri:string, data:any) : Promise<any> {
 		let url = this.url(uri);
 
 		return new Promise<any>((resolve, reject) => {

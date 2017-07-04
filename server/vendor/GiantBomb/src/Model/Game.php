@@ -27,7 +27,7 @@ class Game extends AbstractModel
 			"title" => $this->name,
 			"description" => $this->deck,
 			"coverImage" => $this->coverImage(),
-			"source" => Source::SLUG,
+			"sourceName" => Source::SLUG,
 			"sourceId" => $this->id
 		]);
 	}

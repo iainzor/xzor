@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {animate, keyframes, trigger, transition, state, style} from "@angular/animations";
 
-const animation:string = "2s ease-in-out";
+const animation:string = "1.5s ease-in-out";
 
 @Component({
 	selector: "xzor-logo",

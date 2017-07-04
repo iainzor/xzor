@@ -1,7 +1,7 @@
 <?php
 namespace UI;
 
-interface ThemeInterface
+interface ThemeInterface extends \JsonSerializable
 {
 	public function getBackground();
 	

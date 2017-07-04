@@ -1,0 +1,5 @@
+<ng-template [ngIf]="!control?.divider">
+	<i *ngIf="control?.icon" class="material-icons icon">{{control.icon}}</i>
+	<span *ngIf="control?.title" class="title">{{control.title}}</span>
+	<span *ngIf="control?.subtitle" class="subtitle">{{control.subtitle}}</span>
+</ng-template>

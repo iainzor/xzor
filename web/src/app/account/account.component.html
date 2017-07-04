@@ -1,22 +1,22 @@
 <ng-template [ngIf]="account.isValid">
-	<ui-header z="2" theme>
+	<ui-header z="2" [theme]="account.theme">
 		<div class="container">
-			<h2>{{account.name}}</h2>
-			<button (click)="signOut()">Sign Out</button>
-		</div>
-	</ui-header>
-
-	<div class="container">
-		<h1 class="display-1 text-center">Coming Soon</h1>
-	</div>
-</ng-template>
-
-<ng-template [ngIf]="!account.isValid">
-	<div class="container guest">
-		<div class="row justify-content-center">
-			<div class="col-md-6 col-lg-4">
-				<account-sign-in></account-sign-in>
+			<div class="row">
+				<div class="col">
+					<h1>{{account.name}}</h1>
+					<p class="text-muted">
+						Member since {{account.created*1000 | date : 'longDate'}},
+						last updated {{account.updated*1000 | date : 'longDate'}}
+					</p>
+				</div>
+				<div class="col col-auto">
+					<a href="#" (click)="signOut($event)" title="Sign Out">
+						<ui-icon icon="exit_to_app"></ui-icon>
+					</a>
+				</div>
 			</div>
 		</div>
-	</div>
+	</ui-header>
 </ng-template>
+
+<router-outlet></router-outlet>

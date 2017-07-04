@@ -46,15 +46,16 @@ export class GameSearchResponseComponent
 		let sourceMap:any = {};
 
 		games.forEach((game) => {
-			let key = game.source +":"+ game.sourceId;
+			let key = game.sourceName +":"+ game.sourceId;
 			sourceMap[key] = true;
 		});
 
+/*
 		for (let slug in this.sourceResponses) {
 			let sourceResponse = this.sourceResponses[slug];
 			let sourceGames:GameInterface[] = sourceResponse.results["games"] || [];
 			let filtered = sourceGames.filter((game) => {
-				let key = game.source +":"+ game.sourceId;
+				let key = game.sourceName +":"+ game.sourceId;
 				return !sourceMap[key];
 			}).map((game) => { 
 				game.theme = sourceResponse.source.theme; 
@@ -63,7 +64,7 @@ export class GameSearchResponseComponent
 			
 			games = games.concat(filtered);
 		}
-
+*/
 		return games;
 	}
 
@@ -71,20 +72,7 @@ export class GameSearchResponseComponent
 		return this.response ? this.response.sources : [];
 	}
 
-	import(e:MouseEvent, game:GameInterface) {
-		e.preventDefault();
-		
-		this.importGame = JSON.parse(JSON.stringify(game));
-		this.importGameSource = this.sourceResponses[game.source].source;
-
-		window.scrollTo(0,0);
-	}
-
 	onSourceResponse(response:SourceSearchResponse) {
 		this.sourceResponses[response.source.slug] = response;
-	}
-
-	onImportCancel() {
-		this.importGame = this.importGameSource = null;
 	}
 }

@@ -1,0 +1,17 @@
+:host {
+	display: flex;
+	align-items: center;
+	padding: 10px 15px;
+	background-color: rgba(0,0,0,.25);
+	color: #eee;
+	cursor: pointer;
+	transition: all .1s ease-in-out;
+}
+
+:host(:hover) {
+	color: #fff;
+	background-color: rgba(0,0,0,.35)
+}
+
+.icon { margin-left: -5px; }
+.icon + .title { margin-left: 5px; }

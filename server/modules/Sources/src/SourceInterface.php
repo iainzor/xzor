@@ -3,7 +3,7 @@ namespace Sources;
 
 use UI\Theme;
 
-interface SourceInterface
+interface SourceInterface extends \JsonSerializable
 {
 	public function slug() : string;
 	

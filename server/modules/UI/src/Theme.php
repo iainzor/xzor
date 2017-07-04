@@ -5,9 +5,13 @@ class Theme implements ThemeInterface
 {
 	use ThemeTrait;
 	
-	public function __construct(string $background, string $text)
+	public function __construct(string $background = null, string $text = null)
 	{
-		$this->background = $background;
-		$this->text = $text;
+		if ($background !== null) {
+			$this->background = $background;
+		}
+		if ($text !== null) {
+			$this->text = $text;
+		}
 	}
 }

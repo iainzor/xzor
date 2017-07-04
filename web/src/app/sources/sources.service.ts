@@ -45,7 +45,7 @@ export class SourcesService
 						resolve(this.createSourceService(source));
 					}
 				});
-				sub.unsubscribe();
+				setTimeout(() => { sub.unsubscribe() });
 			});
 		});
 	}

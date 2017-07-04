@@ -13,7 +13,7 @@ export class SourceGameResolver implements Resolve<GameInterface>
 	) {}
 
 	resolve(route:ActivatedRouteSnapshot) : Promise<GameInterface> {
-		let sourceSlug = route.params["source"];
+		let sourceSlug = route.params["sourceName"];
 		let sourceId = route.params["sourceId"];
 
 		return new Promise<GameInterface>((resolve, reject) => {
