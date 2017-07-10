@@ -75,8 +75,12 @@ class GameSaver implements \JsonSerializable
 		}
 		if (empty($this->game->slug)) {
 			$this->errors["slug"] = "Please provide a path for the game";
-		} else if ($this->gamesTable->isSlug($this->game->slug)) {
-			$this->errors["slug"] = "The path provided already exists";
+		} else { 
+			if (preg_match("/[^a-z0-9-_]+/i", $this->game->slug)) {
+				$this->errors["slug"] = "The path provided has invalid characters";
+			} else if ($this->gamesTable->isSlug($this->game->slug)) {
+				$this->errors["slug"] = "The path provided already exists";
+			}
 		}
 		
 		$this->isValid = empty($this->errors);

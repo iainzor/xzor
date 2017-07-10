@@ -1,0 +1,8 @@
+<ui-card [z]="1" [theme]="item.provider.theme">
+	<section>
+		<feed-item-renderer [item]="item"></feed-item-renderer>
+	</section>
+	<footer short>
+		<small>via <strong>{{item.provider.name}}</strong></small>
+	</footer>
+</ui-card>

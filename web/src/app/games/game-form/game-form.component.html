@@ -4,7 +4,8 @@
 		<div class="col-lg-8">
 			<ui-card z="1">
 				<div class="form-group" [class.has-danger]="!!errors.title">
-					<input type="text" class="form-control form-control-lg" name="title" [(ngModel)]="game.title" maxlength="64" placeholder="Game Title">
+					<label>Game Title</label>
+					<input type="text" class="form-control" name="title" [(ngModel)]="game.title" maxlength="64">
 					<div class="form-control-feedback" *ngIf="errors.title">{{errors?.title}}</div>
 				</div>
 				<div class="form-group" [class.has-danger]="!!errors.description">

@@ -1,13 +1,10 @@
 :host {
-	display: block;
+	display: flex;
+	flex-direction: column;
 	background-color: #fff;
 	color: #212121;
 	fill: #212121;
 	padding: 20px;
-}
-
-:host /deep/ > :last-child {
-	margin-bottom: 0;
 }
 
 :host /deep/ footer {
@@ -15,6 +12,10 @@
 	margin: 0 -20px;
 	padding: 20px;
 }
+:host /deep/ footer[short] {
+	padding: 10px 20px;
+}
 :host /deep/ footer:last-child {
 	margin-bottom: -20px;
+	margin-top: 5px;
 }

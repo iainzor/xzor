@@ -1,0 +1,12 @@
+<div class="row" *ngIf="feed">
+	<div class="col-md-6 col-lg-4 feed-item" *ngFor="let item of results">
+		<feed-item [item]="item"></feed-item>
+		<!--
+		<ui-card [z]="1" [theme]="item.theme">
+			<h5>
+				<a [attr.href]="item.url" target="_blank">{{item.title}}</a>
+			</h5>
+		</ui-card>
+		-->
+	</div>
+</div>

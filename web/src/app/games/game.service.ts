@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 import {ReplaySubject} from "rxjs/ReplaySubject";
 
+import {Feed} from "../feed/feed";
 import {XzorService} from "../xzor/xzor.service";
 import {GameInterface} from "./game.interface";
 
@@ -17,7 +18,7 @@ export class GameService
 	load(slug:string) : Promise<GameInterface> {
 		let promise = new Promise<GameInterface>((resolve, reject) => {
 			this.Xzor
-				.get("games/"+ slug +".json")
+				.get("g/"+ slug +".json")
 				.then((game) => { 
 					resolve(game);
 				});
@@ -25,6 +26,18 @@ export class GameService
 		promise.then((game) => { this.subject.next(game); });
 
 		return promise;
+	}
+
+	feed(slug:string) : Promise<Feed> {
+		return new Promise<Feed>((resolve) => {
+			this.Xzor
+				.get("g/"+ slug +"/feed.json")
+				.then((response) => {
+					resolve(
+						new Feed(response)
+					)
+				});
+		});
 	}
 	
 	subscribe(onNext:((game:GameInterface) => void)) : Subscription {
