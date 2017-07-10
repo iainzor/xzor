@@ -1,26 +1,16 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {ProvidersService} from "../../account/providers.service";
-import {TwitchAuthService} from "./twitch-auth.service";
-import {TwitchSignInComponent} from "./twitch-sign-in/twitch-sign-in.component";
+
+import {FeedComponentsService} from "../../feed/feed-components.service";
+import {TwitchFeedItemModule} from "./twitch-feed-item/twitch-feed-item.module";
 
 @NgModule({
 	imports: [
-		CommonModule
-	],
-	declarations: [
-		TwitchSignInComponent
-	],
-	providers: [
-		TwitchAuthService
+		TwitchFeedItemModule
 	],
 	exports: [
-		TwitchSignInComponent
+		TwitchFeedItemModule
 	]
 })
 export class TwitchModule
-{
-	constructor(Providers:ProvidersService, TwitchAuth:TwitchAuthService) {
-		Providers.registerProvider(TwitchAuth);
-	}
-}
+{}

@@ -9,6 +9,7 @@ import {AccountService} from "./account/account.service";
 import {AccountResolver} from "./account/account.resolver";
 import {ProvidersService} from "./account/providers.service";
 import {AccountModule} from "./account/account.module";
+import {FeedComponentsService} from "./feed/feed-components.service";
 import {ImagesService} from "./images/images.service";
 import {GamesModule} from "./games/games.module";
 import {AppComponent} from "./app.component";
@@ -48,6 +49,7 @@ import {XzorService} from "./xzor/xzor.service";
 		AppService,
 		AccountService,
 		AccountResolver,
+		FeedComponentsService,
 		ImagesService,
 		ProvidersService,
 		ThemesService,

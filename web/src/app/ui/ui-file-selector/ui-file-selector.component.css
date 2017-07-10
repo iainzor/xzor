@@ -12,6 +12,6 @@ label {
 	margin: 0;
 }
 
-	label .message { flex-grow: 1; }
+	label .message { flex-grow: 1; overflow: hidden; text-overflow: ellipsis; }
 	label .icon { margin-right: 10px; }
 	label .clear { margin-left: 10px; }

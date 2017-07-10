@@ -2,10 +2,20 @@
 	display: block;
 }
 
-ui-header { margin-bottom: 30px; }
+ui-header { 
+	margin-bottom: 30px; 
+	min-height: 300px;
+	background-size: 100%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+	ui-header .container {
+		overflow: hidden;
+	}
+	
 
-game-image {
-	max-height: 200px;
-	margin-bottom: 20px;
-	overflow: hidden;
+@media (max-width: 768px) {
+	ui-header {
+		background-size: auto;
+	}
 }

@@ -25,4 +25,13 @@ export class GameContainerComponent
 			this.source = service.source;
 		});
 	}
+
+	get headerStyles() : any {
+		if (this.game.coverImage) {
+			return {
+				"background-image": "url("+ this.game.coverImage +")"
+			};
+		}
+		return {};
+	}
 }

@@ -1,13 +1,35 @@
 <?php
 namespace Games;
 
-use Http\Router,
+use Core\ConfigurableModuleInterface,
+	Core\AbstractApplication,
+	Core\ModuleConfig,
+	Core\ModuleDefinition,
+	Http\Router,
 	Http\RouteProviderInterface,
 	Sources\SourceCategoryRegistry,
 	Sources\SourceCategoryProviderInterface;
 
-class Module implements RouteProviderInterface, SourceCategoryProviderInterface
+class Module implements ConfigurableModuleInterface, RouteProviderInterface, SourceCategoryProviderInterface
 {
+	public function configure(AbstractApplication $app, ModuleConfig $config) 
+	{
+		$app->di()->register(Feed\GameFeedDefinition::class, function() use ($app) {
+			$feedDef = new Feed\GameFeedDefinition();
+			
+			$app->moduleRegistry()->each(function(ModuleDefinition $moduleDef) use ($app, $feedDef) {
+				$instance = $moduleDef->instance($app);
+				
+				if ($instance instanceof Feed\GameFeedProviderInterface) {
+					$provider = $instance->generateGameFeedProvider($app->di());
+					$feedDef->addProvider($provider);
+				}
+			});
+			
+			return $feedDef;
+		});
+	}
+	
 	public function registerRoutes(Router $router) 
 	{
 		$router->when("/^games$/i")
@@ -20,7 +42,7 @@ class Module implements RouteProviderInterface, SourceCategoryProviderInterface
 			->controller("games")
 			->action("import");
 
-		$router->when("/^games\/([a-z0-9-]+)\/?([a-z0-9-]+)?$/i")
+		$router->when("/^g\/([a-z0-9-]+)\/?([a-z0-9-]+)?$/i")
 			->params([
 				1 => "slug",
 				2 => "action"

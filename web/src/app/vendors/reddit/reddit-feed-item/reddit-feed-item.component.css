@@ -1,0 +1,39 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+.post {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	z-index: 1;
+}
+
+.url {
+	display: block;
+	flex-grow: 1;
+}
+
+.details {
+	margin-bottom: 0;
+}
+
+.background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 0;
+	opacity: .15;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	transition: .2s ease-in-out;
+}
+:host(:hover) .background {
+	opacity: .35;
+}

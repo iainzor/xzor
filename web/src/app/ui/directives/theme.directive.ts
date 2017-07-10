@@ -9,7 +9,7 @@ const CUSTOM_THEME = "_CUSTOM_";
 @Directive({
 	selector: "[theme]",
 	host: {
-		"[style.background]": "_theme?.background",
+		"[style.background-color]": "_theme?.background",
 		"[style.color]": "_theme?.text",
 		"[style.transition]": "'.2s ease-in-out'"
 	}

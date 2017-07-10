@@ -12,7 +12,8 @@
         "assets",
         "favicon.ico",
         ".htaccess",
-		"api.php"
+		"api.php",
+		"manifest.json"
       ],
       "index": "index.html",
       "main": "main.ts",

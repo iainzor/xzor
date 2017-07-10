@@ -2,7 +2,9 @@
 namespace Games\Controller;
 
 use Http\Route,
-	Games\GamesLoader;
+	Games\GamesLoader,
+	Games\Feed\GameFeedDefinition,
+	Feed\Feed;
 
 class Game
 {
@@ -29,15 +31,10 @@ class Game
 		return $this->game;
 	}
 	
-	public function thumbnailAction(
-		\GiantBomb\Resource\Game $gbGame, 
-		\GiantBomb\Resource\Image $gbImage,
-		\Http\Response $response,
-		\Http\Request $request
-	)
+	public function feedAction(Feed $feed, GameFeedDefinition $definition)
 	{
-		$game = $gbGame->load($this->game->giantBombId);
+		$collector = $feed->collector($definition);
 		
-		return $gbImage->load($game->image["medium_url"]);
+		return $collector->collect($this->game->slug);
 	}
 }
