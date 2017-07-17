@@ -1,0 +1,24 @@
+:host {
+	display: block;
+	position: relative;
+}
+
+xzor-logo {
+	position: absolute;
+	left: 50%;
+	margin-left: -50px;
+	z-index: 0;
+	opacity: 0;
+	visibility: hidden;
+	transition: .2s ease-in-out;
+}
+
+xzor-logo.visible {
+	opacity: 1;
+	visibility: visible;
+}
+
+feed-quilt {
+	position: relative;
+	z-index: 1;
+}

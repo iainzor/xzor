@@ -42,13 +42,14 @@ class GameFeedCollector implements ProviderCollectorInterface
 		$items = [];
 		
 		foreach ($listing["data"]["children"] as $post) {
+			$created = $post["data"]["created_utc"];
 			$url = $post["data"]["url"];
 			$title = html_entity_decode($post["data"]["title"]);
 			$thumbnail = !empty($post["data"]["thumbnail"]) && $post["data"]["thumbnail"] !== "self"
 				? $post["data"]["thumbnail"]
 				: null;
 			
-			$items[] = new FeedItem($title, $url, [
+			$items[] = new FeedItem($created, $title, $url, [
 				"permalink" => $this->api->url($post["data"]["permalink"]),
 				"subreddit" => $post["data"]["subreddit"],
 				"upVotes" => $post["data"]["ups"],

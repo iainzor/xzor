@@ -11,6 +11,8 @@ class Games extends AbstractTable
 	
 	public function getName() : string { return self::NAME; }
 	
+	public function getModelClass(): string { return Game::class; }
+ 
 	/**
 	 * Find all games matching a search string
 	 * 

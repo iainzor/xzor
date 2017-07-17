@@ -10,6 +10,8 @@ class AccountProviders extends AbstractTable
 	
 	public function getName(): string { return self::NAME; }
 	
+	public function getModelClass() : string { return AccountProvider::class; }
+	
 	/**
 	 * Attempt to load a provider.  If a record cannot be found, a new 
 	 * instance will be created using the $name and $token

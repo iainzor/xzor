@@ -4,14 +4,16 @@ import {ProviderInterface} from "./provider.interface";
 export class FeedItem<Data> implements FeedItemInterface<Data>
 {
 	provider:ProviderInterface;
+	timestamp:number;
 	title:string;
 	url:string;
 	data:Data;
 
 	constructor(provider:ProviderInterface, item:FeedItemInterface<Data>) {
 		this.provider = provider;
-		this.title = item.title;
-		this.url = item.url;
-		this.data = item.data;
+
+		for (let key in item) {
+			this[key] = item[key];
+		}
 	}
 }

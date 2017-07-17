@@ -10,6 +10,8 @@ class GameImages extends AbstractTable
 	
 	public function getName(): string { return self::NAME; }
 	
+	public function getModelClass() : string { return GameImage::class; }
+	
 	/**
 	 * Load all cover images for the game IDs provided
 	 * 

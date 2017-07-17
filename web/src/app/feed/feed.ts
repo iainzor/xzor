@@ -16,6 +16,14 @@ export class Feed
 			results = results.concat(providerResults);
 		});
 
+		let sorted = results.sort((a:FeedItem<any>, b:FeedItem<any>) => {
+			if (a.timestamp === b.timestamp) {
+				return 0;
+			} else {
+				return a.timestamp > b.timestamp ? -1 : 1;
+			}
+		});
+
 		return results;
 	}
 }

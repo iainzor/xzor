@@ -54,9 +54,7 @@ export class PageGamesComponent implements OnInit, OnDestroy
 	
 	account:AccountInterface;
 
-	controls:UIControlInterface[] = [
-		{ icon: "add", title: "Add A Game", route: ["/games", "add"] }
-	];
+	controls:UIControlInterface[] = [];
 
     constructor(
 		private App:AppService,
@@ -75,6 +73,12 @@ export class PageGamesComponent implements OnInit, OnDestroy
 		});
 		this.accountSub = this.Account.subscribe((account) => {
 			this.account = account;
+
+			if (account.isValid) {
+				this.controls.push(
+					{ icon: "add", title: "Add A Game", route: ["/games", "add"] }
+				);
+			}
 		});
     }
 

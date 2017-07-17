@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="controls.length > 0">
 	<div class="col" *ngFor="let control of controls" [class.col-auto]="!control.divider">
 		<ng-template [ngIf]="!control.divider">
 			<a *ngIf="control.route" [routerLink]="control.route">

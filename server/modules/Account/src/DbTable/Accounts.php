@@ -11,6 +11,8 @@ class Accounts extends AbstractTable
 	
 	public function getName() : string { return self::NAME; }
 	
+	public function getModelClass() : string { return Account::class; }
+	
 	/**
 	 * Create a new account record
 	 * 
