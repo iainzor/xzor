@@ -26,7 +26,7 @@ export class GameContainerComponent
 		});
 	}
 
-	get headerStyles() : any {
+	get backgroundStyles() : any {
 		if (this.game.coverImage) {
 			return {
 				"background-image": "url("+ this.game.coverImage +")"

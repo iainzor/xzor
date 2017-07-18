@@ -23,4 +23,6 @@ class Account extends AbstractModel
 			$this->created = time();
 		}
 	}
+	
+	public function getPrimaryKeys() : array { return ["id"]; }
 }

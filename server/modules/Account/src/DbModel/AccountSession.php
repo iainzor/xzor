@@ -34,4 +34,6 @@ class AccountSession extends AbstractModel
 			$this->created = time();
 		}
 	}
+	
+	public function getPrimaryKeys() : array { return ["id"]; }
 }

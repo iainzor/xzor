@@ -1,5 +1,5 @@
 <div class="row" *ngIf="feed">
-	<div class="col-md-6 col-lg-4 feed-item" *ngFor="let item of results">
+	<div class="col-md-6 col-lg-4 feed-item" *ngFor="let item of items" [@feedItem]="">
 		<feed-item [item]="item"></feed-item>
 	</div>
 </div>
