@@ -10,6 +10,8 @@ class GameThemes extends AbstractTable
 	
 	public function getName(): string { return self::NAME; }
 	
+	public function getModelClass() : string { return GameTheme::class; }
+	
 	public function loadGameThemes(array $gameIds) : array
 	{
 		if (empty($gameIds)) {

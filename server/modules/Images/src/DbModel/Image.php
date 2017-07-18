@@ -9,6 +9,8 @@ class Image extends AbstractModel
 	public $slug;
 	public $data;
 	
+	public function getPrimaryKeys() : array { return ["id"]; }
+	
 	public function url() : string
 	{
 		return "img/". $this->slug .".png";

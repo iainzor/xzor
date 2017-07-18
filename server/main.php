@@ -21,6 +21,7 @@ require_once $httpRoot . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "Ap
 $app = new Http\Application();
 $modules = $app->moduleRegistry();
 $modules->registerAll($blissRoot . DIRECTORY_SEPARATOR . "modules", [
+	"Cache",
 	"Common",
 	"Core",
 	"Database",

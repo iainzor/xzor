@@ -1,20 +1,17 @@
 <ng-template [ngIf]="!!game">
-	<ui-header z="1" [theme]="game.theme" [ngStyle]="headerStyles">
+	<ui-header z="1" [theme]="game.theme" [ngStyle]="backgroundStyles">
 		<div class="container">
 			<ui-card class="header" [theme]="game.theme">
 				<h1>{{game.title}}</h1>
 				<p class="lead">{{game.description}}</p>
-				<p *ngIf="source">
-					<small>
-						Data provided by 
-						<a [routerLink]="['/sources', source.slug]">{{source.name}}</a>
-					</small>
-				</p>
 			</ui-card>
 		</div>
 	</ui-header>
 
-	<div class="container">
-		<ng-content></ng-content>
+	<div class="content">
+		<div class="container">
+			<ng-content></ng-content>
+		</div>
 	</div>
+	
 </ng-template>

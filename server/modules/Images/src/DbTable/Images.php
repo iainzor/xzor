@@ -8,6 +8,8 @@ class Images extends AbstractTable
 {
 	public function getName(): string { return "images"; }
 	
+	public function getModelClass() : string { return Image::class; }
+	
 	/**
 	 * @return string
 	 */

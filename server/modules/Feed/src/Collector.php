@@ -1,12 +1,14 @@
 <?php
 namespace Feed;
 
+use Cache\Cache;
+
 class Collector
 {
 	/**
-	 * @var Feed
+	 * @var Cache
 	 */
-	private $feed;
+	private $cache;
 	
 	/**
 	 * @var DefinitionInterface
@@ -16,12 +18,12 @@ class Collector
 	/**
 	 * Constructor
 	 * 
-	 * @param \Feed\Feed $feed
+	 * @param \Cache\Cache $cache
 	 * @param \Feed\DefinitionInterface $definition
 	 */
-	public function __construct(Feed $feed, FeedDefinitionInterface $definition)
+	public function __construct(Cache $cache, FeedDefinitionInterface $definition)
 	{
-		$this->feed = $feed;
+		$this->cache = $cache;
 		$this->definition = $definition;
 	}
 	
@@ -38,10 +40,15 @@ class Collector
 		$collection = new Collection();
 		
 		foreach ($providers as $provider) {
-			$collection->addResults(
-				$provider,
-				$provider->getCollector()->collect($resourceId)
-			);
+			$cacheKey = $this->definition->getName() ."-". $provider->getName() ."-". $resourceId;
+			$results = $this->cache->get($cacheKey);
+			
+			if (!$results) {
+				$results = $provider->getCollector()->collect($resourceId);
+				$this->cache->put($cacheKey, $results);
+			}
+			
+			$collection->addResults($provider, $results);
 		}
 		
 		return $collection;

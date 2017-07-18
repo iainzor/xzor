@@ -7,10 +7,12 @@ import {GameService} from "../game.service";
 
 @Component({
 	selector: "game-feed",
-	templateUrl: "./game-feed.component.html"
+	templateUrl: "./game-feed.component.html",
+	styleUrls: ["./game-feed.component.css"]
 })
 export class GameFeedComponent
 {
+	loading:boolean = false;
 	game:GameInterface;
 	feed:Feed;
 
@@ -18,8 +20,10 @@ export class GameFeedComponent
 
 	@Input("game") set _game(game:GameInterface) {
 		this.game = game;
+		this.loading = true;
 		this.Game.feed(game.slug).then((feed) => {
 			this.feed = feed;
+			this.loading = false;
 		});
 	}
 }

@@ -4,6 +4,11 @@ namespace Feed;
 interface FeedDefinitionInterface
 {
 	/**
+	 * @return string
+	 */
+	public function getName() : string;
+	
+	/**
 	 * @param \Feed\ProviderDefinitionInterface $provider
 	 */
 	public function addProvider(ProviderDefinitionInterface $provider);

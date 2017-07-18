@@ -3,7 +3,8 @@ namespace Twitch\Feed;
 
 use Feed\ProviderCollectorInterface,
 	Feed\FeedItem,
-	Games\GamesLoader,
+	Games\DbTable\Games,
+	Games\DbTable\GameSettings,
 	Twitch\Api;
 
 class GameFeedCollector implements ProviderCollectorInterface
@@ -14,37 +15,54 @@ class GameFeedCollector implements ProviderCollectorInterface
 	private $api;
 	
 	/**
-	 * @var \Games\GamesLoader
+	 * @var \Games\DbTable\Games
 	 */
-	private $gamesLoader;
+	private $games;
+	
+	/**
+	 * @var \Games\DbTable\GameSettings
+	 */
+	private $gameSettings;
 	
 	/**
 	 * Constructor
 	 * 
 	 * @param Api $api
-	 * @param GamesLoader $gamesLoader
+	 * @param \Games\DbTable\Games $games
+	 * @param \Games\DbTable\GameSettings $gameSettings
 	 */
-	public function __construct(Api $api, GamesLoader $gamesLoader) 
+	public function __construct(Api $api, Games $games, GameSettings $gameSettings) 
 	{
 		$this->api = $api;
-		$this->gamesLoader = $gamesLoader;
+		$this->games = $games;
+		$this->gameSettings = $gameSettings;
 	}
 	
 	public function collect(string $resourceId = null) : array 
 	{
-		$game = $this->gamesLoader->load($resourceId);
-		$response = $this->api->get("streams.json", [
-			"game" => $game->slug
-		]);
-		$streams = isset($response["streams"]) ? $response["streams"] : [];
+		$game = $this->games->find($resourceId);
+		$settings = $this->gameSettings->findForGame($game);
+		$gameName = $settings->get(FeedSettings::GAME_NAME);
 		$items = [];
 		
-		foreach ($streams as $stream) {
-			$items[] = new FeedItem($stream["channel"]["status"], $stream["channel"]["url"], [
-				"displayName" => $stream["channel"]["display_name"],
-				"preview" => $stream["preview"],
-				"viewers" => $stream["viewers"]
+		if ($gameName) {
+			$response = $this->api->get("streams.json", [
+				"game" => $game->slug
 			]);
+			$streams = isset($response["streams"]) ? $response["streams"] : [];
+
+
+			foreach ($streams as $stream) {
+				$created = strtotime($stream["created_at"]);
+				$title = $stream["channel"]["status"];
+				$url = $stream["channel"]["url"];
+
+				$items[] = new FeedItem($created, $title, $url, [
+					"displayName" => $stream["channel"]["display_name"],
+					"preview" => $stream["preview"],
+					"viewers" => $stream["viewers"]
+				]);
+			}
 		}
 		
 		return $items;

@@ -3,7 +3,8 @@ namespace Reddit\Feed;
 
 use Feed\ProviderCollectorInterface,
 	Feed\FeedItem,
-	Games\GamesLoader,
+	Games\DbTable\Games,
+	Games\DbTable\GameSettings,
 	Reddit\Api;
 
 class GameFeedCollector implements ProviderCollectorInterface
@@ -14,19 +15,25 @@ class GameFeedCollector implements ProviderCollectorInterface
 	private $api;
 	
 	/**
-	 * @var \Games\GamesLoader
+	 * @var \Games\DbTable\Games
 	 */
-	private $gamesLoader;
+	private $games;
+	
+	/**
+	 * @var \Games\DbTable\GameSettings
+	 */
+	private $gameSettings;
 	
 	/**
 	 * Constructor
 	 * 
 	 * @param \Reddit\Api $api
 	 */
-	public function __construct(Api $api, GamesLoader $gamesLoader)
+	public function __construct(Api $api, Games $games, GameSettings $gameSettings)
 	{
 		$this->api = $api;
-		$this->gamesLoader = $gamesLoader;
+		$this->games = $games;
+		$this->gameSettings = $gameSettings;
 	}
 	
 	/**
@@ -37,26 +44,32 @@ class GameFeedCollector implements ProviderCollectorInterface
 	 */
 	public function collect(string $resourceId = null) : array
 	{
-		$game = $this->gamesLoader->load($resourceId);
-		$listing = $this->api->get("/r/". $game->slug ."/hot.json");
+		$game = $this->games->find($resourceId);
+		$settings = $this->gameSettings->findForGame($game);
+		$subreddit = $settings->get(FeedSettings::SUBREDDIT_NAME);
 		$items = [];
 		
-		foreach ($listing["data"]["children"] as $post) {
-			$url = $post["data"]["url"];
-			$title = html_entity_decode($post["data"]["title"]);
-			$thumbnail = !empty($post["data"]["thumbnail"]) && $post["data"]["thumbnail"] !== "self"
-				? $post["data"]["thumbnail"]
-				: null;
+		if (!empty($subreddit)) {
+			$listing = $this->api->get("/r/". $subreddit ."/hot.json");
 			
-			$items[] = new FeedItem($title, $url, [
-				"permalink" => $this->api->url($post["data"]["permalink"]),
-				"subreddit" => $post["data"]["subreddit"],
-				"upVotes" => $post["data"]["ups"],
-				"downVotes" => $post["data"]["downs"],
-				"score" => $post["data"]["score"],
-				"comments" => $post["data"]["num_comments"],
-				"thumbnail" => $thumbnail
-			]);
+			foreach ($listing["data"]["children"] as $post) {
+				$created = $post["data"]["created_utc"];
+				$url = $post["data"]["url"];
+				$title = html_entity_decode($post["data"]["title"]);
+				$thumbnail = !empty($post["data"]["thumbnail"]) && $post["data"]["thumbnail"] !== "self"
+					? $post["data"]["thumbnail"]
+					: null;
+
+				$items[] = new FeedItem($created, $title, $url, [
+					"permalink" => $this->api->url($post["data"]["permalink"]),
+					"subreddit" => $post["data"]["subreddit"],
+					"upVotes" => $post["data"]["ups"],
+					"downVotes" => $post["data"]["downs"],
+					"score" => $post["data"]["score"],
+					"comments" => $post["data"]["num_comments"],
+					"thumbnail" => $thumbnail
+				]);
+			}
 		}
 		
 		return $items;

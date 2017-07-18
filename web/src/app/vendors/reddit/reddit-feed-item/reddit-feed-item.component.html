@@ -5,17 +5,15 @@
 		</h5>
 	</a>
 	<p class="details">
-		<small>
-			<a target="_blank" [attr.href]="'https://www.reddit.com/r/'+ item.data.subreddit">
-				/r/{{item.data.subreddit}}
-			</a>
-			-
-			<a target="_blank" [attr.href]="item.data.permalink" [ngPlural]="item.data.comments">
-				<ng-template ngPluralCase="=0">No comments</ng-template>
-				<ng-template ngPluralCase="=1">1 comment</ng-template>
-				<ng-template ngPluralCase="other">{{item.data.comments}} comments</ng-template>
-			</a>
-		</small>
+		<a target="_blank" [attr.href]="'https://www.reddit.com/r/'+ item.data.subreddit">
+			/r/{{item.data.subreddit}}
+		</a>
+		-
+		<a target="_blank" [attr.href]="item.data.permalink" [ngPlural]="item.data.comments">
+			<ng-template ngPluralCase="=0">No comments</ng-template>
+			<ng-template ngPluralCase="=1">1 comment</ng-template>
+			<ng-template ngPluralCase="other">{{item.data.comments}} comments</ng-template>
+		</a>
 	</p>
 </div>
 <div class="background" [ngStyle]="backgroundStyles"></div>
