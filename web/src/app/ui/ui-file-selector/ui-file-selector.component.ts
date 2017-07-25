@@ -1,12 +1,13 @@
-import {Component, Input, Output, EventEmitter} from "@angular/core";
+import {Component, Input, Output, EventEmitter, ElementRef, OnInit} from "@angular/core";
 
 @Component({
 	selector: "ui-file-selector",
 	templateUrl: "./ui-file-selector.component.html",
 	styleUrls: ["./ui-file-selector.component.css"]
 })
-export class UIFileSelectorComponent
+export class UIFileSelectorComponent implements OnInit
 {
+	fileId:string = "file";
 	file:File;
 	imageData:string;
 	percent:number = 0;
@@ -14,7 +15,14 @@ export class UIFileSelectorComponent
 	@Input() accept:string[] = ["*"];
 	@Output() data:EventEmitter<string> = new EventEmitter<string>();
 	@Output() selected:EventEmitter<File> = new EventEmitter<File>();
+	@Output() clear:EventEmitter<any> = new EventEmitter<any>();
+
+	constructor(private ElRef:ElementRef) {}
 	
+	ngOnInit() {
+		this.fileId = "file"+ Math.round(Math.random() * Date.now());
+	}
+
 	onFileChange(e:Event) {
 		let files:FileList = e.target["files"];
 		if (files.length > 0) {
@@ -44,11 +52,17 @@ export class UIFileSelectorComponent
 		});
 	}
 
-	clear(e:MouseEvent) {
+	clearFile(e:MouseEvent) {
 		e.preventDefault();
 		this.imageData = null;
 		this.file = null;
 		this.percent = 0;
 		this.data.emit(null);
+		this.clear.emit();
+
+		let el:HTMLElement = this.ElRef.nativeElement;
+		let file:HTMLInputElement = el.querySelector("#"+ this.fileId) as HTMLInputElement;
+
+		file.value = null;
 	}
 }

@@ -1,7 +1,3 @@
 <image-uploader (image)="onImage($event)"></image-uploader>
 
-<game-image z="1" *ngIf="image" [url]="image.url"></game-image>
-
-<!--
-<ui-uploader (data)="onImageData($event)" [accept]="['image/*']" target="img/upload"></ui-uploader>
--->
+<game-image z="1" *ngIf="image?.url" [url]="image.url"></game-image>

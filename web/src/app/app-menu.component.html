@@ -1,0 +1,65 @@
+<header>
+	<ul class="left">
+		<li class="menu" [class.open]="open">
+			<a href="#" (click)="toggle($event)">
+				<span class="icon">
+					<i class="material-icons open-menu">menu</i>
+					<i class="material-icons close-menu">close</i>
+				</span>
+			</a>
+			<ul *ngIf="open" z="5" [@menu]="" [theme]="account?.theme">
+				<li>
+					<a routerLink="/games" routerLinkActive="active">
+						<i class="material-icons">videogame_asset</i>
+						<span>Games</span>
+					</a>
+				</li>
+				<li>
+					<a routerLink="/people" routerLinkActive="active">
+						<i class="material-icons">person</i>
+						<span>People</span>
+					</a>
+				</li>
+				<li>
+					<a routerLink="/teams" routerLinkActive="active">
+						<i class="material-icons">group</i>
+						<span>Teams</span>
+					</a>
+				</li>
+				<!--
+				<li>
+					<a routerLink="/sources" routerLinkActive="active">
+						<i class="material-icons">store</i>
+						<span>Sources</span>
+					</a>
+				</li>
+				-->
+			</ul>
+		</li>
+	</ul>
+	<ul class="center">
+		<li>
+			<a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+				<xzor-logo size="60" [spinning]="loading"></xzor-logo>
+			</a>
+		</li>
+	</ul>
+	<ul class="right">
+		<ng-template [ngIf]="account">
+			<li *ngIf="account.isValid">
+				<a [routerLink]="['/account']" routerLinkActive="active">
+					<i class="material-icons">face</i>
+				</a>
+			</li>
+			<li *ngIf="!account.isValid">
+				<a [routerLink]="['/account', 'sign-in']" routerLinkActive="active">
+					<i class="material-icons">face</i>
+				</a>
+			</li>
+		</ng-template>
+	</ul>
+</header>
+
+<div class="notifications">
+	<ui-notification *ngFor="let n of notifications" [@notify]="" [notification]="n" [z]="2"></ui-notification>
+</div>

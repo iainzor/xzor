@@ -1,5 +1,6 @@
 <?php
 $start = microtime(true);
+$debugMode = (bool) filter_input(INPUT_GET, "_DEBUG_MODE_");
 $dir = __DIR__;
 $i = 0;
 while (!is_dir($dir . DIRECTORY_SEPARATOR . "Bliss")) {
@@ -36,35 +37,35 @@ $app->config()->load([
 	dirname(__DIR__) . DIRECTORY_SEPARATOR . "private" . DIRECTORY_SEPARATOR . "config.php"
 ]);
 
+$uri = trim(
+	filter_input(INPUT_SERVER, "PATH_INFO"),
+	"/"
+);
+
+$exception = null;
 try {
-	ob_start();
-	
-	$uri = trim(
-		filter_input(INPUT_SERVER, "PATH_INFO"),
-		"/"
-	);
 	$app->run($uri);
-	$result = ob_get_clean();
-	$end = microtime(true);
-	$totalTime = $end - $start;
-	
-	if (isset($_GET["_stats_"])) {
-		echo "Time:\t". $totalTime ."ms\n";
-		echo "Memory Used:\t". (memory_get_peak_usage() / 1024) ."kb";
-		exit;
+} catch (Throwable $e) {
+	$exception = $e;
+	if (!$debugMode) {
+		throw $e;
 	}
+}
+
+if ($debugMode) {
+	$end = microtime(true);
+	$totalTime = number_format($end - $start, 4);
 	
-	echo $result;
-} catch (Error $e) {
-	header("Content-type: text/html");
+	header("Content-Type: text/plain");
 	
-	echo "<h1>Oops...</h1>";
-	echo "<h4>". $e->getMessage() ."</h4>";
-	echo "<pre>";
-	echo $e->getTraceAsString();
-	echo "</pre>";
-	
-	echo "<pre>";
-	echo "Memory Used:\t". (memory_get_usage() / 1024) ."kb";
-	echo "</pre>";
+	if ($exception) {
+		echo "==================\n";
+		echo "EXCEPTION: ". $exception->getMessage() ."\n";
+		echo "TRACE:\n";
+		echo $exception->getTraceAsString() ."\n";
+		echo "==================\n\n";
+	}
+	echo "Time:\t". $totalTime ."ms\n";
+	echo "Memory Used:\t". (memory_get_peak_usage() / 1024) ."kb";
+	exit;
 }

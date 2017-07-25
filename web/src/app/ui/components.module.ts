@@ -10,6 +10,7 @@ import {UIColorPickerModule} from "./ui-color-picker/ui-color-picker.module";
 import {UIControlsModule} from "./ui-controls/ui-controls.module";
 import {UIHeaderComponent} from "./ui-header/ui-header.component";
 import {UIIconComponent} from "./ui-icon/ui-icon.component";
+import {UINotificationModule} from "./ui-notification/ui-notification.module";
 import {UIFileSelectorModule} from "./ui-file-selector/ui-file-selector.module";
 import {UIThemeEditorModule} from "./ui-theme-editor/ui-theme-editor.module";
 
@@ -31,6 +32,7 @@ let COMPONENTS = [
 		UIColorPickerModule,
 		UIControlsModule,
 		UIFileSelectorModule,
+		UINotificationModule,
 		UIThemeEditorModule
 	],
 	declarations: [
@@ -42,6 +44,7 @@ let COMPONENTS = [
 		UIColorPickerModule,
 		UIControlsModule,
 		UIFileSelectorModule,
+		UINotificationModule,
 		UIThemeEditorModule,
 		
 		...COMPONENTS

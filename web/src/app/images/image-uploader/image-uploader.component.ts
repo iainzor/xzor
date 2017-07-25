@@ -26,4 +26,8 @@ export class ImageUploaderComponent
 			this.uploading = false;
 		});
 	}
+
+	onFileClear() {
+		this.image.emit(null);
+	}
 }

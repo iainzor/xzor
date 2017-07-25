@@ -1,6 +1,6 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {NgModule} from "@angular/core";
+import {NgModule, ErrorHandler} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {RouterModule} from "@angular/router";
@@ -11,10 +11,12 @@ import {ProvidersService} from "./account/providers.service";
 import {AccountModule} from "./account/account.module";
 import {FeedComponentsService} from "./feed/feed-components.service";
 import {ImagesService} from "./images/images.service";
+import {NotificationsService} from "./notifications/notifications.service";
 import {GamesModule} from "./games/games.module";
 import {AppComponent} from "./app.component";
-import {AppNavComponent} from "./app-nav.component";
+import {AppMenuComponent} from "./app-menu.component";
 import {AppService} from "./app.service";
+import {AppErrorHandler} from "./app-error-handler";
 import {ThemesService} from "./ui/themes.service";
 import {UIModule} from "./ui/ui.module";
 import {VendorsModule} from "./vendors/vendors.module";
@@ -24,7 +26,7 @@ import {XzorService} from "./xzor/xzor.service";
 @NgModule({
 	declarations: [
 		AppComponent,
-		AppNavComponent
+		AppMenuComponent
 	],
 	imports: [
 		BrowserModule,
@@ -36,7 +38,8 @@ import {XzorService} from "./xzor/xzor.service";
 			{ path: "account", loadChildren: "./account/account.module#AccountModule", resolve: { account: AccountResolver } },
 			{ path: "games", loadChildren: "./games/games.module#GamesModule" },
 			{ path: "g/:slug", loadChildren: "./games/game.module#GameModule" },
-			{ path: "players", loadChildren: "./players/players.module#PlayersModule" },
+			{ path: "people", loadChildren: "./people/people.module#PeopleModule" },
+			{ path: "p/:slug", loadChildren: "./people/person.module#PersonModule" },
 			{ path: "teams", loadChildren: "./teams/teams.module#TeamsModule" },
 			{ path: "sources", loadChildren: "./sources/sources.module#SourcesModule" }
 		]),
@@ -47,13 +50,16 @@ import {XzorService} from "./xzor/xzor.service";
 	],
 	providers: [
 		AppService,
+		AppErrorHandler,
 		AccountService,
 		AccountResolver,
 		FeedComponentsService,
 		ImagesService,
+		NotificationsService,
 		ProvidersService,
 		ThemesService,
-		XzorService
+		XzorService,
+		{ provide: ErrorHandler, useClass: AppErrorHandler }
 	],
 	bootstrap: [AppComponent]
 })

@@ -2,6 +2,8 @@
 namespace UI\DbTable;
 
 use Database\Driver\MySQL\AbstractTable,
+	Database\Query\QueryParams,
+	Database\Query\QueryExpr,
 	UI\ThemeInterface,
 	UI\Theme;
 
@@ -54,5 +56,31 @@ abstract class AbstractThemeTable extends AbstractTable
 			"background",
 			"text"
 		]);
+	}
+	
+	public function attachToAll(array $objects)
+	{
+		$column = $this->getIdColumnName();
+		$ids = [];
+		$map = [];
+		foreach ($objects as $object) {
+			if (is_object($object) && !empty($object->id)) {
+				$ids[] = $this->db->quote($object->id);
+				$map[$object->id] = $object;
+			}
+		}
+		
+		if (count($ids) > 0) {
+			$expr = new QueryExpr("`{$column}` IN (". implode(",", $ids) .")");
+			$themes = $this->fetchAll(new QueryParams([
+				$expr
+			]));
+			
+			foreach ($themes as $theme) {
+				if (isset($map[$theme->{$column}])) {
+					$map[$theme->{$column}]->theme = $theme;
+				}
+			}
+		}
 	}
 }

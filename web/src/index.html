@@ -7,16 +7,53 @@
 	<base href="/">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="mobile-web-app-capable" content="yes">
 
 	<link rel="manifest" href="./manifest.json">
+	<link rel="icon" sizes="192x192" href="assets/icons/192x192.png">
 	<link rel="icon" type="image/png" href="assets/icons/48x48.png">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
+	<style>
+		#preload {
+			animation-duration: 1s;
+			animation-name: pulse;
+			animation-direction: alternate;
+			animation-iteration-count: infinite;
+			animation-timing-function: ease-in-out;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			margin-left: -100px;
+			margin-top: -100px;
+			width: 200px;
+			height: 200px;
+			border-radius: 100px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: #fff;
+		}
+
+		@keyframes pulse {
+			from {
+				transform: scale(1);
+			}
+
+			to {
+				transform: scale(.9);
+			}
+		}
+	</style>
 	<script src="https://apis.google.com/js/platform.js"></script>
 </head>
 
 <body>
-	<app-root>Loading...</app-root>
+	<app-root>
+		<div id="preload">
+			<img src="/assets/icons/192x192.png">
+		</div>
+	</app-root>
 </body>
 
 </html>

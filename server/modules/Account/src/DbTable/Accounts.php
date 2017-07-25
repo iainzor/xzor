@@ -2,7 +2,7 @@
 namespace Account\DbTable;
 
 use Account\DbModel\Account,
-	Account\DbModel\AccountService,
+	Database\Query\QueryParams,
 	Database\Driver\MySQL\AbstractTable;
 
 class Accounts extends AbstractTable
@@ -80,5 +80,34 @@ class Accounts extends AbstractTable
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * @return Account[]
+	 */
+	public function fetchPublicProfiles() : array
+	{
+		return $this->fetchAll(new QueryParams([
+			"isPublic" => true
+		]));
+	}
+	
+	/**
+	 * @param string $slug
+	 * @return Account
+	 * @throws \Exception
+	 */
+	public function fetchPublicProfile(string $slug) : Account
+	{
+		$account = $this->fetch(new QueryParams([
+			"isPublic" => true,
+			"slug" => $slug
+		]));
+		
+		if (!$account) {
+			throw new \Exception("Profile could not be found", 404);
+		}
+		
+		return $account;
 	}
 }
