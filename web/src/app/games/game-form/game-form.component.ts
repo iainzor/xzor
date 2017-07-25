@@ -2,13 +2,15 @@ import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {Router} from "@angular/router";
 
 import {environment} from "../../../environments/environment";
+import {ImageInterface} from "../../images/image.interface";
 import {SourceInterface} from "../../sources/source.interface";
 import {GameInterface} from "../game.interface";
 import {GamesService} from "../games.service";
 
 @Component({
 	selector: "game-form",
-	templateUrl: "./game-form.component.html"
+	templateUrl: "./game-form.component.html",
+	styleUrls: ["./game-form.component.css"]
 })
 export class GameFormComponent
 {
@@ -37,6 +39,16 @@ export class GameFormComponent
 				this.Router.navigate(["/g", this.game.slug]);
 			}
 		});
+	}
+
+	onImageChange(image?:ImageInterface) {
+		if (image) {
+			this.game.coverImage = image.url;
+		} else {
+			this.game.coverImage = null;
+		}
+
+		this.gameChange.emit(this.game);
 	}
 
 	cancelImport(e:MouseEvent) {

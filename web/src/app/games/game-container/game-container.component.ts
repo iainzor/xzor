@@ -26,6 +26,12 @@ export class GameContainerComponent
 		});
 	}
 
+	get backgroundImage() : string {
+		return this.game.coverImage
+			? "url("+ this.game.coverImage +")"
+			: null;
+	}
+
 	get backgroundStyles() : any {
 		if (this.game.coverImage) {
 			return {

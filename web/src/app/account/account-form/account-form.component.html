@@ -1,44 +1,49 @@
 <form (ngSubmit)="submit()">
 	<ui-card z="1">
-		<div class="form-group" [class.has-danger]="!!errors.name">
-			<label>Display Name</label>
-			<input type="text" name="name" [(ngModel)]="account.name" class="form-control" required>
-			<p class="form-control-feedback" *ngIf="!!errors.name">
-				{{errors.name}}
-			</p>
-		</div>
-		
-		<div class="form-group">
-			<label>Profile Theme</label>
-			<ui-theme-editor [(model)]="account.theme"></ui-theme-editor>
-		</div>
-		
-		<div class="form-group" [class.has-danger]="!!errors.slug">
-			<label>Public Profile Settings</label>
-			<div class="form-check">
-				<label class="form-check-label">
-					<input type="checkbox" class="form-check-input" name="isPublic" [(ngModel)]="account.isPublic">
-					Allow other users to view my profile
-				</label>
-			</div>
-			<ng-template [ngIf]="account.isPublic">
-				<div class="input-group">
-					<div class="input-group-addon">
-						/u/
-					</div>
-					<input type="text" name="slug" [(ngModel)]="account.slug" class="form-control" required>
+		<div class="row">
+			<div class="col-md-8">
+				<div class="form-group" [class.has-danger]="!!errors.name">
+					<label>Display Name</label>
+					<input type="text" name="name" [(ngModel)]="account.name" class="form-control" required>
+					<p class="form-control-feedback" *ngIf="!!errors.name">
+						{{errors.name}}
+					</p>
 				</div>
-				<small class="text-muted form-text">
-					If provided, this will be the direct URL to your public profile.
-				</small>
-				<p class="form-control-feedback" *ngIf="!!errors.slug">
-					{{errors.slug}}
-				</p>
-			</ng-template>
-		</div>
 
+				<div class="form-group" [class.has-danger]="!!errors.slug">
+					<label>Public Profile Settings</label>
+					<div class="form-check">
+						<label class="form-check-label">
+							<input type="checkbox" class="form-check-input" name="isPublic" [(ngModel)]="account.isPublic">
+							Allow other users to view my profile
+						</label>
+					</div>
+					<ng-template [ngIf]="account.isPublic">
+						<div class="input-group">
+							<div class="input-group-addon">
+								/u/
+							</div>
+							<input type="text" name="slug" [(ngModel)]="account.slug" class="form-control" required>
+						</div>
+						<small class="text-muted form-text">
+							If provided, this will be the direct URL to your public profile.
+						</small>
+						<p class="form-control-feedback" *ngIf="!!errors.slug">
+							{{errors.slug}}
+						</p>
+					</ng-template>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label>Theme</label>
+					<ui-theme-editor [(model)]="account.theme"></ui-theme-editor>
+				</div>
+			</div>
+		</div>
+		
 		<footer>
-			<input type="submit" class="btn btn-primary" value="Save Changes">
+			<ui-button value="Save Changes"></ui-button>
 		</footer>
 	</ui-card>
 </form>

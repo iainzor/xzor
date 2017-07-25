@@ -1,10 +1,12 @@
 <ui-header>
 	<div class="container">
-		<game-search [(q)]="q"></game-search>
+		<h1 class="display-4">Games</h1>
 	</div>
 </ui-header>
 
 <div class="container">
+	<game-search [(q)]="q"></game-search>
+
 	<ui-controls [controls]="controls"></ui-controls>
 
 	<game-search-response *ngIf="response"

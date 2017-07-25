@@ -1,56 +1,51 @@
 <form #form="ngForm" (ngSubmit)="submit(form)">
 	<input type="submit" hidden>
-	<div class="row">
-		<div class="col-lg-8">
-			<ui-card z="1">
-				<div class="form-group" [class.has-danger]="!!errors.title">
-					<label>Game Title</label>
-					<input type="text" class="form-control" name="title" [(ngModel)]="game.title" maxlength="64">
-					<div class="form-control-feedback" *ngIf="errors.title">{{errors?.title}}</div>
-				</div>
-				<div class="form-group" [class.has-danger]="!!errors.description">
-					<label>Description</label>
-					<textarea class="form-control" rows="3" name="description" [(ngModel)]="game.description" maxlength="512"></textarea>
-					<div class="form-control-feedback" *ngIf="errors.description">{{errors?.description}}</div>
-				</div>
-				<div class="form-group" [class.has-danger]="!!errors.slug">
-					<label>Permalink</label>
-					<div class="input-group">
-						<span class="input-group-addon">/g/</span>
-						<input type="text" class="form-control" name="slug" [(ngModel)]="game.slug" autocomplete="off" maxlength="32">
-					</div>
-					<small class="form-text text-muted">
-						This will be the permanent URL to the game. Please only use alphanumeric
-						characters <code>a-z 0-9</code>, hyphens <code>-</code>, and underscores <code>_</code>
-					</small>
-					<div class="form-control-feedback" *ngIf="errors.slug">{{errors?.slug}}</div>
-				</div>
-
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
-							<label>Cover Image</label>
-							<game-image-editor [url]="game.coverImage" (imageChange)="game.coverImage = $event.url;"></game-image-editor>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<ui-theme-editor [(model)]="game.theme"></ui-theme-editor>
-					</div>
-				</div>
-				
-				<footer class="text-right">
-					<ui-button value="Cancel" (click)="cancelImport($event)"></ui-button>
-					<ui-button value="Import"></ui-button>
-				</footer>
-			</ui-card>
+	
+	<ui-card z="1">
+		<div class="form-group" [class.has-danger]="!!errors.title">
+			<label>Game Title</label>
+			<input type="text" class="form-control" name="title" [(ngModel)]="game.title" maxlength="64">
+			<div class="form-control-feedback" *ngIf="errors.title">{{errors?.title}}</div>
 		</div>
-		<div class="col-md-4 col-sm-6">
-			<ui-card z="1">
+		<div class="form-group" [class.has-danger]="!!errors.description">
+			<label>Description</label>
+			<textarea class="form-control" rows="3" name="description" [(ngModel)]="game.description" maxlength="512"></textarea>
+			<div class="form-control-feedback" *ngIf="errors.description">{{errors?.description}}</div>
+		</div>
+		<div class="form-group" [class.has-danger]="!!errors.slug">
+			<label>Permalink</label>
+			<div class="input-group">
+				<span class="input-group-addon">/g/</span>
+				<input type="text" class="form-control" name="slug" [(ngModel)]="game.slug" autocomplete="off" maxlength="32">
+			</div>
+			<small class="form-text text-muted">
+				This will be the permanent URL to the game. Please only use alphanumeric
+				characters <code>a-z 0-9</code>, hyphens <code>-</code>, and underscores <code>_</code>
+			</small>
+			<div class="form-control-feedback" *ngIf="errors.slug">{{errors?.slug}}</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
 				<div class="form-group">
+					<label>Theme</label>
+					<ui-theme-editor [(model)]="game.theme"></ui-theme-editor>
+				</div>
+				<div class="form-group">
+					<label>Cover Image</label>
+					<game-image-editor [url]="game.coverImage" (imageChange)="onImageChange($event)"></game-image-editor>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group" *ngIf="game.title">
 					<label>Preview</label>
 					<game-tile [game]="game" z="2"></game-tile>
 				</div>
-			</ui-card>
+			</div>
 		</div>
-	</div>
+		
+		<footer>
+			<ui-button value="Save Game"></ui-button>
+		</footer>
+	</ui-card>
 </form>

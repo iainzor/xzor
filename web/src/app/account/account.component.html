@@ -3,8 +3,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col">
-					<h1>{{account.name}}</h1>
-					<p class="text-muted">
+					<h1 class="display-4">{{account.name}}</h1>
+					<p class="lead">
 						Member since {{account.created*1000 | date : 'longDate'}},
 						last updated {{account.updated*1000 | date : 'longDate'}}
 					</p>

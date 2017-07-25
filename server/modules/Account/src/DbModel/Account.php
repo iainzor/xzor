@@ -12,6 +12,7 @@ class Account extends AbstractModel
 	public $updated;
 	public $isValid = false;
 	public $isPublic = false;
+	public $theme;
 	
 	public function __construct(array $properties = array(), array $map = array()) {
 		parent::__construct($properties, $map);

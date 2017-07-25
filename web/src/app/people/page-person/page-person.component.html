@@ -1,0 +1,9 @@
+<ui-header [theme]="person.theme">
+	<div class="container">
+		<h1 class="display-4">{{person.name}}</h1>
+		<p class="lead">
+			Member since {{person.created*1000 | date:'mediumDate'}},
+			last updated {{person.updated*1000 | date:'mediumDate'}}
+		</p>
+	</div>
+</ui-header>

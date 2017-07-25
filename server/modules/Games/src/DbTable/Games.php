@@ -55,7 +55,7 @@ class Games extends AbstractTable
 		$row = $statement->fetchObject(Game::class);
 		
 		if (!$row) {
-			throw new \Exception("Could not find game '{$slug}'");
+			throw new \Exception("Could not find game '{$slug}'", 404);
 		}
 		
 		return $row;
