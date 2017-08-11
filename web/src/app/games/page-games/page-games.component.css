@@ -1,1 +1,18 @@
 ui-header, ui-controls, game-search { margin-bottom: 30px; }
+
+.game-col {
+	display: flex;
+	flex-direction: column;
+}
+
+.game {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	transition: .2s ease-in-out;
+	margin-bottom: 30px;
+}
+
+game-tile {
+	flex-grow: 1;
+}

@@ -16,10 +16,11 @@ date_default_timezone_set("America/Los_Angeles");
 
 $blissRoot = $dir . DIRECTORY_SEPARATOR . "Bliss";
 $httpRoot = $blissRoot . DIRECTORY_SEPARATOR . "modules" . DIRECTORY_SEPARATOR . "Http";
+$uri = trim(filter_input(INPUT_SERVER, "PATH_INFO"),"/");
 
 require_once $httpRoot . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "Application.php";
 
-$app = new Http\Application();
+$app = new Http\Application($uri);
 $modules = $app->moduleRegistry();
 $modules->registerAll($blissRoot . DIRECTORY_SEPARATOR . "modules", [
 	"Cache",
@@ -37,14 +38,11 @@ $app->config()->load([
 	dirname(__DIR__) . DIRECTORY_SEPARATOR . "private" . DIRECTORY_SEPARATOR . "config.php"
 ]);
 
-$uri = trim(
-	filter_input(INPUT_SERVER, "PATH_INFO"),
-	"/"
-);
+
 
 $exception = null;
 try {
-	$app->run($uri);
+	$app->run();
 } catch (Throwable $e) {
 	$exception = $e;
 	if (!$debugMode) {

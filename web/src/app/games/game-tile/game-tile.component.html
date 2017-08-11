@@ -3,7 +3,15 @@
 		<game-image [url]="game.coverImage"></game-image>
 	</div>
 	<div class="info">
-		<h5>{{game.title}}</h5>
+		<div class="row">
+			<div class="col">
+				<h5>{{game.title}}</h5>
+			</div>
+			<div class="col col-auto">
+				<game-follow [game]="game"></game-follow>
+			</div>
+		</div>
+		
 		<p class="desc" *ngIf="game.description">{{game.description}}</p>
 	</div>
 </ui-card>

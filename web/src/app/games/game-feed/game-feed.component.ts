@@ -20,8 +20,12 @@ export class GameFeedComponent
 
 	@Input("game") set _game(game:GameInterface) {
 		this.game = game;
+		this.load();
+	}
+
+	private load() {
 		this.loading = true;
-		this.Game.feed(game.slug).then((feed) => {
+		this.Game.feed(this.game.slug).then((feed) => {
 			this.feed = feed;
 			this.loading = false;
 		});

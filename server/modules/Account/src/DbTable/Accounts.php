@@ -13,6 +13,8 @@ class Accounts extends AbstractTable
 	
 	public function getModelClass() : string { return Account::class; }
 	
+	public function getPrimaryKeys() : array { return ["id"]; }
+	
 	/**
 	 * Create a new account record
 	 * 

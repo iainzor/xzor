@@ -9,8 +9,24 @@
 
 	<ui-controls [controls]="controls"></ui-controls>
 
+	<div class="row games" *ngIf="response">
+		<div class="col-lg-3 col-md-4 col-sm-6 game-col" *ngFor="let game of response.results">
+			<a class="game" 
+				[routerLink]="['/g', game.slug]" 
+				[z]="game.z || 1" 
+				(mouseenter)="game.z=3"
+				(mousedown)="game.z=5"
+				(mouseleave)="game.z=1"
+			>
+				<game-tile [game]="game"></game-tile>
+			</a>
+		</div>
+	</div>
+
+	<!--
 	<game-search-response *ngIf="response"
 		[response]="response" 
 		[loading]="loading"
 		[showSources]="showSources"></game-search-response>
+		-->
 </div>

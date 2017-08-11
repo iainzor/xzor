@@ -10,6 +10,8 @@ class Images extends AbstractTable
 	
 	public function getModelClass() : string { return Image::class; }
 	
+	public function getPrimaryKeys() : array { return ["id"]; }
+	
 	/**
 	 * @return string
 	 */

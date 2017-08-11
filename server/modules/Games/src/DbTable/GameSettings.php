@@ -13,6 +13,8 @@ class GameSettings extends AbstractTable
 
 	public function getName(): string { return "game_settings"; }
 	
+	public function getPrimaryKeys() : array { return ["gameId", "key"]; }
+	
 	public function findForGame(Game $game) : GameSettingsContainer
 	{
 		return new GameSettingsContainer(

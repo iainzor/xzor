@@ -1,0 +1,14 @@
+:host {
+	display: block;
+	position: relative;
+	cursor: pointer;
+}
+
+.icon-blank {
+	position: absolute;
+	z-index: 0;
+}
+.icon-active {
+	position: relative;
+	z-index: 1;
+}

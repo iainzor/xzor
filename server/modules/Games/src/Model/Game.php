@@ -42,8 +42,6 @@ class Game extends AbstractModel implements SourceModelInterface
 		}
 	}
 	
-	public function getPrimaryKeys() : array { return ["id"]; }
-	
 	/**
 	 * @return SourceInterface
 	 */

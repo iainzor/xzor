@@ -7,6 +7,6 @@ import {EnvironmentInterface} from "./environment.interface";
 export const environment:EnvironmentInterface = {
   production: false,
   baseUrl: "http://xzor.dev:8080",
-  xzorApiUrl: "http://xzor.dev:8080/api",
+  xzorApiUrl: "http://xzor.dev:8080",
   googleAuthClientId: "81469404550-v8l3va7tmh4ughsjg15hhe115ntbgt6s.apps.googleusercontent.com"
 };

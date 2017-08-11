@@ -12,6 +12,8 @@ class AccountProviders extends AbstractTable
 	
 	public function getModelClass() : string { return AccountProvider::class; }
 	
+	public function getPrimaryKeys() : array { return ["id"]; }
+	
 	/**
 	 * Attempt to load a provider.  If a record cannot be found, a new 
 	 * instance will be created using the $name and $token

@@ -12,7 +12,6 @@ import {GameFormModule} from "./game-form/game-form.module";
 import {GameImageModule} from "./game-image/game-image.module";
 import {GameImageEditorModule} from "./game-image-editor/game-image-editor.module";
 import {GameSearchModule} from "./game-search/game-search.module";
-import {GameSearchResponseModule} from "./game-search-response/game-search-response.module";
 import {GameTileModule} from "./game-tile/game-tile.module";
 
 import {GamesService} from "./games.service";
@@ -32,7 +31,6 @@ import {GamesService} from "./games.service";
 		GameFeedModule,
 		GameFormModule,
 		GameSearchModule,
-		GameSearchResponseModule,
 		GameTileModule
 	],
 	exports: [
@@ -42,7 +40,6 @@ import {GamesService} from "./games.service";
 		GameFeedModule,
 		GameFormModule,
 		GameSearchModule,
-		GameSearchResponseModule,
 		GameTileModule
 	],
 	providers: [
