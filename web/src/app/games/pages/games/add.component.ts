@@ -1,16 +1,16 @@
 import {Component, OnInit, OnDestroy} from "@angular/core";
 import {Subscription} from "rxjs";
 
-import {routeAnimation} from "../../ui/utilities/route-animation";
+import {routeAnimation} from "../../../ui/utilities/route-animation";
 
-import {AccountService} from "../../account/account.service";
-import {AccountInterface} from "../../account/account.interface";
-import {GameInterface} from "../game.interface";
+import {AccountService} from "../../../account/account.service";
+import {AccountInterface} from "../../../account/account.interface";
+import {GameInterface} from "../../game.interface";
 
 @Component({
-	selector: "page-add-game",
-	templateUrl: "./page-add-game.component.html",
-	styleUrls: ["./page-add-game.component.css"],
+	selector: "page-games-add",
+	templateUrl: "./add.component.html",
+	styleUrls: ["./add.component.css"],
 	animations: [
 		routeAnimation("addGame")
 	],
@@ -18,7 +18,7 @@ import {GameInterface} from "../game.interface";
 		"[@addGame]": ""
 	}
 })
-export class PageAddGameComponent implements OnInit, OnDestroy
+export class AddComponent implements OnInit, OnDestroy
 {
 	private accountSub:Subscription;
 

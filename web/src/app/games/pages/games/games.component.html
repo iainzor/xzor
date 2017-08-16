@@ -1,0 +1,32 @@
+<ui-header>
+	<div class="container">
+		<h1 class="display-4">Games</h1>
+	</div>
+</ui-header>
+
+<div class="container">
+	<game-search [(q)]="q"></game-search>
+
+	<ui-controls [controls]="controls"></ui-controls>
+
+	<div class="row games" [@gameList]="response?.results.length">
+		<div class="col-lg-4 col-sm-6 game-col" *ngFor="let game of response?.results">
+			<a class="game" 
+				[routerLink]="['/g', game.slug]" 
+				[z]="game.z || 1" 
+				(mouseenter)="game.z=3;"
+				(mousedown)="game.z=5"
+				(mouseleave)="game.z=1"
+			>
+				<game-tile [game]="game"></game-tile>
+			</a>
+		</div>
+	</div>
+
+	<!--
+	<game-search-response *ngIf="response"
+		[response]="response" 
+		[loading]="loading"
+		[showSources]="showSources"></game-search-response>
+		-->
+</div>

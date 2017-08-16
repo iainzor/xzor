@@ -27,15 +27,14 @@ ui-card {
 			overflow: hidden;
 		}
 	
-	.cover {
+	game-image {
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: 100%;
 		z-index: 1;
 		opacity: .15;
 		transition: .2s ease-in-out;
 	}
-	ui-card:hover .cover {
+	ui-card:hover game-image {
 		opacity: .35;
 	}

@@ -12,7 +12,6 @@ import {AccountModule} from "./account/account.module";
 import {FeedComponentsService} from "./feed/feed-components.service";
 import {ImagesService} from "./images/images.service";
 import {NotificationsService} from "./notifications/notifications.service";
-import {GamesModule} from "./games/games.module";
 import {AppComponent} from "./app.component";
 import {AppMenuComponent} from "./app-menu.component";
 import {AppService} from "./app.service";
@@ -36,8 +35,8 @@ import {XzorService} from "./xzor/xzor.service";
 		RouterModule.forRoot([
 			{ path: "", loadChildren: "./dashboard/dashboard.module#DashboardModule" },
 			{ path: "account", loadChildren: "./account/account.module#AccountModule", resolve: { account: AccountResolver } },
-			{ path: "games", loadChildren: "./games/games.module#GamesModule" },
-			{ path: "g/:slug", loadChildren: "./games/game.module#GameModule" },
+			{ path: "games", loadChildren: "./games/pages/games-pages.module#GamesPagesModule" },
+			{ path: "g/:slug", loadChildren: "./games/pages/game-pages.module#GamePagesModule" },
 			{ path: "people", loadChildren: "./people/people.module#PeopleModule" },
 			{ path: "p/:slug", loadChildren: "./people/person.module#PersonModule" },
 			{ path: "teams", loadChildren: "./teams/teams.module#TeamsModule" },
