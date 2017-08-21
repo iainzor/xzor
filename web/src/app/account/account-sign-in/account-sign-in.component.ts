@@ -1,6 +1,7 @@
 import {Component, Output, EventEmitter, OnInit, OnDestroy} from "@angular/core";
 import {Subscription} from "rxjs";
 
+import {AppService} from "../../app.service";
 import {AccountService} from "../account.service";
 import {ProvidersService} from "../providers.service";
 import {ProviderInterface} from "../provider.interface";
@@ -20,6 +21,7 @@ export class AccountSignInComponent implements OnInit, OnDestroy
 	@Output() signInFinish:EventEmitter<any> = new EventEmitter<any>();
 
 	constructor(
+		private App:AppService,
 		private Account:AccountService,
 		private Providers:ProvidersService
 	) {}
@@ -38,11 +40,13 @@ export class AccountSignInComponent implements OnInit, OnDestroy
 		e.preventDefault();
 
 		this.signInStart.emit();
-		
+		this.App.setLoading(true);
+
 		provider.signIn().then((session) => {
 			this.Providers.verify(provider).then((response) => {
 				this.Account.load().then(() => {
 					this.signInFinish.emit();
+					this.App.setLoading(false);
 				});
 			});
 		});

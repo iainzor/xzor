@@ -24,6 +24,10 @@ export class GamesService
 		});
 	}
 
+	load(slug:string) : Promise<GameInterface> {
+		return this.Xzor.get("g/"+ slug +".json");
+	}
+
 	import(game:GameInterface) : Promise<GameImportResponse> {
 		return this.Xzor.post("import-game.json", JSON.stringify(game));
 	}

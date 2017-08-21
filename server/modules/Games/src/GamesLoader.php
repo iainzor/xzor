@@ -1,14 +1,24 @@
 <?php
 namespace Games;
 
-use Sources\SourceRegistry;
+use Account\Account;
 
 class GamesLoader
 {
 	/**
+	 * @var Account
+	 */
+	private $account;
+	
+	/**
 	 * @var DbTable\Games
 	 */
 	private $gamesTable;
+	
+	/**
+	 * @var DbTable\GameFollowers
+	 */
+	private $followersTable;
 	
 	/**
 	 * @var GameImageLoader
@@ -22,27 +32,26 @@ class GamesLoader
 	private $themeLoader;
 	
 	/**
-	 * @var \Sources\SourceRegistry
-	 */
-	private $sources;
-	
-	/**
 	 * Constructor
 	 * 
+	 * @param \Account\Account $account
 	 * @param \Games\DbTable\Games $gamesTable
-	 * @param GameImageLoader $imageLoader
-	 * @param \Sources\SourceRegitry $sources
+	 * @param \Games\DbTable\GameFollowers $followersTable
+	 * @param \Games\GameImageLoader $imageLoader
+	 * @param \Games\GameThemeLoader $themeLoader
 	 */
 	public function __construct(
+		Account $account,
 		DbTable\Games $gamesTable,
+		DbTable\GameFollowers $followersTable,
 		GameImageLoader $imageLoader,
-		GameThemeLoader $themeLoader,
-		SourceRegistry $sources
+		GameThemeLoader $themeLoader
 	) {
+		$this->account = $account;
 		$this->gamesTable = $gamesTable;
+		$this->followersTable = $followersTable;
 		$this->imageLoader = $imageLoader;
 		$this->themeLoader = $themeLoader;
-		$this->sources = $sources;
 	}
 	
 	/**
@@ -79,13 +88,13 @@ class GamesLoader
 	 */
 	private function process(string $search, array $games) : array
 	{
+		$this->followersTable->isFollowing($games, $this->account);
 		$this->imageLoader->attachCoverImages($games);
 		$this->themeLoader->attachThemes($games);
 		
 		return [
 			"q" => $search,
-			"results" => $games,
-			"sources" => $this->sources->all()
+			"results" => $games
 		];
 	}
 }

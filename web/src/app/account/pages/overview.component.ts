@@ -7,9 +7,9 @@ import {AccountInterface} from "../account.interface";
 
 @Component({
 	selector: "page-account-overview",
-	templateUrl: "./page-account-overview.component.html"
+	templateUrl: "./overview.component.html"
 })
-export class PageAccountOverviewComponent implements OnInit, OnDestroy
+export class OverviewComponent implements OnInit, OnDestroy
 {
 	private accountSub:Subscription;
 

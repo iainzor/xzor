@@ -1,0 +1,30 @@
+<ul>
+	<li>
+		<a href="#" [class.active]="isOpen" (click)="toggle($event)">
+			<span class="icon">
+				<i class="material-icons icon-open">menu</i>
+				<i class="material-icons icon-close">close</i>
+			</span>
+		</a>
+		<ul class="expanded" @menu *ngIf="isOpen" z="5" [theme]="account?.theme">
+			<li>
+				<a routerLink="/games" routerLinkActive="active">
+					<i class="material-icons">videogame_asset</i>
+					<span>Games</span>
+				</a>
+			</li>
+			<li>
+				<a routerLink="/people" routerLinkActive="active">
+					<i class="material-icons">person</i>
+					<span>People</span>
+				</a>
+			</li>
+			<li>
+				<a routerLink="/teams" routerLinkActive="active">
+					<i class="material-icons">group</i>
+					<span>Teams</span>
+				</a>
+			</li>
+		</ul>
+	</li>
+</ul>

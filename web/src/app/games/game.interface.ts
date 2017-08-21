@@ -7,9 +7,7 @@ export interface GameInterface
 	slug?:string;
 	title?:string;
 	description?:string;
-	sourceName?:string;
-	sourceId?:string;
-	source?:SourceInterface;
 	theme?:ThemeInterface;
 	coverImage?:string;
+	following?:boolean;
 }

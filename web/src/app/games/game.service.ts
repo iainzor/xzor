@@ -10,34 +10,35 @@ import {GameInterface} from "./game.interface";
 @Injectable()
 export class GameService
 {
+	private game:GameInterface;
 	private routeSub:Subscription;
 	private subject:ReplaySubject<GameInterface> = new ReplaySubject<GameInterface>(1);
 
 	constructor(private Xzor:XzorService) {}
 
-	load(slug:string) : Promise<GameInterface> {
-		let promise = new Promise<GameInterface>((resolve, reject) => {
-			this.Xzor
-				.get("g/"+ slug +".json")
-				.then((game) => { 
-					resolve(game);
-				});
-		});
-		promise.then((game) => { this.subject.next(game); });
-
-		return promise;
+	setGame(game:GameInterface) {
+		this.game = game;
+		this.subject.next(game);
 	}
 
-	feed(slug:string) : Promise<Feed> {
+	feed() : Promise<Feed> {
 		return new Promise<Feed>((resolve) => {
 			this.Xzor
-				.get("g/"+ slug +"/feed.json")
+				.get("g/"+ this.game.slug +"/feed.json")
 				.then((response) => {
 					resolve(
 						new Feed(response)
 					)
 				});
 		});
+	}
+
+	follow() : Promise<any> {
+		return this.Xzor.post("g/"+ this.game.slug +"/follow.json");
+	}
+
+	unfollow() : Promise<any> {
+		return this.Xzor.post("g/"+ this.game.slug +"/unfollow.json");
 	}
 	
 	subscribe(onNext:((game:GameInterface) => void)) : Subscription {

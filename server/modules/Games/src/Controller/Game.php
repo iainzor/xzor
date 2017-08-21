@@ -1,10 +1,14 @@
 <?php
 namespace Games\Controller;
 
-use Http\Route,
+use Account\Account,
+	Database\Query\QueryParams,
+	Feed\Feed,
+	Http\Route,
+	Http\Request,
 	Games\GamesLoader,
-	Games\Feed\GameFeedDefinition,
-	Feed\Feed;
+	Games\DbTable\GameFollowers,
+	Games\Feed\GameFeedDefinition;
 
 class Game
 {
@@ -36,5 +40,34 @@ class Game
 		$collector = $feed->collector($definition);
 		
 		return $collector->collect($this->game->slug);
+	}
+	
+	public function followAction(Request $request, Account $account, GameFollowers $followers)
+	{
+		if (!$request->methodIsPost()) {
+			throw new \Exception("Only POST requests are allowed");
+		}
+		
+		$followers->insert([
+			"gameId" => $this->game->id,
+			"accountId" => $account->id,
+			"created" => time()
+		], ["created"]);
+		
+		return ["result" => "success"];
+	}
+	
+	public function unfollowAction(Request $request, Account $account, GameFollowers $followers)
+	{
+		if (!$request->methodIsPost()) {
+			throw new \Exception("Only POST requests are allowed");
+		}
+		
+		$followers->delete(new QueryParams([
+			"gameId" => $this->game->id,
+			"accountId" => $account->id
+		]));
+		
+		return ["result" => "success"];
 	}
 }

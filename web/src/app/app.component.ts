@@ -15,9 +15,10 @@ export class AppComponent implements OnInit, OnDestroy
 {
 	private accountSub:Subscription;
 	private routerSub:Subscription;
+	private loadingSub:Subscription;
 
+	loading:boolean = false;
 	account:AccountInterface;
-	menuOpen:boolean = false;
 
 	constructor(
 		private App:AppService,
@@ -37,15 +38,18 @@ export class AppComponent implements OnInit, OnDestroy
 
 			if (e instanceof NavigationStart) {
 				this.App.setLoading(true);
-				this.menuOpen = false;
 			} else if (canceled || error || end) {
 				this.App.setLoading(false);
 			}
+		});
+		this.loadingSub = this.App.loading.subscribe((loading) => {
+			setTimeout(() => { this.loading = loading; });
 		});
 	}
 
 	ngOnDestroy() {
 		this.accountSub.unsubscribe();
 		this.routerSub.unsubscribe();
+		this.loadingSub.unsubscribe();
 	}
 }

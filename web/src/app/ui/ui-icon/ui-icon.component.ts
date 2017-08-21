@@ -39,4 +39,5 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 export class UIIconComponent
 {
 	@Input() icon:string;
+	@Input() size:number = 24;
 }

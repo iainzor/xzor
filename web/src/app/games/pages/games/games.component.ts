@@ -6,7 +6,6 @@ import {Subscription} from "rxjs/Subscription";
 import {AppService} from "../../../app.service";
 import {AccountService} from "../../../account/account.service";
 import {AccountInterface} from "../../../account/account.interface";
-import {NotificationsService} from "../../../notifications/notifications.service";
 import {UIControlInterface} from "../../../ui/ui-controls/ui-control.interface";
 import {routeAnimation} from "../../../ui/utilities/route-animation";
 import {GamesService} from "../../games.service";
@@ -56,18 +55,13 @@ export class GamesComponent implements OnInit, OnDestroy
     constructor(
 		private App:AppService,
 		private Account:AccountService,
-		private Games:GamesService, 
-		private Notifications:NotificationsService,
+		private Games:GamesService,
 		private Router:Router,
 		private Route:ActivatedRoute
 	) {}
 	
     ngOnInit() {
 		this.App.setPageTitle("Games");
-		this.Notifications.push({
-			title: "Hello!",
-			message: "This is a test"
-		});
 
 		this.routeSub = this.Route.queryParams.subscribe((params) => {
 			this.q = params["q"] || "";
@@ -75,11 +69,12 @@ export class GamesComponent implements OnInit, OnDestroy
 		});
 		this.accountSub = this.Account.subscribe((account) => {
 			this.account = account;
+			this.controls = [];
 
 			if (account.isValid) {
-				this.controls.push(
+				this.controls = [
 					{ icon: "add", title: "Add A Game", route: ["/games", "add"] }
-				);
+				];
 			}
 		});
     }

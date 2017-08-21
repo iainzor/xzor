@@ -2,16 +2,23 @@ import {Component, OnInit, OnDestroy} from "@angular/core";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
 
+import {routeAnimation} from "../../ui/utilities/route-animation";
 import {AppService} from "../../app.service";
 import {AccountService} from "../account.service";
 import {AccountInterface} from "../account.interface";
 
 @Component({
-	selector: "page-sign-in",
-	templateUrl: "./page-sign-in.component.html",
-	styleUrls: ["./page-sign-in.component.css"]
+	selector: "account-pages",
+	templateUrl: "./account-pages.component.html",
+	styleUrls: ["./account-pages.component.css"],
+	animations: [
+		routeAnimation("routeTrigger")
+	],
+	host: {
+		"[@routeTrigger]": ""
+	}
 })
-export class PageSignInComponent implements OnInit, OnDestroy
+export class AccountPagesComponent implements OnInit, OnDestroy
 {
 	private accountSub:Subscription;
 
@@ -27,22 +34,13 @@ export class PageSignInComponent implements OnInit, OnDestroy
 		this.accountSub = this.Account.subscribe((account) => {
 			this.account = account;
 
-			if (this.account.isValid) {
-				this.Router.navigate(["/account"]);
+			if (!account.isValid) {
+				this.Router.navigate(["/"]);
 			}
 		});
 	}
 
 	ngOnDestroy() {
 		this.accountSub.unsubscribe();
-	}
-
-	onSignInStart() {
-		this.App.setLoading(true);
-	}
-
-	onSignInFinish() {
-		this.App.setLoading(false);
-		this.Router.navigate(["/account"], { replaceUrl: true });
 	}
 }

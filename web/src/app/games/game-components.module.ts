@@ -6,8 +6,8 @@ import {RouterModule} from "@angular/router";
 import {UIModule} from "../ui/ui.module";
 import {XzorModule} from "../xzor/xzor.module";
 
-import {GameContainerModule} from "./game-container/game-container.module";
 import {GameFeedModule} from "./game-feed/game-feed.module";
+import {GameFollowModule} from "./game-follow/game-follow.module";
 import {GameFormModule} from "./game-form/game-form.module";
 import {GameImageModule} from "./game-image/game-image.module";
 import {GameImageEditorModule} from "./game-image-editor/game-image-editor.module";
@@ -25,19 +25,19 @@ import {GamesService} from "./games.service";
 		UIModule,
 		XzorModule,
 
-		GameContainerModule,
 		GameImageModule,
 		GameImageEditorModule,
 		GameFeedModule,
+		GameFollowModule,
 		GameFormModule,
 		GameSearchModule,
 		GameTileModule
 	],
 	exports: [
-		GameContainerModule,
 		GameImageModule,
 		GameImageEditorModule,
 		GameFeedModule,
+		GameFollowModule,
 		GameFormModule,
 		GameSearchModule,
 		GameTileModule

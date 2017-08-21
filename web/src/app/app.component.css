@@ -12,19 +12,30 @@
 	padding-bottom: 30px;
 }
 
-app-menu {
+.menu {
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	z-index: 100;
+	height: 60px;
+	background-color: rgba(0,0,0,.5);
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: stretch;
 }
+	.menu > .logo {
+		flex-shrink: 0;
+	}
 
-ui-spinner {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	margin-left: -40px;
-	margin-top: -40px;
-	z-index: 200;
-}
+	.menu > .left,
+	.menu > .right {
+		width: 50%;
+		flex-grow: 1;
+		display: flex;
+	}
+
+	.menu > .right {
+		justify-content: flex-end;
+	}

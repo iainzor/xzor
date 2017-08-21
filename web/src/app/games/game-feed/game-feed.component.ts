@@ -1,4 +1,5 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnInit, OnDestroy} from "@angular/core";
+import {Subscription} from "rxjs";
 
 import {Feed} from "../../feed/feed";
 import {FeedItemInterface} from "../../feed/feed-item.interface";
@@ -10,24 +11,28 @@ import {GameService} from "../game.service";
 	templateUrl: "./game-feed.component.html",
 	styleUrls: ["./game-feed.component.css"]
 })
-export class GameFeedComponent
+export class GameFeedComponent implements OnInit, OnDestroy
 {
+	private gameSub:Subscription;
+
 	loading:boolean = false;
 	game:GameInterface;
 	feed:Feed;
 
 	constructor(private Game:GameService) {}
 
-	@Input("game") set _game(game:GameInterface) {
-		this.game = game;
-		this.load();
+	ngOnInit() {
+		this.gameSub = this.Game.subscribe((game) => {
+			this.loading = true;
+
+			this.Game.feed().then((feed) => {
+				this.feed = feed;
+				this.loading = false;
+			});
+		});
 	}
 
-	private load() {
-		this.loading = true;
-		this.Game.feed(this.game.slug).then((feed) => {
-			this.feed = feed;
-			this.loading = false;
-		});
+	ngOnDestroy() {
+		this.gameSub.unsubscribe();
 	}
 }

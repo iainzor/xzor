@@ -7,18 +7,27 @@ import {GameComponentsModule} from "../game-components.module";
 import {GameService} from "../game.service";
 import {GameResolver} from "../game.resolver";
 import {GameComponent} from "./game/game.component";
+import {OverviewComponent} from "./game/overview.component";
 
 @NgModule({
 	imports: [
 		CommonModule,
 		RouterModule.forChild([
-			{ path: "", component: GameComponent, resolve: { game: GameResolver } }
+			{ 
+				path: "", 
+				component: GameComponent, 
+				resolve: { game: GameResolver },
+				children: [
+					{ path: "", component: OverviewComponent }
+				]
+			}
 		]),
 		UIModule,
 		GameComponentsModule
 	],
 	declarations: [
-		GameComponent
+		GameComponent,
+		OverviewComponent
 	],
 	providers: [
 		GameService,

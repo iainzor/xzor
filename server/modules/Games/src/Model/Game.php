@@ -1,11 +1,9 @@
 <?php
 namespace Games\Model;
 
-use Database\Model\AbstractModel,
-	Sources\SourceModelInterface,
-	Sources\SourceInterface;
+use Database\Model\AbstractModel;
 
-class Game extends AbstractModel implements SourceModelInterface
+class Game extends AbstractModel
 {
 	public $id;
 	public $sourceName = null;
@@ -14,21 +12,12 @@ class Game extends AbstractModel implements SourceModelInterface
 	public $slug;
 	public $description;
 	public $coverImage;
+	public $following = false;
 	
 	/**
 	 * @var GameTheme
 	 */
 	public $theme;
-	
-	/**
-	 * @var GameImage[]
-	 */
-	public $images = [];
-	
-	/**
-	 * @var SourceInterface
-	 */
-	public $source;
 	
 	/**
 	 * @param array $properties
@@ -39,24 +28,6 @@ class Game extends AbstractModel implements SourceModelInterface
 		
 		if (isset($this->theme) && is_array($this->theme)) {
 			$this->theme = new GameTheme($this->theme);
-		}
-	}
-	
-	/**
-	 * @return SourceInterface
-	 */
-	public function getSource() : SourceInterface {
-		return $this->source;
-	}
-
-	/**
-	 * @param SourceInterface $source
-	 */
-	public function setSource(SourceInterface $source) {
-		$this->source = $source;
-		
-		if (!isset($this->theme)) {
-			$this->theme = $source->theme();
 		}
 	}
 }

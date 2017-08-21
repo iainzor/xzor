@@ -1,14 +1,29 @@
-header {
-	display: flex;
-	height: 200px;
-	align-items: flex-end;
-	overflow: hidden;
-	padding: 0 20px;
+ui-header {
+	position: relative;
+	padding-bottom: 0;
 }
-	header .info {
-		background-color: #fff;
-		box-shadow: 0 3px 10px rgba(0,0,0,.2);
-		color: #212121;
-		padding: 20px;
+	ui-header .cover {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 0;
+		opacity: .15;
+		overflow: hidden;
+	}
+
+	ui-header .container {
+		position: relative;
+		z-index: 1;
+	}
+
+	ui-header nav {
+		background-color: rgba(0,0,0,.25);
 	}
 	
+.content {
+	position: relative;
+	padding-top: 30px;
+	flex-grow: 1;
+}

@@ -1,4 +1,16 @@
-<app-menu [account]="account" [(open)]="menuOpen"></app-menu>
+<header class="menu">
+	<div class="left">
+		<app-nav [account]="account"></app-nav>
+	</div>
+
+	<a class="logo" routerLink="/">
+		<xzor-logo [spinning]="loading" size="60"></xzor-logo>
+	</a>
+
+	<div class="right">
+		<account-menu [account]="account"></account-menu>
+	</div>
+</header>
 
 <div class="outlet">
 	<router-outlet></router-outlet>

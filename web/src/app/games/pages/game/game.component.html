@@ -1,3 +1,38 @@
-<game-container [game]="game" *ngIf="game">
-	<game-feed [game]="game"></game-feed>
-</game-container>
+<ui-header z="1" [theme]="game.theme">
+	<div class="container">
+		<h1 class="display-4">{{game.title}}</h1>
+		<p class="lead">{{game.description}}</p>
+	</div>
+	<nav>
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col">
+					<ul class="nav nav-pills">
+						<li class="nav-item">
+							<a class="nav-link" [routerLink]="['/g', game.slug]" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+								Overview
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" [routerLink]="['/g', game.slug, 'forums']" routerLinkActive="active">
+								Forums
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col col-auto">
+					<game-follow [game]="game"></game-follow>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<div class="cover">
+		<game-image [url]="game.coverImage" [scale]="true"></game-image>
+	</div>
+</ui-header>
+
+<div class="content">
+	<div class="container">
+		<router-outlet></router-outlet>
+	</div>
+</div>

@@ -1,0 +1,12 @@
+:host  {
+	display: block;
+	margin-bottom: 30px;
+}
+
+ui-card.provider {
+	flex-direction: row;
+	padding: 10px 15px 10px 10px;
+}
+	ui-card.provider ui-icon {
+		margin-right: 5px;
+	}

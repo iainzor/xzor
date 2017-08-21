@@ -6,14 +6,13 @@ import {HttpModule} from "@angular/http";
 import {RouterModule} from "@angular/router";
 
 import {AccountService} from "./account/account.service";
-import {AccountResolver} from "./account/account.resolver";
 import {ProvidersService} from "./account/providers.service";
-import {AccountModule} from "./account/account.module";
+import {AccountMenuModule} from "./account/account-menu/account-menu.module";
 import {FeedComponentsService} from "./feed/feed-components.service";
 import {ImagesService} from "./images/images.service";
 import {NotificationsService} from "./notifications/notifications.service";
 import {AppComponent} from "./app.component";
-import {AppMenuComponent} from "./app-menu.component";
+import {AppNavComponent} from "./app-nav.component";
 import {AppService} from "./app.service";
 import {AppErrorHandler} from "./app-error-handler";
 import {ThemesService} from "./ui/themes.service";
@@ -25,7 +24,7 @@ import {XzorService} from "./xzor/xzor.service";
 @NgModule({
 	declarations: [
 		AppComponent,
-		AppMenuComponent
+		AppNavComponent
 	],
 	imports: [
 		BrowserModule,
@@ -34,7 +33,7 @@ import {XzorService} from "./xzor/xzor.service";
 		HttpModule,
 		RouterModule.forRoot([
 			{ path: "", loadChildren: "./dashboard/dashboard.module#DashboardModule" },
-			{ path: "account", loadChildren: "./account/account.module#AccountModule", resolve: { account: AccountResolver } },
+			{ path: "account", loadChildren: "./account/pages/account-pages.module#AccountPagesModule" },
 			{ path: "games", loadChildren: "./games/pages/games-pages.module#GamesPagesModule" },
 			{ path: "g/:slug", loadChildren: "./games/pages/game-pages.module#GamePagesModule" },
 			{ path: "people", loadChildren: "./people/people.module#PeopleModule" },
@@ -43,6 +42,7 @@ import {XzorService} from "./xzor/xzor.service";
 			{ path: "sources", loadChildren: "./sources/sources.module#SourcesModule" }
 		]),
 
+		AccountMenuModule,
 		UIModule,
 		VendorsModule,
 		XzorModule
@@ -51,7 +51,6 @@ import {XzorService} from "./xzor/xzor.service";
 		AppService,
 		AppErrorHandler,
 		AccountService,
-		AccountResolver,
 		FeedComponentsService,
 		ImagesService,
 		NotificationsService,

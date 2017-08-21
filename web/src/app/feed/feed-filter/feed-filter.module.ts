@@ -2,7 +2,7 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 
 import {UIModule} from "../../ui/ui.module";
-import {GameFollowComponent} from "./game-follow.component";
+import {FeedFilterComponent} from "./feed-filter.component";
 
 @NgModule({
 	imports: [
@@ -10,11 +10,11 @@ import {GameFollowComponent} from "./game-follow.component";
 		UIModule
 	],
 	declarations: [
-		GameFollowComponent
+		FeedFilterComponent
 	],
 	exports: [
-		GameFollowComponent
+		FeedFilterComponent
 	]
 })
-export class GameFollowModule
+export class FeedFilterModule
 {}

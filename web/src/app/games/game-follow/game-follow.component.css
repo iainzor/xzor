@@ -1,7 +1,6 @@
-:host {
+a {
 	display: block;
 	position: relative;
-	cursor: pointer;
 }
 
 .icon-blank {

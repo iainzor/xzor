@@ -20,24 +20,26 @@ import {GameInterface} from "../../game.interface";
 })
 export class GameComponent implements OnInit, OnDestroy
 {
-	private gameSub:Subscription;
+	private dataSub:Subscription;
 
 	game:GameInterface;
 
 	constructor(
 		private App:AppService,
+		private Game:GameService,
 		private Route:ActivatedRoute,
 	) {}
 
 	ngOnInit() {
-		this.gameSub = this.Route.data.subscribe((data) => {
+		this.dataSub = this.Route.data.subscribe((data) => {
 			this.game = data["game"];
 			this.App.setPageTitle(this.game.title);
+			this.Game.setGame(this.game);
 		});
 	}
 
 	ngOnDestroy() {
 		this.App.resetPageTitle();
-		this.gameSub.unsubscribe();
+		this.dataSub.unsubscribe();
 	}
 }
