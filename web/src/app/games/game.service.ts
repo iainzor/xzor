@@ -4,6 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 import {ReplaySubject} from "rxjs/ReplaySubject";
 
 import {Feed} from "../feed/feed";
+import {ProviderInterface} from "../feed/provider.interface";
 import {XzorService} from "../xzor/xzor.service";
 import {GameInterface} from "./game.interface";
 
@@ -31,6 +32,10 @@ export class GameService
 					)
 				});
 		});
+	}
+
+	getFeedProviders() : Promise<ProviderInterface[]> {
+		return this.Xzor.get("g/"+ this.game.slug +"/feed-providers.json");
 	}
 
 	follow() : Promise<any> {

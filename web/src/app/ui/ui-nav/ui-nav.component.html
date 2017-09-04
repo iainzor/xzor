@@ -1,0 +1,23 @@
+<div class="page" [class.spacer]="page.spacer" *ngFor="let page of pages">
+	<ng-template [ngIf]="!page.spacer && page.path">
+		<a 	[title]="page.title"
+			[routerLink]="page.path" 
+			routerLinkActive="active"
+			[routerLinkActiveOptions]="{exact:page.activeExact}"
+			(click)="handleClick($event, page)"
+		>
+			<ui-icon *ngIf="page.icon" [icon]="page.icon"></ui-icon>
+			<span class="title" *ngIf="page.title && !page.hideTitle">{{page.title}}</span>
+		</a>
+	</ng-template>
+
+	<ng-template [ngIf]="!page.spacer && !page.path">
+		<a 	[title]="page.title"
+			[routerLink]="page.path" 
+			(click)="handleClick($event, page)"
+		>
+			<ui-icon *ngIf="page.icon" [icon]="page.icon"></ui-icon>
+			<span class="title" *ngIf="page.title && !page.hideTitle">{{page.title}}</span>
+		</a>
+	</ng-template>
+</div>

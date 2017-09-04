@@ -1,48 +1,30 @@
-import {FeedResponseInterface} from "./feed-response.interface";
 import {FeedItemInterface} from "./feed-item.interface";
 import {FeedItem} from "./feed-item";
 import {ProviderInterface} from "./provider.interface";
 
 export class Feed
 {
-	private items:FeedItem<any>[];
-	private providerActiveMap:{[slug:string]:boolean} = {};
+	private _results:FeedItem<any>[] = [];
 
-	providers:ProviderInterface[] = [];
+	constructor(public providers:ProviderInterface[]) {
+		providers.forEach((provider) => { 
+			provider.active = true; 
 
-	constructor(private response:FeedResponseInterface) {
-		this.items = [];
-		this.providers = response.providers;
-		this.providerActiveMap = {};
-
-		this.providers.forEach((provider) => {
-			this.providerActiveMap[provider.slug] = true;
-
-			this.items = this.items.concat(
-				response.results[provider.slug].map((result) => {
-					return new FeedItem(provider, result)
-				})
-			);
+			provider.results.forEach((item) => {
+				this._results.push(
+					new FeedItem<any>(provider, item)
+				);
+			});
 		});
 	}
-
+	
 	get results() : FeedItem<any>[] {
-		return this.items.filter((item) => {
-			return this.providerActive(item.provider);
-		}).sort((a, b) => {
-			if (a.timestamp === b.timestamp) {
+		return this._results.filter((result) => result.provider.active).sort((a, b) => {
+			if (a.result.timestamp === b.result.timestamp) {
 				return 0;
 			} else {
-				return a.timestamp > b.timestamp ? -1 : 1;
+				return a.result.timestamp > b.result.timestamp ? -1 : 1;
 			}
 		});
-	}
-
-	providerActive(provider:ProviderInterface) : boolean {
-		return this.providerActiveMap[provider.slug];
-	}
-
-	toggleProvider(provider:ProviderInterface) {
-		this.providerActiveMap[provider.slug] = !this.providerActiveMap[provider.slug];
 	}
 }

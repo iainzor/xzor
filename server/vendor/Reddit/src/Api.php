@@ -33,6 +33,7 @@ class Api
 		$ch = curl_init($url);
 		curl_setopt_array($ch, [
 			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_TIMEOUT => 3,
 			CURLOPT_SSL_VERIFYHOST => false,
 			CURLOPT_SSL_VERIFYPEER => false,
 			CURLOPT_HTTPHEADER => [
@@ -46,6 +47,10 @@ class Api
 		
 		if (!empty($error)) {
 			throw new \Exception("API Error: {$error}");
+		}
+		
+		if (empty($response)) {
+			throw new \Exception("No response from reddit");
 		}
 		
 		return json_decode($response, true);

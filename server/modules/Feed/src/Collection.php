@@ -38,15 +38,15 @@ class Collection implements \JsonSerializable
 	{
 		$ops = new StringOperations();
 		
-		return [
-			"providers" => array_map(function(ProviderDefinitionInterface $provider) use ($ops) {
-				return [
-					"name" => $provider->getName(),
-					"slug" => $ops->hyphenate($provider->getName()),
-					"theme" => $provider->getTheme()
-				];
-			}, $this->providers),
-			"results" => $this->results
-		];
+		return array_map(function(ProviderDefinitionInterface $provider) use ($ops) {
+			$slug = $ops->hyphenate($provider->getName());
+
+			return [
+				"name" => $provider->getName(),
+				"slug" => $slug,
+				"theme" => $provider->getTheme(),
+				"results" => $this->results[$slug]
+			];
+		}, $this->providers);
 	}
 }

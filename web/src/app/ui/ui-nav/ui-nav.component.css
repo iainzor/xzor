@@ -1,0 +1,30 @@
+:host {
+	display: flex;
+	align-items: center;
+	margin-left: -10px;
+	margin-right: -10px;
+}
+	.page {
+		display: flex;
+	}
+	.page.spacer {
+		flex-grow: 1;
+	}
+		.page > a {
+			display: flex;
+			align-items: center;
+			padding: 10px;
+			opacity: .75;
+			transition: .2s ease-in-out;
+		}
+		.page > a:hover {
+			opacity: 1;
+		}
+		.page > a.active {
+			font-weight: bold;
+			opacity: 1;
+		}
+
+		.page ui-icon + .title {
+			margin-left: 10px;
+		}

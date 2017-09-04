@@ -2,6 +2,10 @@
 $CACHE_ROOT = dirname(dirname(__DIR__)) ."/private/cache";
 
 return [
+	Account\Module::class => [
+		Account\Config::SESSION_NAME => "xzor_account_session",
+		Account\Config::SESSION_LIFETIME => 2592000
+	],
 	Cache\Module::class => [
 		Cache\Config::DEFAULT_LIFETIME => 300,
 		Cache\Config::DRIVER_CLASS => Cache\Driver\FileSystem::class,
@@ -9,9 +13,8 @@ return [
 			Cache\Driver\FileSystem::CONFIG_ROOTDIR => $CACHE_ROOT
 		]
 	],
-	Account\Module::class => [
-		Account\Config::SESSION_NAME => "xzor_account_session",
-		Account\Config::SESSION_LIFETIME => 2592000
+	Games\Module::class => [
+		Games\Config::ROLES => include __DIR__ ."/game-roles.php"
 	],
 	Reddit\Module::class => [
 		Reddit\Config::AGENT_PLATFORM => "web",

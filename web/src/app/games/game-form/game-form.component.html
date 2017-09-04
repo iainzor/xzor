@@ -2,27 +2,24 @@
 	<input type="submit" hidden>
 	
 	<ui-card z="1">
-		<div class="form-group" [class.has-danger]="!!errors.title">
+		<div class="form-group">
 			<label>Game Title</label>
-			<input type="text" class="form-control" name="title" [(ngModel)]="game.title" maxlength="64">
-			<div class="form-control-feedback" *ngIf="errors.title">{{errors?.title}}</div>
+			<input type="text" class="form-control" [class.is-invalid]="errors.title" name="title" [(ngModel)]="game.title" maxlength="64">
+			<div class="invalid-feedback" *ngIf="errors.title">{{errors.title}}</div>
 		</div>
-		<div class="form-group" [class.has-danger]="!!errors.description">
+		<div class="form-group">
 			<label>Description</label>
-			<textarea class="form-control" rows="3" name="description" [(ngModel)]="game.description" maxlength="512"></textarea>
-			<div class="form-control-feedback" *ngIf="errors.description">{{errors?.description}}</div>
+			<textarea class="form-control" [class.is-invalid]="errors.description" rows="3" name="description" [(ngModel)]="game.description" maxlength="512"></textarea>
+			<div class="invalid-feedback" *ngIf="errors.description">{{errors.description}}</div>
 		</div>
-		<div class="form-group" [class.has-danger]="!!errors.slug">
+		<div class="form-group" *ngIf="!game.id">
 			<label>Permalink</label>
-			<div class="input-group">
-				<span class="input-group-addon">/g/</span>
-				<input type="text" class="form-control" name="slug" [(ngModel)]="game.slug" autocomplete="off" maxlength="32">
-			</div>
+			<input type="text" class="form-control" [class.is-invalid]="errors.slug" name="slug" [(ngModel)]="game.slug" autocomplete="off" maxlength="32">
+			<div class="invalid-feedback" *ngIf="errors.slug">{{errors.slug}}</div>
 			<small class="form-text text-muted">
 				This will be the permanent URL to the game. Please only use alphanumeric
 				characters <code>a-z 0-9</code>, hyphens <code>-</code>, and underscores <code>_</code>
 			</small>
-			<div class="form-control-feedback" *ngIf="errors.slug">{{errors?.slug}}</div>
 		</div>
 
 		<div class="row">

@@ -1,6 +1,8 @@
 <header class="menu">
 	<div class="left">
-		<app-nav [account]="account"></app-nav>
+		<app-menu icon="menu" side="left" width="250">
+			<app-nav z="1" [theme]="account?.theme" [account]="account"></app-nav>
+		</app-menu>
 	</div>
 
 	<a class="logo" routerLink="/">
@@ -8,7 +10,13 @@
 	</a>
 
 	<div class="right">
-		<account-menu [account]="account"></account-menu>
+		<app-menu icon="face" side="right">
+			<account-menu z="1" [theme]="account?.theme" [account]="account"></account-menu>
+		</app-menu>
+		<app-menu icon="notifications" side="right">
+			<notifications-menu [account]="account"></notifications-menu>
+			<notifications-toast static></notifications-toast>
+		</app-menu>
 	</div>
 </header>
 

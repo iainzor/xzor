@@ -3,6 +3,8 @@ namespace Twitch\Feed;
 
 use Feed\ProviderDefinitionInterface,
 	Feed\ProviderCollectorInterface,
+	Feed\ProviderSettings,
+	Feed\ProviderSetting,
 	UI\Theme,
 	UI\ThemeInterface;
 
@@ -22,11 +24,6 @@ class GameFeedProviderDefinition implements ProviderDefinitionInterface
 	{
 		$this->collector = $collector;
 	}
-	
-	public function getCollector(): ProviderCollectorInterface 
-	{
-		return $this->collector;
-	}
 
 	public function getName(): string 
 	{
@@ -36,5 +33,17 @@ class GameFeedProviderDefinition implements ProviderDefinitionInterface
 	public function getTheme(): ThemeInterface 
 	{
 		return new Theme("#4b367c", "#fff");
+	}
+	
+	public function getCollector(): ProviderCollectorInterface 
+	{
+		return $this->collector;
+	}
+	
+	public function getSettings() : ProviderSettings
+	{
+		return new ProviderSettings([
+			new ProviderSetting(FeedSettings::GAME_NAME, "Search Query", "Specify the search query used with finding streamers")
+		]);
 	}
 }

@@ -3,7 +3,7 @@ import {URLSearchParams} from "@angular/http";
 
 import {XzorService} from "../xzor/xzor.service";
 import {GameInterface} from "./game.interface";
-import {GameImportResponse} from "./game-import-response";
+import {GameFormResponse} from "./game-form-response";
 import {GameSearchResponseInterface} from "./game-search-response.interface";
 
 @Injectable()
@@ -28,7 +28,9 @@ export class GamesService
 		return this.Xzor.get("g/"+ slug +".json");
 	}
 
-	import(game:GameInterface) : Promise<GameImportResponse> {
-		return this.Xzor.post("import-game.json", JSON.stringify(game));
+	save(game:GameInterface) : Promise<GameFormResponse> {
+		let url = game.id ? "g/"+ game.slug +".json" : "games/add.json";
+
+		return this.Xzor.post(url, JSON.stringify(game));
 	}
 }

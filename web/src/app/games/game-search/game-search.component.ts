@@ -10,6 +10,7 @@ import {GameInterface} from "../game.interface";
 })
 export class GameSearchComponent
 {
+	@Input() placeholder:string = "Search for a game...";
 	@Input() q:string = "";
 	@Output() qChange:EventEmitter<string> = new EventEmitter<string>();
 

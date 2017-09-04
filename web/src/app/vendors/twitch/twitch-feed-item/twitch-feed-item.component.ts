@@ -18,7 +18,7 @@ export class TwitchFeedItemComponent
 		}
 
 		return {
-			"background-image": "url("+ this.item.data.preview.large +")"
+			"background-image": "url("+ this.item.result.data.preview.large +")"
 		};
 	}
 }

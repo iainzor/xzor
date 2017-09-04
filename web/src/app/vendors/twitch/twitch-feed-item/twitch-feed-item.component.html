@@ -1,11 +1,11 @@
-<a [attr.href]="item.url" target="_blank">
-	<h5>{{item.title}}</h5>
+<a [attr.href]="item.result.url" target="_blank">
+	<h5>{{item.result.title}}</h5>
 	<p>
-		{{item.data.displayName}} -
-		<span [ngPlural]="item.data.viewers">
+		{{item.result.data.displayName}} -
+		<span [ngPlural]="item.result.data.viewers">
 			<ng-template ngPluralCase="=0">No viewers</ng-template>
 			<ng-template ngPluralCase="=1">1 viewer</ng-template>
-			<ng-template ngPluralCase="other">{{item.data.viewers}} viewers</ng-template>
+			<ng-template ngPluralCase="other">{{item.result.data.viewers}} viewers</ng-template>
 		</span>
 	</p>
 </a>

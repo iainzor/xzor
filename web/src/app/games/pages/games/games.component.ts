@@ -6,7 +6,7 @@ import {Subscription} from "rxjs/Subscription";
 import {AppService} from "../../../app.service";
 import {AccountService} from "../../../account/account.service";
 import {AccountInterface} from "../../../account/account.interface";
-import {UIControlInterface} from "../../../ui/ui-controls/ui-control.interface";
+import {UINavPageInterface} from "../../../ui/ui-nav/ui-nav-page.interface";
 import {routeAnimation} from "../../../ui/utilities/route-animation";
 import {GamesService} from "../../games.service";
 import {GameInterface} from "../../game.interface";
@@ -49,8 +49,8 @@ export class GamesComponent implements OnInit, OnDestroy
 	q:string = "";
 	loading:boolean = false;
 	account:AccountInterface;
-	controls:UIControlInterface[] = [];
 	response:GameSearchResponseInterface;
+	pages:UINavPageInterface[] = [];
 
     constructor(
 		private App:AppService,
@@ -69,13 +69,7 @@ export class GamesComponent implements OnInit, OnDestroy
 		});
 		this.accountSub = this.Account.subscribe((account) => {
 			this.account = account;
-			this.controls = [];
-
-			if (account.isValid) {
-				this.controls = [
-					{ icon: "add", title: "Add A Game", route: ["/games", "add"] }
-				];
-			}
+			this.regeneratePages();
 		});
     }
 
@@ -103,5 +97,25 @@ export class GamesComponent implements OnInit, OnDestroy
 			this.loading = false;
 			this.response = response;
 		});
+	}
+
+	private regeneratePages() {
+		this.pages = [
+			{
+				title: "All Games",
+				path: ["/games"],
+				activeExact: true
+			}
+		];
+
+		if (this.account && this.account.isValid) {
+			this.pages.push({ spacer: true });
+			this.pages.push({
+				title: "Add A Game",
+				hideTitle: true,
+				icon: "add_circle",
+				path: ["/games", "add"]
+			});
+		}
 	}
 }

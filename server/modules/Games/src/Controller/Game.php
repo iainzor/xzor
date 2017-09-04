@@ -8,7 +8,9 @@ use Account\Account,
 	Http\Request,
 	Games\GamesLoader,
 	Games\DbTable\GameFollowers,
-	Games\Feed\GameFeedDefinition;
+	Games\Feed\GameFeedDefinition,
+	Games\Feed\ProviderConfigLoader,
+	Games\GameSaver;
 
 class Game
 {
@@ -30,8 +32,15 @@ class Game
 		);
 	}
 	
-	public function indexAction()
+	public function indexAction(GameSaver $saver, Request $request)
 	{
+		if ($request->methodIsPost()) {
+			$saver->setGameId($this->game->id);
+			
+			return $saver->save(
+				$request->json()->data()
+			);
+		}
 		return $this->game;
 	}
 	
@@ -40,6 +49,11 @@ class Game
 		$collector = $feed->collector($definition);
 		
 		return $collector->collect($this->game->slug);
+	}
+	
+	public function feedProvidersAction(ProviderConfigLoader $loader)
+	{
+		return $loader->load($this->game);
 	}
 	
 	public function followAction(Request $request, Account $account, GameFollowers $followers)
@@ -54,7 +68,10 @@ class Game
 			"created" => time()
 		], ["created"]);
 		
-		return ["result" => "success"];
+		return [
+			"result" => "success",
+			"message" => "You started following ". $this->game->title
+		];
 	}
 	
 	public function unfollowAction(Request $request, Account $account, GameFollowers $followers)
@@ -68,6 +85,9 @@ class Game
 			"accountId" => $account->id
 		]));
 		
-		return ["result" => "success"];
+		return [
+			"result" => "success",
+			"message" => "You stopped following ". $this->game->title
+		];
 	}
 }

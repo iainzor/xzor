@@ -1,7 +1,13 @@
 :host {
-	display: block;
+	display: flex;
+}
+:host([stacked]) .row {
+	flex-direction: column;
 }
 
 a { text-decoration: none; }
 
-.col { margin-bottom: 5px; }
+.col { }
+:host([stacked]) .col {
+	margin-bottom: 5px;
+}

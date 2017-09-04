@@ -12,7 +12,7 @@ class GameFollowers extends AbstractTable
 
 	public function getName(): string { return "game_followers"; }
 
-	public function getPrimaryKeys(): array { return ["gameId", "userId"]; }
+	public function getPrimaryKeys(): array { return ["gameId", "accountId"]; }
 	
 	/**
 	 * Determine if an account is following any of the provided games

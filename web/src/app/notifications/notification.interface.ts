@@ -4,6 +4,9 @@ export interface NotificationInterface
 {
 	title?:string;
 	message:string;
-	lifetime?:number;
 	theme?:ThemeInterface;
+	lifetime?:number;
+	created?:Date;
+	updated?:Date;
+	isExpired?:boolean;
 }

@@ -1,5 +1,5 @@
 import {ThemeInterface} from "../ui/theme.interface";
-import {SourceInterface} from "../sources/source.interface";
+import {GameRoleInterface} from "./game-role.interface";
 
 export interface GameInterface
 {
@@ -10,4 +10,5 @@ export interface GameInterface
 	theme?:ThemeInterface;
 	coverImage?:string;
 	following?:boolean;
+	role?:GameRoleInterface;
 }

@@ -1,0 +1,15 @@
+<div class="container">
+	<div class="row games" [@gameList]="response?.results.length">
+		<div class="col-lg-4 col-sm-6 game-col" *ngFor="let game of response?.results">
+			<a class="game" 
+				[routerLink]="['/g', game.slug]" 
+				[z]="game.z || 1" 
+				(mouseenter)="game.z=3;"
+				(mousedown)="game.z=5"
+				(mouseleave)="game.z=1"
+			>
+				<game-tile [game]="game"></game-tile>
+			</a>
+		</div>
+	</div>
+</div>

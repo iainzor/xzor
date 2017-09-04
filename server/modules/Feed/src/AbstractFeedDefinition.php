@@ -19,10 +19,9 @@ abstract class AbstractFeedDefinition implements FeedDefinitionInterface
 	}
 	
 	/**
-	 * @param string $resourceId
 	 * @return \Feed\ProviderDefinitionInterface[]
 	 */
-	public function getProviders(string $resourceId = null) : array 
+	public function getProviders() : array 
 	{
 		return $this->providers;
 	}

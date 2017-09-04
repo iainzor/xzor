@@ -1,36 +1,15 @@
 :host {
 	display: flex;
+	flex-grow: 1;
 }
 
-a {
-	display: flex;
-	align-items: center;
-	padding: 15px;
-}
-a:hover,
-a:focus {
-	text-decoration: none;
-	background-color: rgba(0,0,0,.1);
-}
-a.active {
-	background-color: rgba(0,0,0,.25);
-}
-a.toggle {
-	padding: 0 15px;
-}
-
-.expanded {
-	position: fixed;
-	top: 60px;
-	right: 0;
-	bottom: 0;
-	overflow: auto;
-	width: 250px;
+.menu {
 	display: flex;
 	flex-direction: column;
+	flex-grow: 1;
 }
 
-	.expanded > header {
+	.menu > header {
 		background-color: rgba(0,0,0,.5);
 		padding: 10px 15px;
 		display: flex;
@@ -40,12 +19,12 @@ a.toggle {
 		position: relative;
 	}
 
-	.expanded > header.sign-in {
+	.menu > header.sign-in {
 		padding-top: 15px;
 		min-height: auto;
 	}
 
-	.expanded > account-sign-in {
+	.menu > account-sign-in {
 		padding: 10px;
 	}
 
@@ -53,13 +32,14 @@ ul.nav {
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
-	list-style: none;
-	padding: 0;
-	margin: 0;
 }
-	ul.nav a > ui-icon {
-		margin-right: 10px;
+	ul.nav a {
+		display: flex;
+		align-items: center;
 	}
+		ul.nav a > ui-icon {
+			margin-right: 10px;
+		}
 
 	ul.nav > li.spacer {
 		flex-grow: 1;

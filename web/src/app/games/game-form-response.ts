@@ -1,6 +1,6 @@
 import {GameInterface} from "./game.interface";
 
-export interface GameImportResponse
+export interface GameFormResponse
 {
 	success:boolean;
 	isValid:boolean;

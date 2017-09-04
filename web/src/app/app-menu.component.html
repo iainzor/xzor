@@ -1,0 +1,19 @@
+<a class="toggle" [class.active]="open" href="#" (click)="toggle($event)">
+	<span class="badge badge-pill" *ngIf="badge" [theme]="account?.theme">{{badge}}</span>
+
+	<ui-icon [@inactiveTrigger]="inactiveState" class="inactive" [icon]="icon"></ui-icon>
+	<ui-icon [@activeTrigger]="activeState" class="active" icon="close"></ui-icon>
+</a>
+
+<div class="content"
+	[style.width.px]="width" 
+	[ngClass]="side" 
+	[@contentTrigger]="contentState" 
+	(click)="interceptClick($event)"
+>
+	<ng-content></ng-content>
+</div>
+
+<div class="content static" [ngClass]="side" *ngIf="!open">
+	<ng-content select="[static]"></ng-content>
+</div>

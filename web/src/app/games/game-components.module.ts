@@ -7,7 +7,6 @@ import {UIModule} from "../ui/ui.module";
 import {XzorModule} from "../xzor/xzor.module";
 
 import {GameFeedModule} from "./game-feed/game-feed.module";
-import {GameFollowModule} from "./game-follow/game-follow.module";
 import {GameFormModule} from "./game-form/game-form.module";
 import {GameImageModule} from "./game-image/game-image.module";
 import {GameImageEditorModule} from "./game-image-editor/game-image-editor.module";
@@ -28,7 +27,6 @@ import {GamesService} from "./games.service";
 		GameImageModule,
 		GameImageEditorModule,
 		GameFeedModule,
-		GameFollowModule,
 		GameFormModule,
 		GameSearchModule,
 		GameTileModule
@@ -37,7 +35,6 @@ import {GamesService} from "./games.service";
 		GameImageModule,
 		GameImageEditorModule,
 		GameFeedModule,
-		GameFollowModule,
 		GameFormModule,
 		GameSearchModule,
 		GameTileModule

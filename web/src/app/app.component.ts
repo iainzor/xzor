@@ -5,6 +5,8 @@ import {Subscription} from "rxjs/Subscription";
 import {AppService} from "./app.service";
 import {AccountInterface} from "./account/account.interface";
 import {AccountService} from "./account/account.service";
+import {NotificationInterface} from "./notifications/notification.interface";
+import {NotificationsService} from "./notifications/notifications.service";
 
 @Component({
 	selector: 'app-root',

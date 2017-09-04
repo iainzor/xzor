@@ -11,13 +11,7 @@ import {GameInterface} from "../../game.interface";
 @Component({
 	selector: "page-games-add",
 	templateUrl: "./add.component.html",
-	styleUrls: ["./add.component.css"],
-	animations: [
-		routeAnimation("addGame")
-	],
-	host: {
-		"[@addGame]": ""
-	}
+	styleUrls: ["./add.component.css"]
 })
 export class AddComponent implements OnInit, OnDestroy
 {

@@ -1,8 +1,8 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-
 import {UIModule} from "../../ui/ui.module";
-import {GameFollowComponent} from "./game-follow.component";
+
+import {NotificationsToastComponent} from "./notifications-toast.component";
 
 @NgModule({
 	imports: [
@@ -10,11 +10,11 @@ import {GameFollowComponent} from "./game-follow.component";
 		UIModule
 	],
 	declarations: [
-		GameFollowComponent
+		NotificationsToastComponent
 	],
-	exports: [
-		GameFollowComponent
+	exports: [ 
+		NotificationsToastComponent
 	]
 })
-export class GameFollowModule
+export class NotificationsToastModule
 {}

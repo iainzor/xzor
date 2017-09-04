@@ -1,19 +1,15 @@
-<a class="toggle" [class.active]="isOpen" href="#" (click)="toggle($event)">
-	<i class="material-icons">face</i>
-</a>
-
-<div @expansion *ngIf="isOpen" z="5" class="expanded" [theme]="account?.theme">
+<div class="menu">
 	<ng-template [ngIf]="account?.isValid">
 		<header>
 			<h5>{{account.name}}</h5>
 		</header>
-		<ul class="nav">
-			<li>
-				<a routerLink="/account">My Account</a>
+		<ul class="nav nav-stacked">
+			<li class="nav-item">
+				<a class="nav-link" routerLink="/account">My Account</a>
 			</li>
 			<li class="spacer"></li>
-			<li>
-				<a href="#" (click)="signOut($event)">
+			<li class="nav-item">
+				<a class="nav-link" href="#" (click)="signOut($event)">
 					<ui-icon icon="exit_to_app"></ui-icon>
 					<span>Sign Out</span>
 				</a>

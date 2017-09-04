@@ -13,6 +13,7 @@ class Game extends AbstractModel
 	public $description;
 	public $coverImage;
 	public $following = false;
+	public $role = null;
 	
 	/**
 	 * @var GameTheme

@@ -1,0 +1,50 @@
+:host {
+	display: flex;
+}
+
+a.toggle {
+	display: flex;
+	position: relative;
+	flex-direction: column;
+	justify-content: center;
+	padding: 0 15px;
+}
+a.toggle:hover {
+	text-decoration: none;
+	background-color: rgba(0,0,0,.1);
+}
+a.toggle.active {
+	background-color: rgba(0,0,0,.25);
+}
+	a.toggle > .badge {
+		position: absolute;
+		top: 8px;
+		right: 8px;
+		z-index: 2;
+	}
+	
+	a.toggle > ui-icon {
+		position: relative;
+		z-index: 0;
+	}
+	a.toggle > ui-icon.inactive {
+		position: absolute;
+		z-index: 1;
+	}
+
+.content {
+	position: fixed;
+	top: 60px;
+	bottom: 0;
+	display: flex;
+	flex-direction: column;
+}
+.content.left {
+	left: 0;
+}
+.content.right {
+	right: 0;
+}
+.content.static {
+	bottom: auto;
+}

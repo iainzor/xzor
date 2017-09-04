@@ -11,7 +11,10 @@ import {AccountMenuModule} from "./account/account-menu/account-menu.module";
 import {FeedComponentsService} from "./feed/feed-components.service";
 import {ImagesService} from "./images/images.service";
 import {NotificationsService} from "./notifications/notifications.service";
+import {NotificationsMenuModule} from "./notifications/notifications-menu/notifications-menu.module";
+import {NotificationsToastModule} from "./notifications/notifications-toast/notifications-toast.module";
 import {AppComponent} from "./app.component";
+import {AppMenuComponent} from "./app-menu.component";
 import {AppNavComponent} from "./app-nav.component";
 import {AppService} from "./app.service";
 import {AppErrorHandler} from "./app-error-handler";
@@ -24,6 +27,7 @@ import {XzorService} from "./xzor/xzor.service";
 @NgModule({
 	declarations: [
 		AppComponent,
+		AppMenuComponent,
 		AppNavComponent
 	],
 	imports: [
@@ -43,6 +47,8 @@ import {XzorService} from "./xzor/xzor.service";
 		]),
 
 		AccountMenuModule,
+		NotificationsMenuModule,
+		NotificationsToastModule,
 		UIModule,
 		VendorsModule,
 		XzorModule
