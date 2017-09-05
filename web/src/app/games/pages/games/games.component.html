@@ -1,0 +1,9 @@
+<ui-header [theme]="account?.theme">
+	<div class="container">
+		<game-search [(q)]="q" placeholder="Search All Games..."></game-search>
+
+		<ui-nav [pages]="pages"></ui-nav>
+	</div>
+</ui-header>
+
+<router-outlet></router-outlet>

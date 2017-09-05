@@ -3,32 +3,34 @@ import {URLSearchParams} from "@angular/http";
 
 import {XzorService} from "../xzor/xzor.service";
 import {GameInterface} from "./game.interface";
-import {GameImportResponse} from "./game-import-response";
-import {GameSearchResponse} from "./game-search-response/game-search-response";
+import {GameFormResponse} from "./game-form-response";
+import {GameSearchResponseInterface} from "./game-search-response.interface";
 
 @Injectable()
 export class GamesService
 {
 	constructor(private Xzor:XzorService) {}
 
-	find(q:string = "") : Promise<GameSearchResponse> {
+	find(q:string = "") : Promise<GameSearchResponseInterface> {
 		let params = new URLSearchParams();
 		params.set("q", q);
 		
-		return new Promise<GameSearchResponse>((resolve, reject) => {
+		return new Promise<GameSearchResponseInterface>((resolve, reject) => {
 			this.Xzor.get("games.json", params).then(
 				(response) => { 
-					resolve({
-						q: q,
-						results: response.results,
-						sources: response.sources
-					}); 
+					resolve(response); 
 				}
 			);
 		});
 	}
 
-	import(game:GameInterface) : Promise<GameImportResponse> {
-		return this.Xzor.post("import-game.json", JSON.stringify(game));
+	load(slug:string) : Promise<GameInterface> {
+		return this.Xzor.get("g/"+ slug +".json");
+	}
+
+	save(game:GameInterface) : Promise<GameFormResponse> {
+		let url = game.id ? "g/"+ game.slug +".json" : "games/add.json";
+
+		return this.Xzor.post(url, JSON.stringify(game));
 	}
 }

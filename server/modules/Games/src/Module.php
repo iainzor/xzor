@@ -28,19 +28,27 @@ class Module implements ConfigurableModuleInterface, RouteProviderInterface, Sou
 			
 			return $feedDef;
 		});
+		$app->di()->register(Roles\RolesRegistry::class, function() use ($config) {
+			$roles = $config->get(Config::ROLES, []);
+			$registry = new Roles\RolesRegistry();
+			
+			foreach ($roles as $name => $def) {
+				$registry->register(new Roles\RoleDefinition($name, $def));
+			}
+			
+			return $registry;
+		});
 	}
 	
 	public function registerRoutes(Router $router) 
 	{
-		$router->when("/^games$/i")
+		$router->when("/^games\/?([a-z0-9]+)?$/i")
 			->module("games")
 			->controller("games")
-			->action("list");
-		
-		$router->when("/^import-game$/i")
-			->module("games")
-			->controller("games")
-			->action("import");
+			->action("list")
+			->params([
+				1 => "action"
+			]);
 
 		$router->when("/^g\/([a-z0-9-]+)\/?([a-z0-9-]+)?$/i")
 			->params([

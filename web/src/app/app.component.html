@@ -1,4 +1,24 @@
-<app-menu [account]="account" [(open)]="menuOpen"></app-menu>
+<header class="menu">
+	<div class="left">
+		<app-menu icon="menu" side="left" width="250">
+			<app-nav z="1" [theme]="account?.theme" [account]="account"></app-nav>
+		</app-menu>
+	</div>
+
+	<a class="logo" routerLink="/">
+		<xzor-logo [spinning]="loading" size="60"></xzor-logo>
+	</a>
+
+	<div class="right">
+		<app-menu icon="face" side="right">
+			<account-menu z="1" [theme]="account?.theme" [account]="account"></account-menu>
+		</app-menu>
+		<app-menu icon="notifications" side="right">
+			<notifications-menu [account]="account"></notifications-menu>
+			<notifications-toast static></notifications-toast>
+		</app-menu>
+	</div>
+</header>
 
 <div class="outlet">
 	<router-outlet></router-outlet>

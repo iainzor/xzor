@@ -1,0 +1,17 @@
+<ng-template [ngIf]="account.isValid">
+	<ui-header z="2" [theme]="account.theme">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<h1 class="display-4">{{account.name}}</h1>
+					<p class="lead">
+						Member since {{account.created*1000 | date : 'longDate'}},
+						last updated {{account.updated*1000 | date : 'longDate'}}
+					</p>
+				</div>
+			</div>
+		</div>
+	</ui-header>
+</ng-template>
+
+<router-outlet></router-outlet>

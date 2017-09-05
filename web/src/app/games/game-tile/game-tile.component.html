@@ -1,7 +1,6 @@
 <ui-card [theme]="game.theme">
-	<div class="cover" *ngIf="game.coverImage">
-		<game-image [url]="game.coverImage"></game-image>
-	</div>
+	<game-image [url]="game.coverImage" [scale]="true"></game-image>
+	
 	<div class="info">
 		<h5>{{game.title}}</h5>
 		<p class="desc" *ngIf="game.description">{{game.description}}</p>

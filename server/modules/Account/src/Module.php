@@ -1,21 +1,35 @@
 <?php
 namespace Account;
 
-use Core\BootableModuleInterface,
+use Core\AbstractApplication,
+	Core\BootableModuleInterface,
+	Core\ConfigurableModuleInterface,
+	Core\ModuleConfig,
 	Acl\Acl,
 	Acl\Role,
 	Acl\RoleProviderInterface,
 	Http\RouteProviderInterface,
 	Http\Router;
 
-class Module implements BootableModuleInterface, RouteProviderInterface, RoleProviderInterface
+class Module implements BootableModuleInterface, ConfigurableModuleInterface, RouteProviderInterface, RoleProviderInterface
 {
-	public function bootstrap(\Core\AbstractApplication $app) 
+	public function bootstrap(AbstractApplication $app) 
 	{
 		$sessionId = session_id();
 		if (empty($sessionId)) {
 			session_start();
 		}
+	}
+	
+	public function configure(AbstractApplication $app, ModuleConfig $config) 
+	{
+		$app->di()->register(Account::class, function(AccountSessionLoader $sessionLoader, AccountLoader $accountLoader) use ($config) {
+			$session = $sessionLoader->load(
+				$config->get(Config::SESSION_NAME),
+				$config->get(Config::SESSION_LIFETIME)
+			);
+			return $accountLoader->load($session->accountId);
+		});
 	}
 
 	public function registerRoutes(Router $router) 

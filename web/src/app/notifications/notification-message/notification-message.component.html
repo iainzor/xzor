@@ -1,0 +1,12 @@
+<ui-card [theme]="notification.theme">
+	<div class="row">
+		<div class="col">
+			<h4 *ngIf="notification.title">{{notification.title}}</h4>
+			<p>{{notification.message}}</p>	
+		</div>
+		<div class="col col-auto controls" *ngIf="controls.length > 0">
+			<ui-controls stacked [controls]="controls"></ui-controls>
+		</div>
+	</div>
+	<small>{{notification.created | date : 'short'}}</small>
+</ui-card>

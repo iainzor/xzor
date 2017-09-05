@@ -13,6 +13,8 @@ class AccountSessions extends AbstractTable
 	
 	public function getModelClass() : string { return AccountSession::class; }
 	
+	public function getPrimaryKeys() : array { return ["id"]; }
+	
 	/**
 	 * Attempt to load a user's existing session information.  If no session ID
 	 * can be found, a blank session (guest) will be returned

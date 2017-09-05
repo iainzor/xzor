@@ -3,6 +3,8 @@ namespace Games\DbTable;
 
 use Database\Driver\MySQL\AbstractTable,
 	Database\PDO,
+	Database\Query\QueryParams,
+	Database\Query\QueryExpr,
 	Games\Model\Game;
 
 class Games extends AbstractTable
@@ -12,6 +14,8 @@ class Games extends AbstractTable
 	public function getName() : string { return self::NAME; }
 	
 	public function getModelClass(): string { return Game::class; }
+	
+	public function getPrimaryKeys() : array { return ["id"]; }
  
 	/**
 	 * Find all games matching a search string
@@ -65,19 +69,21 @@ class Games extends AbstractTable
 	 * Check if a slug has already been registered
 	 * 
 	 * @param string $slug
+	 * @param int $ignoreId Game ID to ignore when searching
 	 * @return bool
 	 */
-	public function isSlug(string $slug) : bool 
+	public function isSlug(string $slug, int $ignoreId = null) : bool 
 	{
-		$statement = $this->db->prepare("
-			SELECT	COUNT(*)
-			FROM	`games`
-			WHERE	`slug` = :slug
-		");
-		$statement->execute([
-			":slug" => $slug
-		]);
-		return (int) $statement->fetchColumn() > 0;
+		$conditions = [
+			"slug" => $slug
+		];
+		if ($ignoreId !== null) {
+			$conditions[] = new QueryExpr("`id` != '". $ignoreId ."'");
+		}
+		
+		$game = $this->fetch(new QueryParams($conditions));
+		
+		return $game !== false;
 	}
 	
 	/**
@@ -91,9 +97,7 @@ class Games extends AbstractTable
 		$data = [
 			"slug" => $game->slug,
 			"title" => $game->title,
-			"description" => $game->description,
-			"sourceName" => $game->sourceName,
-			"sourceId" => $game->sourceId
+			"description" => $game->description
 		];
 		
 		if ($game->id) {

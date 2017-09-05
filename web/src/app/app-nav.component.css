@@ -1,0 +1,19 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+.nav {
+	flex-grow: 1;
+}
+
+	.nav a { 
+		display: flex;
+		flex-grow: 1;
+		align-items: center;
+		text-decoration: none;
+	}
+		.nav a > ui-icon {
+			margin-right: 10px;
+		}

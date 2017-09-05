@@ -44,8 +44,12 @@ class Collector
 			$results = $this->cache->get($cacheKey);
 			
 			if (!$results) {
-				$results = $provider->getCollector()->collect($resourceId);
-				$this->cache->put($cacheKey, $results);
+				try {
+					$results = $provider->getCollector()->collect($resourceId);
+					$this->cache->put($cacheKey, $results);
+				} catch (\Exception $e) {
+					$results = [];
+				}
 			}
 			
 			$collection->addResults($provider, $results);

@@ -27,8 +27,6 @@ class GameImage extends AbstractModel
 	 */
 	public $url;
 	
-	public function getPrimaryKeys() : array { return ["id"]; }
-	
 	/**
 	 * Get or set the image's ID
 	 * 

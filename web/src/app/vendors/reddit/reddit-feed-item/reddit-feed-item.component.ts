@@ -13,9 +13,9 @@ export class RedditFeedItemComponent
 	@Input() item:FeedItem<DataInterface>;
 
 	get backgroundStyles() : any {
-		if (this.item && this.item.data["thumbnail"]) {
+		if (this.item && this.item.result.data["thumbnail"]) {
 			return {
-				backgroundImage: "url('"+ this.item.data["thumbnail"] +"')"
+				backgroundImage: "url('"+ this.item.result.data["thumbnail"] +"')"
 			};
 		}
 		return {};

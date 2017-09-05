@@ -11,6 +11,4 @@ class GameTheme extends AbstractModel implements \UI\ThemeInterface
 	 * @var int
 	 */
 	public $gameId = 0;
-	
-	public function getPrimaryKeys() : array { return ["gameId"]; }
 }

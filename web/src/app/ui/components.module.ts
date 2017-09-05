@@ -8,16 +8,12 @@ import {UIButtonModule} from "./ui-button/ui-button.module";
 import {UICardModule} from "./ui-card/ui-card.module";
 import {UIColorPickerModule} from "./ui-color-picker/ui-color-picker.module";
 import {UIControlsModule} from "./ui-controls/ui-controls.module";
-import {UIHeaderComponent} from "./ui-header/ui-header.component";
-import {UIIconComponent} from "./ui-icon/ui-icon.component";
-import {UINotificationModule} from "./ui-notification/ui-notification.module";
 import {UIFileSelectorModule} from "./ui-file-selector/ui-file-selector.module";
+import {UIHeaderModule} from "./ui-header/ui-header.module";
+import {UIIconModule} from "./ui-icon/ui-icon.module";
+import {UINavModule} from "./ui-nav/ui-nav.module";
 import {UIThemeEditorModule} from "./ui-theme-editor/ui-theme-editor.module";
-
-let COMPONENTS = [
-	UIHeaderComponent,
-	UIIconComponent
-];
+import {UIToastModule} from "./ui-toast/ui-toast.module";
 
 @NgModule({
 	imports: [
@@ -32,11 +28,11 @@ let COMPONENTS = [
 		UIColorPickerModule,
 		UIControlsModule,
 		UIFileSelectorModule,
-		UINotificationModule,
-		UIThemeEditorModule
-	],
-	declarations: [
-		...COMPONENTS
+		UIHeaderModule,
+		UIIconModule,
+		UINavModule,
+		UIThemeEditorModule,
+		UIToastModule
 	],
 	exports: [
 		UIButtonModule,
@@ -44,10 +40,11 @@ let COMPONENTS = [
 		UIColorPickerModule,
 		UIControlsModule,
 		UIFileSelectorModule,
-		UINotificationModule,
+		UIHeaderModule,
+		UIIconModule,
+		UINavModule,
 		UIThemeEditorModule,
-		
-		...COMPONENTS
+		UIToastModule
 	]
 })
 export class ComponentsModule

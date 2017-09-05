@@ -14,7 +14,7 @@ class Games
 		);
 	}
 	
-	public function importAction(GameSaver $saver, Request $request) : GameSaver
+	public function addAction(GameSaver $saver, Request $request) : GameSaver
 	{
 		return $saver->save(
 			$request->json()->data()

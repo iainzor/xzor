@@ -3,6 +3,7 @@ import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 
 import {DirectivesModule} from "../directives.module";
+import {UIIconModule} from "../ui-icon/ui-icon.module";
 import {UIControlsComponent} from "./ui-controls.component";
 import {UIControlComponent} from "./ui-control.component";
 
@@ -11,7 +12,8 @@ import {UIControlComponent} from "./ui-control.component";
 		CommonModule,
 		RouterModule,
 		
-		DirectivesModule
+		DirectivesModule,
+		UIIconModule
 	],
 	declarations: [
 		UIControlsComponent,

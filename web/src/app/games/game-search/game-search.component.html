@@ -2,9 +2,9 @@
 	<input 	name="game" 
 			type="text" 
 			class="query form-control form-control-lg" 
-			placeholder="Search for a game..." 
 			autofocus
 			autocomplete="off"
+			[attr.placeholder]="placeholder"
 			[ngModel]="q"
 			(ngModelChange)="onChange($event)">
 </form>

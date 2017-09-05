@@ -26,7 +26,12 @@ class GameSaver implements \JsonSerializable
 	/**
 	 * @var \Games\GameThemeSaver
 	 */
-	private $themeSaver;
+	private $themeSaver;	
+	
+	/**
+	 * @var int
+	 */
+	private $gameId;
 	
 	/**
 	 * Constructor
@@ -43,7 +48,19 @@ class GameSaver implements \JsonSerializable
 	}
 	
 	/**
+	 * Set the ID of the game being saved.  Without an ID, it is assumed a new
+	 * game is being created.
+	 * 
+	 * @param int $id
+	 */
+	public function setGameId(int $id)
+	{
+		$this->gameId = $id;
+	}
+	
+	/**
 	 * @param array $data
+	 * @param int $gameId
 	 * @return \Games\GameSaver
 	 */
 	public function save(array $data) : GameSaver
@@ -69,6 +86,7 @@ class GameSaver implements \JsonSerializable
 	public function isValid(array $data) : bool 
 	{
 		$this->game = new Model\Game($data);
+		$this->game->id = $this->gameId;
 		
 		if (empty($this->game->title)) {
 			$this->errors["title"] = "Please provide a title for the game";
@@ -78,7 +96,7 @@ class GameSaver implements \JsonSerializable
 		} else { 
 			if (preg_match("/[^a-z0-9-_]+/i", $this->game->slug)) {
 				$this->errors["slug"] = "The path provided has invalid characters";
-			} else if ($this->gamesTable->isSlug($this->game->slug)) {
+			} else if ($this->gamesTable->isSlug($this->game->slug, $this->gameId)) {
 				$this->errors["slug"] = "The path provided already exists";
 			}
 		}

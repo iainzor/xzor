@@ -29,7 +29,7 @@ export class GameFormComponent
 
 	submit(form) {
 		this.loading = true;
-		this.Games.import(this.game).then((response) => {
+		this.Games.save(this.game).then((response) => {
 			this.loading = false;
 			this.errors = response.errors;
 			this.game = response.game;

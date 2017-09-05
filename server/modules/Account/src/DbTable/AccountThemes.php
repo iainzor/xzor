@@ -10,6 +10,8 @@ class AccountThemes extends AbstractThemeTable
 	
 	public function getModelClass() : string { return AccountTheme::class; }
 	
+	public function getPrimaryKeys() : array { return ["accountId"]; }
+	
 	public function getIdColumnName() : string { return "accountId"; }
 	
 	public function getDefaultBackground() : string { return "#455A64"; }

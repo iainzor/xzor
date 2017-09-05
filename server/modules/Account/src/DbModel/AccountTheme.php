@@ -7,7 +7,5 @@ use Database\Model\AbstractModel,
 class AccountTheme extends AbstractModel 
 {
 	use ThemeTrait;
-	
-	public function getPrimaryKeys() : array { return ["accountId"]; }
 }
 

@@ -11,6 +11,4 @@ class AccountProvider extends AbstractModel
 	public $token;
 	public $created;
 	public $updated;
-	
-	public function getPrimaryKeys() : array { return ["id"]; }
 }

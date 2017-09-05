@@ -35,11 +35,10 @@ export class AccountService
 		return this.accountSubject.subscribe(onNext);
 	}
 
-	signOut() : Promise<AccountInterface> {
+	signOut() : Promise<any> {
 		let promise = this.Xzor.post("sign-out.json", "");
-		promise.then((account) => {
-			this.account = account;
-			this.accountSubject.next(account);
+		promise.then(() => {
+			this.load();
 		});
 
 		return promise;

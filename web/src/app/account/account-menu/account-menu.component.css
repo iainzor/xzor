@@ -1,0 +1,46 @@
+:host {
+	display: flex;
+	flex-grow: 1;
+}
+
+.menu {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+	.menu > header {
+		background-color: rgba(0,0,0,.5);
+		padding: 10px 15px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		min-height: 100px;
+		position: relative;
+	}
+
+	.menu > header.sign-in {
+		padding-top: 15px;
+		min-height: auto;
+	}
+
+	.menu > account-sign-in {
+		padding: 10px;
+	}
+
+ul.nav {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+	ul.nav a {
+		display: flex;
+		align-items: center;
+	}
+		ul.nav a > ui-icon {
+			margin-right: 10px;
+		}
+
+	ul.nav > li.spacer {
+		flex-grow: 1;
+	}

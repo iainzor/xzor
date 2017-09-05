@@ -1,18 +1,18 @@
 <div class="post">
-	<a class="url" [attr.href]="item.url" target="_blank">
+	<a class="url" [attr.href]="item.result.url" target="_blank">
 		<h5 class="title">
-			{{item.title}}
+			{{item.result.title}}
 		</h5>
 	</a>
 	<p class="details">
-		<a target="_blank" [attr.href]="'https://www.reddit.com/r/'+ item.data.subreddit">
-			/r/{{item.data.subreddit}}
+		<a target="_blank" [attr.href]="'https://www.reddit.com/r/'+ item.result.data.subreddit">
+			/r/{{item.result.data.subreddit}}
 		</a>
 		-
-		<a target="_blank" [attr.href]="item.data.permalink" [ngPlural]="item.data.comments">
+		<a target="_blank" [attr.href]="item.result.data.permalink" [ngPlural]="item.result.data.comments">
 			<ng-template ngPluralCase="=0">No comments</ng-template>
 			<ng-template ngPluralCase="=1">1 comment</ng-template>
-			<ng-template ngPluralCase="other">{{item.data.comments}} comments</ng-template>
+			<ng-template ngPluralCase="other">{{item.result.data.comments}} comments</ng-template>
 		</a>
 	</p>
 </div>

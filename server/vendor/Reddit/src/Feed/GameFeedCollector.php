@@ -56,7 +56,7 @@ class GameFeedCollector implements ProviderCollectorInterface
 				$created = $post["data"]["created_utc"];
 				$url = $post["data"]["url"];
 				$title = html_entity_decode($post["data"]["title"]);
-				$thumbnail = !empty($post["data"]["thumbnail"]) && $post["data"]["thumbnail"] !== "self"
+				$thumbnail = !empty($post["data"]["thumbnail"]) && preg_match("/^https?:\/\//i", $post["data"]["thumbnail"])
 					? $post["data"]["thumbnail"]
 					: null;
 

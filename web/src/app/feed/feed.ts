@@ -1,29 +1,30 @@
-import {FeedResponseInterface} from "./feed-response.interface";
 import {FeedItemInterface} from "./feed-item.interface";
 import {FeedItem} from "./feed-item";
+import {ProviderInterface} from "./provider.interface";
 
 export class Feed
 {
-	public results:FeedItem<any>[] = [];
+	private _results:FeedItem<any>[] = [];
 
-	constructor(private response:FeedResponseInterface) {
-		let results = [];
-		
-		response.providers.forEach((provider) => {
-			let providerResults = response.results[provider.slug].map((result) => {
-				return new FeedItem(provider, result);
+	constructor(public providers:ProviderInterface[]) {
+		providers.forEach((provider) => { 
+			provider.active = true; 
+
+			provider.results.forEach((item) => {
+				this._results.push(
+					new FeedItem<any>(provider, item)
+				);
 			});
-			results = results.concat(providerResults);
 		});
-
-		results.sort((a:FeedItem<any>, b:FeedItem<any>) => {
-			if (a.timestamp === b.timestamp) {
+	}
+	
+	get results() : FeedItem<any>[] {
+		return this._results.filter((result) => result.provider.active).sort((a, b) => {
+			if (a.result.timestamp === b.result.timestamp) {
 				return 0;
 			} else {
-				return a.timestamp > b.timestamp ? -1 : 1;
+				return a.result.timestamp > b.result.timestamp ? -1 : 1;
 			}
 		});
-
-		this.results = results;
 	}
 }

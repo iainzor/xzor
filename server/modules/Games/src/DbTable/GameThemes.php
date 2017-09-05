@@ -12,6 +12,8 @@ class GameThemes extends AbstractTable
 	
 	public function getModelClass() : string { return GameTheme::class; }
 	
+	public function getPrimaryKeys() : array { return ["gameId"]; }
+	
 	public function loadGameThemes(array $gameIds) : array
 	{
 		if (empty($gameIds)) {
