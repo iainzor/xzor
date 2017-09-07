@@ -29,14 +29,15 @@ class VerifyGoogle extends AbstractVerifier
 	public function isValid(Request $request) : bool
 	{
 		$token = $request->json()->get("token");
+		$valid = false;
 		
 		try {
-			$this->verifier->verify($token);
+			$valid = $this->verifier->verify($token);
 		} catch (\Exception $e) {
-			return false;
+			$valid = false;
 		}
 		
-		return true;
+		return $valid;
 	}
 	
 	public function getAccountId() : string 

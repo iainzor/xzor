@@ -42,8 +42,9 @@ class Verifier
 	 * 
 	 * @param string $token
 	 * @throws \Exception
+	 * @return bool
 	 */
-	public function verify(string $token)
+	public function verify(string $token) : bool
 	{
 		$parts = explode(".", $token);
 		
@@ -75,6 +76,8 @@ class Verifier
 		
 		$this->userId = $payload["sub"];
 		$this->userName = $payload["name"];
+		
+		return true;
 	}
 	
 	/**
