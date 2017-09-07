@@ -38,7 +38,7 @@ class AccountProviders extends AbstractTable
 		$provider = $statement->fetchObject(AccountProvider::class);
 		
 		if ($provider === false) {
-			$provider = new  AccountProvider([
+			$provider = new AccountProvider([
 				"name" => $name,
 				"token" => $token
 			]);
