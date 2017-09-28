@@ -1,6 +1,8 @@
-<p class="lead">
-	Configure any of the providers below to collect from when building 
-	feeds for {{game.title}}.
-</p>
+<ng-template [ngIf]="game">
+	<p class="lead">
+		Configure any of the providers below to collect from when building 
+		feeds for {{game.title}}.
+	</p>
 
-<game-feed-manager [game]="game" [providers]="providers"></game-feed-manager>
+	<game-feed-manager [game]="game" [providers]="providers"></game-feed-manager>
+</ng-template>

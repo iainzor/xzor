@@ -11,9 +11,28 @@ import {AccountInterface} from "./account/account.interface";
 @Component({
 	selector: "app-nav",
 	templateUrl: "./app-nav.component.html",
-	styleUrls: ["./app-nav.component.css"]
+	styleUrls: ["./app-nav.component.css"],
+	animations: [
+		trigger("navTrigger", [
+			state("hidden", style({
+				opacity: 0,
+				transform: "translateX(-100%)"
+			})),
+			state("visible", style({
+				opacity: 1,
+				transform: "translateX(0)"
+			})),
+			transition("hidden <=> visible", animate(".2s ease-in-out"))
+		])
+	],
+	host: {
+		"[@navTrigger]": "open ? 'visible' : 'hidden'"
+	}
 })
 export class AppNavComponent
 {
 	@Input() account:AccountInterface;
+
+	@Input() open:boolean = false;
+	@Output() openChange:EventEmitter<boolean> = new EventEmitter<boolean>();
 }

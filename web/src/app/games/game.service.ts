@@ -22,6 +22,10 @@ export class GameService
 		this.subject.next(game);
 	}
 
+	getGame() : GameInterface {
+		return this.game;
+	}
+
 	feed() : Promise<Feed> {
 		return new Promise<Feed>((resolve) => {
 			this.Xzor
@@ -36,6 +40,10 @@ export class GameService
 
 	getFeedProviders() : Promise<ProviderInterface[]> {
 		return this.Xzor.get("g/"+ this.game.slug +"/feed-providers.json");
+	}
+
+	saveSettings(settings:{[name:string]:any}) : Promise<ProviderInterface[]> {
+		return this.Xzor.post("g/"+ this.game.slug +"/settings.json", JSON.stringify(settings));
 	}
 
 	follow() : Promise<any> {

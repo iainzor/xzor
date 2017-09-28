@@ -1,4 +1,11 @@
-<ui-card [theme]="person.theme">
-	<h4>{{person.name}}</h4>
-	<p>Member since {{person.created*1000 | date:'mediumDate'}}
-</ui-card>
+<div class="decoration" [z]="z">
+	<div class="side top"></div>
+	<div class="side bottom"></div>
+	<div class="side right"></div>
+	<div class="side left"></div>
+
+	<ui-card [theme]="person.theme">
+		<h4>{{person.name}}</h4>
+		<div *ngIf="person.data.accountStatus">{{person.data.accountStatus}}</div>
+	</ui-card>
+</div>

@@ -17,7 +17,7 @@ const GameListEnterAnimations = [
 		opacity: 0,
 		transform: "scale(.5)"
 	}),
-	stagger(100, [
+	stagger(30, [
 		animate(".2s ease-in-out", style({
 			opacity: 1,
 			transform: "scale(1)"

@@ -1,1 +1,11 @@
 ui-card { margin-bottom: 30px; }
+
+.preview > label {
+	display: block;
+	background-color: rgba(0,0,0,.5);
+	padding: 5px 10px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 12px;
+	margin: 0;
+}

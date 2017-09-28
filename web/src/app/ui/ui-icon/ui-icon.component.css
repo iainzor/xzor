@@ -1,6 +1,15 @@
 :host {
-	display: flex;
+	display: inline-flex;
 	position: relative;
 	align-items: center;
 	justify-content: center;
+}
+
+.primary {
+	position: relative;
+	z-index: 1;
+}
+.secondary {
+	position: absolute;
+	z-index: 2;
 }

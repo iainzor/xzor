@@ -1,147 +1,90 @@
-import {animate, trigger, transition, style, state} from "@angular/animations";
-import {Component, Input, Output, EventEmitter, OnInit, OnDestroy} from "@angular/core";
+import {Component, Input, OnInit, OnDestroy} from "@angular/core";
 import {Router, NavigationStart} from "@angular/router";
 import {Subscription} from "rxjs";
 
 import {AccountInterface} from "./account/account.interface";
-import {AccountService} from "./account/account.service";
-import {AppMenuService} from "./app-menu.service";
+import {UIMenuItemInterface} from "./ui/ui-menu/ui-menu-item.interface";
 
 @Component({
 	selector: "app-menu",
 	templateUrl: "./app-menu.component.html",
-	styleUrls: ["./app-menu.component.css"],
-	animations: [
-		trigger("activeTrigger", [
-			state("hidden", style({
-				transform: "rotate(-90deg)",
-				opacity: 0
-			})),
-			state("visible", style({
-				transform: "rotate(0)",
-				opacity: 1
-			})),
-
-			transition("* => *", animate(".2s ease-in-out"))
-		]),
-		trigger("inactiveTrigger", [
-			state("hidden", style({
-				transform: "rotate(90deg)",
-				opacity: 0
-			})),
-			state("visible", style({
-				transform: "rotate(0)",
-				opacity: 1
-			})),
-
-			transition("* => *", animate(".2s ease-in-out"))
-		]),
-		trigger("contentTrigger", [
-			state("hidden-left", style({
-				transform: "translateX(-100%)",
-				opacity: 0
-			})),
-			state("hidden-right", style({
-				transform: "translateX(100%)",
-				opacity: 0
-			})),
-			state("visible", style({
-				transform: "translateX(0)",
-				opacity: 1
-			})),
-
-			transition("hidden-left <=> visible", animate(".2s ease-in-out")),
-			transition("hidden-right <=> visible", animate(".2s ease-in-out"))
-		])
-	],
-	providers: [
-		AppMenuService
-	]
+	styleUrls: ["./app-menu.component.css"]
 })
-export class AppMenuComponent implements OnInit, OnDestroy, EventListenerObject
+export class AppMenuComponent implements OnInit, OnDestroy
 {
-	private accountSub:Subscription;
-	private menuSub:Subscription;
+	private navMenuItem = { title: "Navigation", hideTitle: true, icon: "menu", onClick: this.toggleNavMenu.bind(this) };
+	private accountMenuItem = { title: "Account", hideTitle: true, icon: "face", onClick: this.toggleAccountMenu.bind(this) };
+	private notificationsMenuItem = { title: "Notifications", hideTitle: true, icon: "notifications", onClick: this.toggleNotificationMenu.bind(this) };
+	
 	private routerSub:Subscription;
 
-	side:string = "left";
-	open:boolean = false;
-	account:AccountInterface;
+	@Input() account:AccountInterface;
 
-	activeState:string = "hidden";
-	inactiveState:string = "visible";
-	contentState:string;
+	navOpen:boolean = false;
+	accountOpen:boolean = false;
+	notificationsOpen:boolean = false;
 
-	@Input("side") set _side(side:string) {
-		this.side = side;
-		this.contentState = "hidden-"+ side;
-	}
+	menuItems:UIMenuItemInterface[] = [
+		this.navMenuItem,
 
-	@Input() icon:string = "menu";
-	@Input() badge:string;
-	@Input() width:number = 300;
+		{ spacer: true },
 
-	constructor(
-		private Account:AccountService,
-		private Menu:AppMenuService,
-		private Router:Router
-	) {
-		Menu.component = this;
-	}
+		this.accountMenuItem,
+		this.notificationsMenuItem
+	];
+
+	constructor(private Router:Router) {}
 
 	ngOnInit() {
-		this.accountSub = this.Account.subscribe((account) => {
-			this.account = account;
-		});
-		this.menuSub = this.Menu.isOpen.subscribe((isOpen) => {
-			this.open = isOpen;
-
-			if (isOpen) {
-				this.onOpen();
-			} else {
-				this.onClose();
+		this.routerSub = this.Router.events.subscribe((event) => {
+			if (event instanceof NavigationStart) {
+				this.navOpen = false;
+				this.accountOpen = false;
+				this.notificationsOpen = false;
+				this.adjustMenuIcons();
 			}
-		});
-		this.routerSub = this.Router.events.subscribe((e) => {
-			if (e instanceof NavigationStart) {
-				this.Menu.close();
-			}
-		});
+		});	
 	}
 
 	ngOnDestroy() {
-		this.accountSub.unsubscribe();
+		this.routerSub.unsubscribe();
 	}
 
-	onOpen() {
-		this.activeState = "visible";
-		this.inactiveState = "hidden";
-		this.contentState = "visible";
-
-		setTimeout(() => {
-			document.addEventListener("click", this);
-		});
-	}
-
-	onClose() {
-		this.activeState = "hidden";
-		this.inactiveState = "visible";
-		this.contentState = "hidden-"+ this.side;
-
-		document.removeEventListener("click", this);
-	}
-
-	handleEvent(e:Event) {
-		this.Menu.close();
-	}
-
-	interceptClick(e:MouseEvent) {
+	ignoreDocumentClick(e:MouseEvent) {
 		e.stopPropagation();
 	}
 
-	toggle(e:MouseEvent) {
-		e.preventDefault();
+	toggleNavMenu(item:UIMenuItemInterface) {
+		this.navOpen = !this.navOpen;
+		this.accountOpen = false;
+		this.notificationsOpen = false;
+
+		this.adjustMenuIcons();
+	}
+
+	toggleAccountMenu() {
+		this.accountOpen = !this.accountOpen;
+		this.navOpen = false;
+		this.notificationsOpen = false;
+
+		this.adjustMenuIcons();
+	}
+
+	toggleNotificationMenu() {
+		this.notificationsOpen = !this.notificationsOpen;
+		this.navOpen = false;
+		this.accountOpen = false;
 		
-		this.Menu.toggle();
+		this.adjustMenuIcons();
+	}
+
+	onMenuOpenChange() {
+		this.adjustMenuIcons();
+	}
+
+	private adjustMenuIcons() {
+		this.navMenuItem.icon = this.navOpen ? "close" : "menu";
+		this.accountMenuItem.icon = this.accountOpen ? "close" : "face";
+		this.notificationsMenuItem.icon = this.notificationsOpen ? "close" : "notifications";
 	}
 }

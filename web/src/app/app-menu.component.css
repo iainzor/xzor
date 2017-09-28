@@ -1,50 +1,38 @@
-:host {
+header {
 	display: flex;
-}
-
-a.toggle {
-	display: flex;
-	position: relative;
-	flex-direction: column;
-	justify-content: center;
-	padding: 0 15px;
-}
-a.toggle:hover {
-	text-decoration: none;
-	background-color: rgba(0,0,0,.1);
-}
-a.toggle.active {
-	background-color: rgba(0,0,0,.25);
-}
-	a.toggle > .badge {
-		position: absolute;
-		top: 8px;
-		right: 8px;
-		z-index: 2;
-	}
-	
-	a.toggle > ui-icon {
-		position: relative;
-		z-index: 0;
-	}
-	a.toggle > ui-icon.inactive {
-		position: absolute;
-		z-index: 1;
-	}
-
-.content {
+	flex-grow: 1;
 	position: fixed;
-	top: 60px;
-	bottom: 0;
-	display: flex;
-	flex-direction: column;
-}
-.content.left {
+	top: 0;
 	left: 0;
-}
-.content.right {
 	right: 0;
+	height: 60px;
+	background-color: rgba(0,0,0,.5);
+	z-index: 1000;
 }
-.content.static {
-	bottom: auto;
+	header > ui-menu {
+		flex-grow: 1;
+	}
+
+app-nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 25;
+}
+
+account-menu {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 50;
+}
+
+notifications-menu {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 75;
 }

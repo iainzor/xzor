@@ -1,0 +1,16 @@
+.member {
+	display: flex;
+	align-items: center;
+}
+.member.reverse {
+	flex-direction: row-reverse;
+}
+	.member > .tag {
+		font-weight: bold;
+		width: 60px;
+		text-align: center;
+	}
+
+	.member.reverse input {
+		text-align: right;
+	}

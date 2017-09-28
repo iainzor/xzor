@@ -1,0 +1,74 @@
+<form (ngSubmit)="submit()">
+	<ui-card>
+		<div class="form-group">
+			<label>Team Name</label>
+			<input type="text" class="form-control form-control-lg" name="name" [(ngModel)]="team.name" [class.is-invalid]="errors.name">
+			<div class="invalid-feedback" *ngIf="errors.name">{{errors.name}}</div>
+		</div>
+
+		<div class="form-group">
+			<label>Description</label>
+			<textarea class="form-control" rows="3" name="description" [(ngModel)]="team.description" maxlength="128"></textarea>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<div class="form-group">
+					<label>Tag</label>
+					<input type="text" class="form-control" maxlength="5" name="tag" [(ngModel)]="team.tag">
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label>Tag Position</label>
+					<select class="form-control" name="tagPosition" [(ngModel)]="team.tagPosition">
+						<option *ngFor="let pos of tagPositions" [value]="pos.value">
+							{{pos.label}}
+						</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" *ngIf="!team.id">
+			<div class="col-6">
+				<div class="form-group">
+					<label>xZor URL</label>
+					<xzor-url-picker 
+						section="t" 
+						[watch]="team.name" 
+						[(uri)]="team.slug" 
+						[error]="errors.slug"></xzor-url-picker>
+					
+					<small>
+						This will be the direct URL to your team's profile.
+					</small>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="form-group">
+					<label>Your Name</label>
+					<div class="member" [class.reverse]="team.tagPosition === 'right'">
+						<div class="tag" *ngIf="team.tagPosition !== 'hidden'">{{team.tag}}</div>
+						<div class="name">
+							<input type="text" class="form-control" name="memberName" [(ngModel)]="team.member.name">
+						</div>
+					</div>
+					
+					<small class="form-text">
+						Customize how your name will appear within the context of this team.
+					</small>
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label>Theme</label>
+			<ui-theme-editor [(model)]="team.theme"></ui-theme-editor>
+		</div>
+
+		<footer>
+			<ui-button icon="save" [value]="team.id ? 'Save' : 'Create'"></ui-button>
+		</footer>
+	</ui-card>
+</form>

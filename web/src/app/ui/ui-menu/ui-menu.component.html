@@ -1,0 +1,10 @@
+<ul>
+	<li *ngFor="let item of items" [class.spacer]="item.spacer">
+		<a href="#" *ngIf="!item.spacer" (click)="onClick($event, item)" [attr.title]="item.title">
+			<ui-icon *ngIf="item.icon" [icon]="item.icon"></ui-icon>
+			<span *ngIf="item.title && !item.hideTitle">
+				{{item.title}}
+			</span>
+		</a>
+	</li>
+</ul>

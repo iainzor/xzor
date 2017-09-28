@@ -1,31 +1,25 @@
 <?php
 namespace People;
 
-use Account\DbTable\Accounts,
+use Account\AccountLoader,
+	Account\DbTable\Accounts,
 	Account\DbTable\AccountThemes;
 
 class PeopleLoader
 {
 	/**
-	 * @var Accounts
+	 * @var AccountLoader
 	 */
-	private $accounts;
-	
-	/**
-	 * @var AccountThemes
-	 */
-	private $accountThemes;
+	private $loader;
 	
 	/**
 	 * Constructor
 	 * 
-	 * @param Accounts $accounts
-	 * @param AccountThemes $accountThemes
+	 * @param AccountLoader $loader
 	 */
-	public function __construct(Accounts $accounts, AccountThemes $accountThemes)
+	public function __construct(AccountLoader $loader)
 	{
-		$this->accounts = $accounts;
-		$this->accountThemes = $accountThemes;
+		$this->loader = $loader;
 	}
 	
 	/**
@@ -33,19 +27,11 @@ class PeopleLoader
 	 */
 	public function loadAll() : array
 	{
-		$people = $this->accounts->fetchPublicProfiles();
-		
-		$this->accountThemes->attachToAll($people);
-		
-		return $people;
+		return $this->loader->loadPublicProfiles();
 	}
 	
 	public function load(string $slug)
 	{
-		$person = $this->accounts->fetchPublicProfile($slug);
-		
-		$this->accountThemes->attachToAll([$person]);
-		
-		return $person;
+		return $this->loader->loadPublicProfile($slug);
 	}
 }

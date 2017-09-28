@@ -1,0 +1,17 @@
+:host {
+	display: flex;
+	flex-direction: column;
+}
+	:host > ui-card {
+		flex-grow: 1;
+	}
+
+.tag {
+	display: flex;
+	align-items: center;
+	margin-bottom: 0;
+}
+.tag.reverse {
+	flex-direction: row-reverse;
+}
+	.tag > .member { margin: 0 2px; }

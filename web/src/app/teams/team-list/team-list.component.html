@@ -1,0 +1,7 @@
+<div class="row">
+	<div class="col-md-6 col-lg-4 team-col" *ngFor="let team of teams">
+		<a [routerLink]="['/t', team.slug]">
+			<team-tile [team]="team"></team-tile>
+		</a>
+	</div>
+</div>

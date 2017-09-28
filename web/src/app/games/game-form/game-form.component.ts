@@ -41,6 +41,18 @@ export class GameFormComponent
 		});
 	}
 
+	onTitleChange(title:string) {
+		this.game.title = title;
+		this.game.slug = title.replace(/[^a-z0-9-_]/i, "-").toLowerCase();
+
+		this.gameChange.emit(this.game);
+	}
+
+	onSlugChange(slug:string) {
+		this.game.slug = slug.replace(/[^a-z0-9-_]/i, "-").toLowerCase();
+		this.gameChange.emit(this.game);
+	}
+
 	onImageChange(image?:ImageInterface) {
 		if (image) {
 			this.game.coverImage = image.url;

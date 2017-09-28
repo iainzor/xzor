@@ -1,0 +1,12 @@
+<input 	type="text" 
+		name="uri" 
+		class="form-control"
+		autocomplete="off"
+		[ngModel]="uri" 
+		(ngModelChange)="onChange($event)" 
+		[class.is-invalid]="error">
+		
+<div class="invalid-feedback" *ngIf="error">{{error}}</div>
+<code class="form-text">
+	<strong>{{url}}</strong>
+</code>

@@ -1,0 +1,18 @@
+<ui-card [theme]="team.theme">
+	<div class="row align-items-center">
+		<div class="col">
+			<h4>{{team.name}}</h4>
+		</div>
+		<div class="col-auto" *ngIf="team.tagPosition !== 'hidden'">
+			<p class="tag">
+				<strong>{{team.tag}}</strong>
+			</p>
+		</div>
+	</div>
+
+	<p *ngIf="team.description">{{team.description}}</p>
+
+	<small *ngIf="team.member">
+		You are a member of {{team.name}} as {{team.member.displayName}}
+	</small>
+</ui-card>

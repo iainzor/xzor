@@ -1,0 +1,9 @@
+<ui-header [theme]="team.theme">
+	<div class="container">
+		<h1 class="display-4">{{team.name}}</h1>
+		<p class="lead" *ngIf="team.description">{{team.description}}</p>
+		<ui-nav [pages]="pages"></ui-nav>
+	</div>
+</ui-header>
+
+<router-outlet></router-outlet>

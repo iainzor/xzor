@@ -11,6 +11,7 @@ import {UIControlsModule} from "./ui-controls/ui-controls.module";
 import {UIFileSelectorModule} from "./ui-file-selector/ui-file-selector.module";
 import {UIHeaderModule} from "./ui-header/ui-header.module";
 import {UIIconModule} from "./ui-icon/ui-icon.module";
+import {UIMenuModule} from "./ui-menu/ui-menu.module";
 import {UINavModule} from "./ui-nav/ui-nav.module";
 import {UIThemeEditorModule} from "./ui-theme-editor/ui-theme-editor.module";
 import {UIToastModule} from "./ui-toast/ui-toast.module";
@@ -30,6 +31,7 @@ import {UIToastModule} from "./ui-toast/ui-toast.module";
 		UIFileSelectorModule,
 		UIHeaderModule,
 		UIIconModule,
+		UIMenuModule,
 		UINavModule,
 		UIThemeEditorModule,
 		UIToastModule
@@ -42,6 +44,7 @@ import {UIToastModule} from "./ui-toast/ui-toast.module";
 		UIFileSelectorModule,
 		UIHeaderModule,
 		UIIconModule,
+		UIMenuModule,
 		UINavModule,
 		UIThemeEditorModule,
 		UIToastModule

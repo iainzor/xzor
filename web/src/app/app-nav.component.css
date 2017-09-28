@@ -6,6 +6,8 @@
 
 .nav {
 	flex-grow: 1;
+	padding-top: 60px;
+	min-width: 200px;
 }
 
 	.nav a { 
@@ -15,5 +17,5 @@
 		text-decoration: none;
 	}
 		.nav a > ui-icon {
-			margin-right: 10px;
+			margin-right: 15px;
 		}

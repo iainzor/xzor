@@ -49,7 +49,8 @@ export class AccountService
 			name: account.name,
 			slug: account.slug,
 			isPublic: account.isPublic,
-			theme: account.theme
+			theme: account.theme,
+			data: account.data
 		}));
 		promise.then((response) => {
 			if (response.isValid) {

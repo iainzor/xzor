@@ -1,48 +1,56 @@
 <form #form="ngForm" (ngSubmit)="submit(form)">
 	<input type="submit" hidden>
-	
-	<ui-card z="1">
-		<div class="form-group">
-			<label>Game Title</label>
-			<input type="text" class="form-control" [class.is-invalid]="errors.title" name="title" [(ngModel)]="game.title" maxlength="64">
-			<div class="invalid-feedback" *ngIf="errors.title">{{errors.title}}</div>
-		</div>
-		<div class="form-group">
-			<label>Description</label>
-			<textarea class="form-control" [class.is-invalid]="errors.description" rows="3" name="description" [(ngModel)]="game.description" maxlength="512"></textarea>
-			<div class="invalid-feedback" *ngIf="errors.description">{{errors.description}}</div>
-		</div>
-		<div class="form-group" *ngIf="!game.id">
-			<label>Permalink</label>
-			<input type="text" class="form-control" [class.is-invalid]="errors.slug" name="slug" [(ngModel)]="game.slug" autocomplete="off" maxlength="32">
-			<div class="invalid-feedback" *ngIf="errors.slug">{{errors.slug}}</div>
-			<small class="form-text text-muted">
-				This will be the permanent URL to the game. Please only use alphanumeric
-				characters <code>a-z 0-9</code>, hyphens <code>-</code>, and underscores <code>_</code>
-			</small>
-		</div>
 
-		<div class="row">
-			<div class="col-md-6">
+	<div class="row">
+		<div class="col-md-6">
+			<ui-card z="1">
 				<div class="form-group">
-					<label>Theme</label>
-					<ui-theme-editor [(model)]="game.theme"></ui-theme-editor>
+					<label>Game Title</label>
+					<input type="text" class="form-control" [class.is-invalid]="errors.title" name="title" [ngModel]="game.title" maxlength="64" (ngModelChange)="onTitleChange($event)">
+					<div class="invalid-feedback" *ngIf="errors.title">{{errors.title}}</div>
 				</div>
+
+				<div class="form-group" *ngIf="!game.id">
+					<label>Path</label>
+					<div class="input-group">
+						<code class="input-group-addon">{{environment.baseUrl}}/g/</code>
+						<input type="text" class="form-control" [class.is-invalid]="errors.slug" name="slug" [ngModel]="game.slug" (ngModelChange)="onSlugChange($event)" autocomplete="off" maxlength="32">
+					</div>
+					
+					<div class="invalid-feedback" *ngIf="errors.slug">{{errors.slug}}</div>
+					
+					<small class="form-text text-muted">
+						This will be the permanent path to the game from within xZor. Please only use alphanumeric
+						characters <code>a-z 0-9</code>, hyphens <code>-</code>, and underscores <code>_</code>
+					</small>
+				</div>
+
+				<div class="form-group">
+					<label>Description</label>
+					<textarea class="form-control" [class.is-invalid]="errors.description" rows="3" name="description" [(ngModel)]="game.description" maxlength="512"></textarea>
+					<div class="invalid-feedback" *ngIf="errors.description">{{errors.description}}</div>
+				</div>
+
 				<div class="form-group">
 					<label>Cover Image</label>
 					<game-image-editor [url]="game.coverImage" (imageChange)="onImageChange($event)"></game-image-editor>
 				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group" *ngIf="game.title">
-					<label>Preview</label>
-					<game-tile [game]="game" z="2"></game-tile>
+
+				<div class="form-group">
+					<label>Theme</label>
+					<ui-theme-editor [(model)]="game.theme"></ui-theme-editor>
 				</div>
+
+				<footer>
+					<ui-button [value]="game.id ? 'Save Changes' : 'Add Game'"></ui-button>
+				</footer>
+			</ui-card>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group preview" *ngIf="game.title">
+				<label>Preview</label>
+				<game-tile [game]="game" z="2"></game-tile>
 			</div>
 		</div>
-		
-		<footer>
-			<ui-button value="Save Game"></ui-button>
-		</footer>
-	</ui-card>
+	</div>
 </form>

@@ -12,6 +12,8 @@ export class ImagesService
 		let data:FormData = new FormData();
 		data.append("file", file, file.name);
 
+		console.log(file, data.get("file"));
+
 		return new Promise<ImageInterface>((resolve, reject) => {
 			this.Xzor.post("img/upload.json", data)
 				.then((image) => {

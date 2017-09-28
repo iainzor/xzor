@@ -19,7 +19,7 @@ import {OverviewComponent} from "./game/overview.component";
 				resolve: { game: GameResolver },
 				children: [
 					{ path: "", component: OverviewComponent },
-					{ path: "manage", loadChildren: "./game-admin-pages.module#GameAdminPagesModule" }
+					{ path: "manage", loadChildren: "./admin-pages.module#GameAdminPagesModule" }
 				]
 			}
 		]),

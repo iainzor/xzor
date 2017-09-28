@@ -1,6 +1,8 @@
 <?php
 namespace Games;
 
+use Account\Account;
+
 class GameSaver implements \JsonSerializable
 {
 	use \Common\ToArrayTrait;
@@ -14,9 +16,19 @@ class GameSaver implements \JsonSerializable
 	public $game;
 	
 	/**
+	 * @var Account
+	 */
+	private $account;
+	
+	/**
 	 * @var DbTable\Games
 	 */
 	private $gamesTable;
+	
+	/**
+	 * @var DbTable\GameManagers
+	 */
+	private $managersTable;
 	
 	/**
 	 * @var \Games\GameImageSaver
@@ -36,13 +48,17 @@ class GameSaver implements \JsonSerializable
 	/**
 	 * Constructor
 	 * 
+	 * @param \Account\Account $account
 	 * @param \Games\DbTable\Games $gamesTable
+	 * $param \Games\DbTable\GameManagers $managersTable
 	 * @param \Games\GameImageSaver $imageSaver
 	 * @param \Games\GameThemeSaver $themeSaver
 	 */
-	public function __construct(DbTable\Games $gamesTable, GameImageSaver $imageSaver, GameThemeSaver $themeSaver)
+	public function __construct(Account $account, DbTable\Games $gamesTable, DbTable\GameManagers $managersTable, GameImageSaver $imageSaver, GameThemeSaver $themeSaver)
 	{
+		$this->account = $account;
 		$this->gamesTable = $gamesTable;
+		$this->managersTable = $managersTable;
 		$this->imageSaver = $imageSaver;
 		$this->themeSaver = $themeSaver;
 	}
@@ -66,13 +82,15 @@ class GameSaver implements \JsonSerializable
 	public function save(array $data) : GameSaver
 	{
 		if ($this->isValid($data)) {
+			$isNew = !$this->game->id;
+			
 			$this->gamesTable->save($this->game);
 			
 			if (!$this->game->id) {
 				$this->isValid = false;
 				$this->errors["general"] = "Could not import game";
 			} else {
-				$this->process();
+				$this->process($isNew);
 			}
 		}
 		
@@ -106,7 +124,7 @@ class GameSaver implements \JsonSerializable
 		return $this->isValid;
 	}
 	
-	private function process()
+	private function process(bool $isNew = false)
 	{
 		if ($this->game->coverImage) {
 			$image = new Model\GameImage();
@@ -122,6 +140,14 @@ class GameSaver implements \JsonSerializable
 			$theme->gameId = (int) $this->game->id;
 			
 			$this->themeSaver->save($theme);
+		}
+		
+		if ($isNew) {
+			$this->managersTable->insert([
+				"gameId" => $this->game->id,
+				"accountId" => $this->account->id,
+				"role" => "admin"
+			], ["role"]);
 		}
 	}
 	
