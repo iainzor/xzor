@@ -4,18 +4,18 @@ import {ResourcePermissionsInterface} from "./resource-permissions.interface";
 
 export class Permissions
 {
-	private permissions:ResourcePermissionsInterface;
+	private resource:ResourcePermissionsInterface;
 
 	constructor(response:PermissionsResponseInterface, resource:string) {
-		this.permissions = response[resource] || {
+		this.resource = response[resource] || {
 			allowAll: false,
 			permissions: {}
 		};
 	}
 
 	isAllowed(path:string) : boolean {
-		return this.permissions[path] 
-			? this.permissions[path] 
-			: this.permissions.allowAll;
+		return this.resource.permissions[path] 
+			? this.resource.permissions[path].isAllowed 
+			: this.resource.allowAll;
 	}
 }

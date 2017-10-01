@@ -1,12 +1,14 @@
 <?php
 namespace Teams\Controller;
 
-use Core\DI,
+use Account\Permission\AccountPermissions,
+	Core\DI,
 	Http\Request,
 	Http\Route,
 	Teams\TeamLoader,
 	Teams\TeamMemberLoader,
-	Teams\Forms\TeamForm;
+	Teams\Forms\TeamForm,
+	Teams\Settings;
 
 class TeamController
 {
@@ -46,5 +48,15 @@ class TeamController
 	public function membersAction(TeamMemberLoader $loader)
 	{
 		return $loader->loadAll();
+	}
+	
+	public function settingsAction(Settings\Registry $registry, AccountPermissions $permissions)
+	{
+		$settings = $registry->loadForTeam($this->team);
+		$settings->showPrivateSettings(
+			$permissions->isAllowed("manage", "team", $this->team->slug)
+		);
+		
+		return $settings;
 	}
 }

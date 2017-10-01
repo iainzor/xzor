@@ -21,5 +21,8 @@ return [
 		Reddit\Config::AGENT_APP_ID => "net.xzor",
 		Reddit\Config::AGENT_VERSION => "1.0.0",
 		Reddit\Config::AGENT_USERNAME => "iainzor"
+	],
+	Teams\Module::class => [
+		Teams\Config::SETTINGS => include __DIR__ ."/team-settings.php"
 	]
 ];

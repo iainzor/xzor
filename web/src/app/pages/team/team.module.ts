@@ -5,7 +5,6 @@ import {RouterModule, ActivatedRoute} from "@angular/router";
 import {PermissionsService} from "../../account/permissions.service";
 
 import {TeamResolver} from "../../teams/team.resolver";
-import {TeamPermissionsResolver} from "../../teams/team-permissions.resolver";
 import {TeamService} from "../../teams/team.service";
 import {TeamsService} from "../../teams/teams.service";
 
@@ -14,8 +13,10 @@ import {UIModule} from "../../ui/ui.module";
 
 import {TeamComponent} from "./team.component";
 import {OverviewComponent} from "./overview.component";
+import {JoinComponent} from "./join.component";
 
-import {CanActivateAdminService} from "./can-activate-admin.service";
+import {CanJoinTeam} from "./can-join-team";
+import {CanManageTeam} from "./can-manage-team";
 
 @NgModule({
 	imports: [
@@ -25,12 +26,12 @@ import {CanActivateAdminService} from "./can-activate-admin.service";
 				path: "",
 				component: TeamComponent,
 				resolve: {
-					team: TeamResolver,
-					permissions: TeamPermissionsResolver
+					team: TeamResolver
 				},
 				children: [
 					{ path: "", component: OverviewComponent },
-					{ path: "manage", loadChildren: "./admin/admin.module#AdminModule", canActivate: [CanActivateAdminService] }
+					{ path: "join", component: JoinComponent, canActivate: [CanJoinTeam] },
+					{ path: "manage", loadChildren: "./admin/admin.module#AdminModule", canActivate: [CanManageTeam] }
 				]
 			}
 		]),
@@ -39,15 +40,16 @@ import {CanActivateAdminService} from "./can-activate-admin.service";
 	],
 	declarations: [
 		TeamComponent,
-		OverviewComponent
+		OverviewComponent,
+		JoinComponent
 	],
 	providers: [
 		TeamsService,
 		TeamService,
 		TeamResolver,
-		TeamPermissionsResolver,
 
-		CanActivateAdminService
+		CanJoinTeam,
+		CanManageTeam
 	]
 })
 export class TeamModule

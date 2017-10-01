@@ -1,0 +1,24 @@
+<div class="form-group" *ngIf="definition" [ngSwitch]="definition.fieldType">
+	<label>{{definition.label}}</label>
+	<p *ngIf="definition.description">
+		<small>
+			{{definition.description}}
+		</small>
+	</p>
+
+	<ng-template [ngSwitchCase]="'text'">
+		<input type="text" class="form-control" name="value" [ngModel]="value" (ngModelChange)="onChange($event)">
+	</ng-template>
+
+	<ng-template [ngSwitchCase]="'radio'">
+		<div class="form-check" *ngFor="let option of definition.options">
+			<label class="form-check-label">
+				<input class="form-check-input" type="radio" name="value" [ngModel]="value" [value]="option.value" (ngModelChange)="onChange($event)">
+				{{option.label}}
+				<small class="form-text text-muted" *ngIf="option.description">
+					{{option.description}}
+				</small>
+			</label>
+		</div>
+	</ng-template>
+</div>

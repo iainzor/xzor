@@ -3,6 +3,7 @@ namespace Teams\Controller;
 
 use Http\Request,
 	Teams\Forms\TeamForm,
+	Teams\Settings,
 	Teams\TeamLoader,
 	Teams\TeamSearchParams;
 
@@ -36,5 +37,10 @@ class TeamsController
 		return $form->execute(
 			$request->json()->data()
 		);
+	}
+	
+	public function availableSettingsAction(Settings\Registry $registry)
+	{
+		return $registry;
 	}
 }

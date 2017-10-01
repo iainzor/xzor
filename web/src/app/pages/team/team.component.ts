@@ -45,14 +45,22 @@ export class TeamComponent implements OnInit, OnDestroy
 
 	generatePages() {
 		this.pages = [
-			{ path: ["/t", this.team.slug], title: "Overview", activeExact: true }
+			{ path: ["/t", this.team.slug], title: "Overview", activeExact: true },
+			{ spacer: true }
 		];
 
-		if (this.permissions && this.permissions.isAllowed("manage")) {
-			this.pages.push(
-				{ spacer: true },
-				{ path: ["/t", this.team.slug, "manage"], icon: "settings", title: "Manage", hideTitle: true }
-			);
+		if (this.permissions) {
+			if (this.permissions.isAllowed("join")) {
+				this.pages.push(
+					{ path: ["/t", this.team.slug, "join"], title: "Join Team", icon: "person_add" }
+				);
+			}
+			
+			if (this.permissions.isAllowed("manage")) {
+				this.pages.push(
+					{ path: ["/t", this.team.slug, "manage"], icon: "settings", title: "Manage", hideTitle: true }
+				);
+			}
 		}
 	}
 }

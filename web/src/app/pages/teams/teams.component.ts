@@ -19,6 +19,6 @@ export class TeamsComponent
 		{ path: ["/teams"], title: "All Teams", activeExact: true },
 		{ path: ["/teams/my-teams"], title: "My Teams" },
 		{ spacer: true },
-		{ path: ["/teams", "new"], icon: "add_circle", title: "Create Team", hideTitle: true }
+		{ path: ["/teams", "new"], title: "Create Team" }
 	]
 }

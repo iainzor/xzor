@@ -14,7 +14,7 @@ class PermissionCollection implements \JsonSerializable
 	public $allowAll = false;
 	
 	/**
-	 * @var PermissionDefintion[]
+	 * @var PermissionDefinition[]
 	 */
 	private $permissions = [];
 	
@@ -68,6 +68,26 @@ class PermissionCollection implements \JsonSerializable
 		return $this->permissions;
 	}
 	
+	/**
+	 * Check if an action is allowed on the resource
+	 * 
+	 * @param string $action
+	 * @return bool
+	 */
+	public function isAllowed(string $action) : bool
+	{
+		foreach ($this->permissions as $perm) {
+			if ($perm->path === $action) {
+				return $perm->isAllowed;
+			}
+		}
+		
+		return $this->allowAll;
+	}
+	
+	/**
+	 * @return array
+	 */
 	public function jsonSerialize() : array 
 	{
 		$permissions = [];

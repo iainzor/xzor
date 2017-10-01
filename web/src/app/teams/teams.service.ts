@@ -33,4 +33,8 @@ export class TeamsService
 	loadMembers(slug:string) : Promise<TeamMemberInterface[]> {
 		return this.Xzor.get("t/"+ slug +"/members.json");
 	}
+
+	loadAvailableSettings() : Promise<any> {
+		return this.Xzor.get("teams/available-settings.json");
+	}
 }

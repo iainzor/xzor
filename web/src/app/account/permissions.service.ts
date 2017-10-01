@@ -9,7 +9,7 @@ export class PermissionsService
 {
 	constructor(private Xzor:XzorService) {}
 
-	forResource(resource:string, resourceId:any) : Promise<Permissions> {
+	forResource(resource:string, resourceId:any = null) : Promise<Permissions> {
 		return new Promise<Permissions>((resolve) => {
 			let url = "permissions";
 			if (resource) {
@@ -25,6 +25,14 @@ export class PermissionsService
 				.then((response) => {
 					resolve(new Permissions(response, resource));
 				});
+		});
+	}
+
+	isAllowed(action:string, resource:string, resourceId:any = null) : Promise<boolean> {
+		return new Promise<boolean>((resolve) => {
+			this.forResource(resource, resourceId).then((p) => {
+				resolve(p.isAllowed(action));
+			});
 		});
 	}
 }

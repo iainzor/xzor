@@ -34,7 +34,7 @@ export class AdminComponent implements OnInit, OnDestroy
 		let root = "/t/"+ this.team.slug +"/manage";
 
 		this.pages = [
-			{ path: [root], title: "Settings", activeExact: true },
+			{ path: [root], title: "Details", activeExact: true },
 			{ path: [root, "members"], title: "Members" }
 		];
 	}

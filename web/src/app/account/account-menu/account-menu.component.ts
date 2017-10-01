@@ -1,5 +1,6 @@
 import {animate, trigger, transition, style, state} from "@angular/animations";
 import {Component, Input, Output, EventEmitter} from "@angular/core";
+import {Router} from "@angular/router";
 
 import {AppService} from "../../app.service";
 import {AccountInterface} from "../account.interface";
@@ -35,7 +36,8 @@ export class AccountMenuComponent
 
 	constructor(
 		private App:AppService,
-		private Account:AccountService
+		private Account:AccountService,
+		private Router:Router
 	) {}
 	
 	signOut(e:MouseEvent) {
@@ -44,6 +46,13 @@ export class AccountMenuComponent
 		this.App.setLoading(true);
 		this.Account.signOut().then(() => {
 			this.App.setLoading(false);	
+			/*
+			this.Router.navigate(["sign-in"], {
+				queryParams: {
+					redirectTo: this.Router.url
+				}
+			});
+			*/
 		});
 	}
 }

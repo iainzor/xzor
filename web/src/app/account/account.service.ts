@@ -36,12 +36,15 @@ export class AccountService
 	}
 
 	signOut() : Promise<any> {
-		let promise = this.Xzor.post("sign-out.json", "");
-		promise.then(() => {
-			this.load();
+		return new Promise<any>((resolve) => {
+			this.Xzor
+				.post("sign-out.json", "")
+				.then(() => {
+					this.load().then(() => {
+						resolve();
+					});
+				});
 		});
-
-		return promise;
 	}
 
 	update(account:AccountInterface) : Promise<AccountFormResponseInterface> {

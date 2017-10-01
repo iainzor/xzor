@@ -50,6 +50,8 @@ class TeamMembers extends AbstractTable
 		
 		if ($membership && $membership->isAdmin) {
 			$permissions->allowAll = true;
+		} else if (!$membership && $account->isValid) {
+			$permissions->add(new PermissionDefinition("join", true));
 		}
 	}
 }

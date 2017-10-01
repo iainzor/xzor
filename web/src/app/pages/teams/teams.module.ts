@@ -13,6 +13,8 @@ import {IndexComponent} from "./index.component";
 import {MyTeamsComponent} from "./my-teams.component";
 import {NewComponent} from "./new.component";
 
+import {CanCreateTeam} from "./can-create-team";
+
 @NgModule({
 	imports: [
 		CommonModule,
@@ -24,17 +26,24 @@ import {NewComponent} from "./new.component";
 					{ 
 						path: "", 
 						component: IndexComponent, 
-						resolve: { teams: TeamsResolver } 
+						resolve: { 
+							teams: TeamsResolver 
+						} 
 					},
 					{ 
 						path: "my-teams", 
 						component: MyTeamsComponent, 
 						data: { myTeams: 1 }, 
-						resolve: { teams: TeamsResolver } 
+						resolve: { 
+							teams: TeamsResolver 
+						} 
 					},
 					{ 
 						path: "new", 
-						component: NewComponent 
+						component: NewComponent,
+						canActivate: [
+							CanCreateTeam
+						]
 					}
 				] 
 			}
@@ -51,7 +60,9 @@ import {NewComponent} from "./new.component";
 	],
 	providers: [
 		TeamsService,
-		TeamsResolver
+		TeamsResolver,
+
+		CanCreateTeam
 	]
 })
 export class TeamsModule

@@ -27,6 +27,12 @@ class PermissionRegistry
 		$this->di = $di;
 	}
 	
+	/**
+	 * Register a resource permission provider
+	 * 
+	 * @param string $className
+	 * @throws \UnexpectedValueException
+	 */
 	public function registerResourceProvider(string $className)
 	{
 		$instance = $this->di->create($className);
@@ -38,6 +44,14 @@ class PermissionRegistry
 		$this->instances[] = $instance;
 	}
 	
+	/**
+	 * Get all permissions for an account
+	 * 
+	 * @param Account $account
+	 * @param string $resource
+	 * @param string $resourceId
+	 * @return \Account\Permission\ResourceCollection
+	 */
 	public function getAll(Account $account, string $resource = null, string $resourceId = null) : ResourceCollection
 	{
 		$collection = new ResourceCollection();
