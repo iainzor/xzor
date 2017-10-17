@@ -52,17 +52,20 @@ class Registry implements \JsonSerializable
 	{
 		$ids = array_map(function(DbModel\Team $team) { return $team->id; }, $teams);
 		$map = array_combine($ids, $teams);
-		$results = $this->teamSettings->fetchAll(new QueryParams([
-			"teamId" => $ids
-		]));
 		
-		foreach ($results as $setting) {
-			if (isset($this->settings[$setting->key])) {
-				$def = $this->settings[$setting->key];
-				$team = $map[$setting->teamId];
-				
-				if ($def->isPublic) {
-					$team->settings[$setting->key] = $setting->value;
+		if (count($ids) > 0) {
+			$results = $this->teamSettings->fetchAll(new QueryParams([
+				"teamId" => $ids
+			]));
+			
+			foreach ($results as $setting) {
+				if (isset($this->settings[$setting->key])) {
+					$def = $this->settings[$setting->key];
+					$team = $map[$setting->teamId];
+
+					if ($def->isPublic) {
+						$team->settings[$setting->key] = $setting->value;
+					}
 				}
 			}
 		}
