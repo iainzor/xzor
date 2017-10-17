@@ -1,7 +1,7 @@
 <?php
 namespace Games;
 
-class GameSettingsContainer
+class GameSettingsContainer implements \JsonSerializable
 {
 	/**
 	 * @var array
@@ -28,5 +28,10 @@ class GameSettingsContainer
 	public function get(string $key, $defaultValue = null)
 	{
 		return isset($this->settings[$key]) ? $this->settings[$key] : $defaultValue;
+	}
+	
+	public function jsonSerialize() : array
+	{
+		return $this->settings;
 	}
 }

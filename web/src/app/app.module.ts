@@ -8,6 +8,8 @@ import {RouterModule} from "@angular/router";
 import {AccountService} from "./account/account.service";
 import {ProvidersService} from "./account/providers.service";
 import {AccountMenuModule} from "./account/account-menu/account-menu.module";
+import {PermissionsService} from "./account/permissions.service";
+
 import {FeedComponentsService} from "./feed/feed-components.service";
 import {ImagesService} from "./images/images.service";
 import {NotificationsService} from "./notifications/notifications.service";
@@ -23,6 +25,8 @@ import {UIModule} from "./ui/ui.module";
 import {VendorsModule} from "./vendors/vendors.module";
 import {XzorModule} from "./xzor/xzor.module";
 import {XzorService} from "./xzor/xzor.service";
+
+import {PagesModule} from "./pages/pages.module";
 
 @NgModule({
 	declarations: [
@@ -42,7 +46,6 @@ import {XzorService} from "./xzor/xzor.service";
 			{ path: "g/:slug", loadChildren: "./games/pages/game-pages.module#GamePagesModule" },
 			{ path: "people", loadChildren: "./people/people.module#PeopleModule" },
 			{ path: "p/:slug", loadChildren: "./people/person.module#PersonModule" },
-			{ path: "teams", loadChildren: "./teams/teams.module#TeamsModule" },
 			{ path: "sources", loadChildren: "./sources/sources.module#SourcesModule" }
 		]),
 
@@ -51,7 +54,9 @@ import {XzorService} from "./xzor/xzor.service";
 		NotificationsToastModule,
 		UIModule,
 		VendorsModule,
-		XzorModule
+		XzorModule,
+
+		PagesModule
 	],
 	providers: [
 		AppService,
@@ -60,6 +65,7 @@ import {XzorService} from "./xzor/xzor.service";
 		FeedComponentsService,
 		ImagesService,
 		NotificationsService,
+		PermissionsService,
 		ProvidersService,
 		ThemesService,
 		XzorService,
@@ -67,4 +73,14 @@ import {XzorService} from "./xzor/xzor.service";
 	],
 	bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule 
+{ 
+	constructor(
+		private Account:AccountService,
+		private Themes:ThemesService
+	) {
+		Account.subscribe((account) => {
+			Themes.setDefaultTheme(account.theme);
+		})
+	}
+}

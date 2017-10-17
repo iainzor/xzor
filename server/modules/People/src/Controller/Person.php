@@ -8,8 +8,12 @@ class Person
 {
 	public function indexAction(PeopleLoader $loader, Route $route)
 	{
-		return $loader->load(
-			$route->param("slug")
-		);
+		$slug = $route->param("slug");
+		
+		try {
+			return $loader->load($slug);
+		} catch (\Exception $e) {
+			throw new \Exception("Could not find public profile for '{$slug}'", 404);
+		}
 	}
 }

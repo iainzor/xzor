@@ -1,5 +1,6 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 
+import {environment} from "../../../environments/environment";
 import {NotificationsService} from "../../notifications/notifications.service";
 import {AccountInterface} from "../account.interface";
 import {AccountService} from "../account.service";
@@ -14,6 +15,7 @@ export class AccountFormComponent
 
 	isValid:boolean = true;
 	errors:any = {};
+	environment = environment;
 
 	constructor(
 		private Account:AccountService,

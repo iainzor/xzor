@@ -23,13 +23,14 @@ require_once $httpRoot . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "Ap
 $app = new Http\Application($uri);
 $modules = $app->moduleRegistry();
 $modules->registerAll($blissRoot . DIRECTORY_SEPARATOR . "modules", [
+	"Acl",
 	"Cache",
 	"Common",
 	"Core",
 	"Database",
+	"Forms",
 	"Http",
-	"Logs",
-	"Acl"
+	"Logs"
 ]);
 $modules->registerAll(__DIR__ . DIRECTORY_SEPARATOR . "modules");
 $modules->registerAll(__DIR__ . DIRECTORY_SEPARATOR . "vendor");

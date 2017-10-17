@@ -9,6 +9,11 @@ class AccountSaver
 	private $accounts;
 	
 	/**
+	 * @var \Account\DbTable\AccountData
+	 */
+	private $accountData;
+	
+	/**
 	 * @var \Account\DbTable\AccountThemes
 	 */
 	private $themes;
@@ -17,11 +22,13 @@ class AccountSaver
 	 * Constructor
 	 * 
 	 * @param \Account\DbTable\Accounts $accounts
+	 * @param \Account\DbTable\AccountData $accountData
 	 * @param \Account\DbTable\AccountThemes $themes
 	 */
-	public function __construct(DbTable\Accounts $accounts, DbTable\AccountThemes $themes)
+	public function __construct(DbTable\Accounts $accounts, DbTable\AccountData $accountData, DbTable\AccountThemes $themes)
 	{
 		$this->accounts = $accounts;
+		$this->accountData = $accountData;
 		$this->themes = $themes;
 	}
 	
@@ -46,6 +53,10 @@ class AccountSaver
 		], [
 			"id" => $account->id
 		]);
+		
+		if (isset($data["data"])) {
+			$this->accountData->saveForAccount($account->id, $data["data"]);
+		}
 		
 		if (isset($data["theme"])) {
 			$this->themes->save($account->id, $data["theme"]);

@@ -1,4 +1,5 @@
 import {Component, OnInit, OnDestroy} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 
 import {ProviderInterface} from "../../../feed/provider.interface";
@@ -11,26 +12,24 @@ import {GameService} from "../../game.service";
 })
 export class FeedsComponent implements OnInit, OnDestroy
 {
-	private gameSub:Subscription;
+	private dataSub:Subscription;
 
 	game:GameInterface;
 	providers:ProviderInterface[] = [];
 
 	constructor(
-		private Game:GameService
+		private Game:GameService,
+		private Route:ActivatedRoute
 	) {}
 
 	ngOnInit() {
-		this.gameSub = this.Game.subscribe((game) => {
-			this.game = game;
-
-			this.Game.getFeedProviders().then((providers) => {
-				this.providers = providers;
-			});
+		this.game = this.Game.getGame();
+		this.dataSub = this.Route.data.subscribe((data) => {
+			this.providers = data["providers"];
 		});
 	}
 
 	ngOnDestroy() {
-		this.gameSub.unsubscribe();
+		this.dataSub.unsubscribe();
 	}
 }

@@ -7,4 +7,5 @@ export interface PersonInterface
 	created:number;
 	updated:number;
 	theme?:ThemeInterface;
+	data?:{[key:string]:any};
 }

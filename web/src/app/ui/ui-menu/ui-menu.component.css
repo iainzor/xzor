@@ -1,0 +1,28 @@
+:host {
+	display: flex;
+}
+
+ul {
+	display: flex;
+	flex-direction: row;
+	flex-grow: 1;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+	ul > li {
+		display: flex;
+	}
+
+	ul > li.spacer {
+		flex-grow: 1;
+	}
+
+		ul > li > a {
+			display: flex;
+			padding: 15px;
+		}
+
+			ul > li > a > ui-icon + span {
+				margin-left: 10px;
+			}

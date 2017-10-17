@@ -1,0 +1,18 @@
+:host {
+	display: block;
+	padding-top: 30px;
+}
+
+.team-col {
+	display: flex;
+	flex-direction: column;
+}
+	.team-col > a {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+	}
+	
+	.team-col team-tile {
+		flex-grow: 1;
+	}

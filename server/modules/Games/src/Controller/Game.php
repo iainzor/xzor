@@ -8,8 +8,10 @@ use Account\Account,
 	Http\Request,
 	Games\GamesLoader,
 	Games\DbTable\GameFollowers,
+	Games\DbTable\GameSettings,
 	Games\Feed\GameFeedDefinition,
 	Games\Feed\ProviderConfigLoader,
+	Games\Feed\ProviderConfigSaver,
 	Games\GameSaver;
 
 class Game
@@ -42,6 +44,22 @@ class Game
 			);
 		}
 		return $this->game;
+	}
+	
+	public function settingsAction(Request $request, GameSettings $settings)
+	{
+		if ($request->methodIsPost()) {
+			$pairs = $request->json()->data();
+			foreach ($pairs as $key => $value) {
+				$settings->insert([
+					"gameId" => $this->game->id,
+					"key" => $key,
+					"value" => $value
+				], ["key"]);
+			}
+		}
+		
+		return $settings->findForGame($this->game);
 	}
 	
 	public function feedAction(Feed $feed, GameFeedDefinition $definition)

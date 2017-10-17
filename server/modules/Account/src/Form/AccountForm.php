@@ -71,17 +71,16 @@ class AccountForm
 			$isPublic = isset($data["isPublic"]) ? (boolean) $data["isPublic"] : false;
 			$toUpdate = [
 				"name" => $data["name"],
+				"slug" => $data["slug"],
 				"isPublic" => $isPublic,
 			];
 			
-			if ($isPublic) {
-				$toUpdate["slug"] = $data["slug"];
-			} else {
-				$toUpdate["slug"] = null;
-			}
-			
 			if (isset($data["theme"])) {
 				$toUpdate["theme"] = $data["theme"];
+			}
+			
+			if (isset($data["data"])) {
+				$toUpdate["data"] = $data["data"];
 			}
 			
 			$this->saver->save($account, $toUpdate);

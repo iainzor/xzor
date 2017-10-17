@@ -1,147 +1,104 @@
-import {animate, trigger, transition, style, state} from "@angular/animations";
-import {Component, Input, Output, EventEmitter, OnInit, OnDestroy} from "@angular/core";
-import {Router, NavigationStart} from "@angular/router";
+import {Component, Input, OnInit, OnDestroy} from "@angular/core";
+import {Router, ActivatedRoute, NavigationStart} from "@angular/router";
 import {Subscription} from "rxjs";
 
 import {AccountInterface} from "./account/account.interface";
-import {AccountService} from "./account/account.service";
-import {AppMenuService} from "./app-menu.service";
+import {UIMenuItemInterface} from "./ui/ui-menu/ui-menu-item.interface";
 
 @Component({
 	selector: "app-menu",
 	templateUrl: "./app-menu.component.html",
-	styleUrls: ["./app-menu.component.css"],
-	animations: [
-		trigger("activeTrigger", [
-			state("hidden", style({
-				transform: "rotate(-90deg)",
-				opacity: 0
-			})),
-			state("visible", style({
-				transform: "rotate(0)",
-				opacity: 1
-			})),
-
-			transition("* => *", animate(".2s ease-in-out"))
-		]),
-		trigger("inactiveTrigger", [
-			state("hidden", style({
-				transform: "rotate(90deg)",
-				opacity: 0
-			})),
-			state("visible", style({
-				transform: "rotate(0)",
-				opacity: 1
-			})),
-
-			transition("* => *", animate(".2s ease-in-out"))
-		]),
-		trigger("contentTrigger", [
-			state("hidden-left", style({
-				transform: "translateX(-100%)",
-				opacity: 0
-			})),
-			state("hidden-right", style({
-				transform: "translateX(100%)",
-				opacity: 0
-			})),
-			state("visible", style({
-				transform: "translateX(0)",
-				opacity: 1
-			})),
-
-			transition("hidden-left <=> visible", animate(".2s ease-in-out")),
-			transition("hidden-right <=> visible", animate(".2s ease-in-out"))
-		])
-	],
-	providers: [
-		AppMenuService
-	]
+	styleUrls: ["./app-menu.component.css"]
 })
-export class AppMenuComponent implements OnInit, OnDestroy, EventListenerObject
+export class AppMenuComponent implements OnInit, OnDestroy
 {
-	private accountSub:Subscription;
-	private menuSub:Subscription;
+	private navMenuItem = { title: "Navigation", hideTitle: true, icon: "menu", onClick: this.toggleNavMenu.bind(this) };
+	private signInMenuItem = { title: "Sign In", icon: "face", routerLink: ["/sign-in"], queryParams: {} };
+	private notificationsMenuItem = { title: "Notifications", hideTitle: true, icon: "notifications", onClick: this.toggleNotificationMenu.bind(this) };
+	
 	private routerSub:Subscription;
 
-	side:string = "left";
-	open:boolean = false;
 	account:AccountInterface;
+	navOpen:boolean = false;
+	notificationsOpen:boolean = false;
 
-	activeState:string = "hidden";
-	inactiveState:string = "visible";
-	contentState:string;
+	menuItems:UIMenuItemInterface[] = [
+		this.navMenuItem,
 
-	@Input("side") set _side(side:string) {
-		this.side = side;
-		this.contentState = "hidden-"+ side;
-	}
+		{ spacer: true },
 
-	@Input() icon:string = "menu";
-	@Input() badge:string;
-	@Input() width:number = 300;
+		this.signInMenuItem,
+		this.notificationsMenuItem
+	];
 
-	constructor(
-		private Account:AccountService,
-		private Menu:AppMenuService,
-		private Router:Router
-	) {
-		Menu.component = this;
+	constructor(private Router:Router, private Route:ActivatedRoute) {}
+
+	@Input("account") set _account(account:AccountInterface) {
+		this.account = account;
+		this.adjustMenu();
 	}
 
 	ngOnInit() {
-		this.accountSub = this.Account.subscribe((account) => {
-			this.account = account;
-		});
-		this.menuSub = this.Menu.isOpen.subscribe((isOpen) => {
-			this.open = isOpen;
-
-			if (isOpen) {
-				this.onOpen();
-			} else {
-				this.onClose();
+		this.routerSub = this.Router.events.subscribe((event) => {
+			if (event instanceof NavigationStart) {
+				this.navOpen = false;
+				this.notificationsOpen = false;
 			}
-		});
-		this.routerSub = this.Router.events.subscribe((e) => {
-			if (e instanceof NavigationStart) {
-				this.Menu.close();
-			}
+			this.adjustMenu();
 		});
 	}
 
 	ngOnDestroy() {
-		this.accountSub.unsubscribe();
+		this.routerSub.unsubscribe();
 	}
 
-	onOpen() {
-		this.activeState = "visible";
-		this.inactiveState = "hidden";
-		this.contentState = "visible";
-
-		setTimeout(() => {
-			document.addEventListener("click", this);
-		});
-	}
-
-	onClose() {
-		this.activeState = "hidden";
-		this.inactiveState = "visible";
-		this.contentState = "hidden-"+ this.side;
-
-		document.removeEventListener("click", this);
-	}
-
-	handleEvent(e:Event) {
-		this.Menu.close();
-	}
-
-	interceptClick(e:MouseEvent) {
+	ignoreDocumentClick(e:MouseEvent) {
 		e.stopPropagation();
 	}
 
-	toggle(e:MouseEvent) {
-		e.preventDefault();
+	toggleNavMenu(item:UIMenuItemInterface) {
+		this.navOpen = !this.navOpen;
+		this.notificationsOpen = false;
+
+		this.adjustMenu();
+	}
+
+	toggleAccountMenu() {
+		this.navOpen = false;
+		this.notificationsOpen = false;
+
+		this.adjustMenu();
+	}
+
+	toggleNotificationMenu() {
+		this.notificationsOpen = !this.notificationsOpen;
+		this.navOpen = false;
 		
-		this.Menu.toggle();
+		this.adjustMenu();
+	}
+
+	onMenuOpenChange() {
+		this.adjustMenu();
+	}
+
+	private adjustMenu() {
+		this.navMenuItem.icon = this.navOpen ? "close" : "menu";
+		this.notificationsMenuItem.icon = this.notificationsOpen ? "close" : "notifications";
+		this.signInMenuItem.queryParams = {
+			redirectTo: this.Router.url
+		};
+
+		let items:any = [
+			this.navMenuItem,
+			{spacer: true}
+		];
+
+		if (!this.account || !this.account.isValid) {
+			items.push(this.signInMenuItem);
+		}
+
+		items.push(this.notificationsMenuItem);
+
+		this.menuItems = items;
 	}
 }

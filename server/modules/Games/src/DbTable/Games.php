@@ -29,6 +29,7 @@ class Games extends AbstractTable
 			SELECT * 
 			FROM `games` 
 			WHERE `title` LIKE :search
+			ORDER BY `title`
 			LIMIT 24
 		");
 		$statement->execute([

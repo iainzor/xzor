@@ -1,10 +1,4 @@
-<div class="notifications">
-	<notification-message z="1" *ngFor="let n of all" 
-		[notification]="n" 
-		[controls]="messageControls(n)">
-	</notification-message>
-	
-	<ui-card *ngIf="!all.length" z="1">
-		No notifications at this time
-	</ui-card>
-</div>
+<notification-message @slide z="1" *ngFor="let n of active" 
+	[notification]="n" 
+	[controls]="messageControls(n)">
+</notification-message>

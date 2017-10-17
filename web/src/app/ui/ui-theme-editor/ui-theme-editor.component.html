@@ -1,3 +1,5 @@
-<ui-color-picker label="Background Color" [(color)]="model.background"></ui-color-picker>
+<ng-template [ngIf]="model">
+	<ui-color-picker label="Background Color" [(color)]="model.background"></ui-color-picker>
 
-<ui-color-picker label="Text Color" [(color)]="model.text"></ui-color-picker>
+	<ui-color-picker label="Text Color" [(color)]="model.text"></ui-color-picker>
+</ng-template>

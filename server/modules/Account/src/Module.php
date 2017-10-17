@@ -5,6 +5,7 @@ use Core\AbstractApplication,
 	Core\BootableModuleInterface,
 	Core\ConfigurableModuleInterface,
 	Core\ModuleConfig,
+	Core\ModuleDefinition,
 	Acl\Acl,
 	Acl\Role,
 	Acl\RoleProviderInterface,
@@ -30,6 +31,20 @@ class Module implements BootableModuleInterface, ConfigurableModuleInterface, Ro
 			);
 			return $accountLoader->load($session->accountId);
 		});
+		
+		$app->di()->register(Permission\PermissionRegistry::class, function() use ($app) {
+			$registry = new Permission\PermissionRegistry($app->di());
+			
+			$app->moduleRegistry()->each(function(ModuleDefinition $moduleDef) use ($app, $registry) {
+				$module = $moduleDef->instance($app);
+				
+				if ($module instanceof Permission\PermissionProviderInterface) {
+					$module->provideAccountPermissions($registry);
+				}
+			});
+			
+			return $registry;
+		});
 	}
 
 	public function registerRoutes(Router $router) 
@@ -50,6 +65,15 @@ class Module implements BootableModuleInterface, ConfigurableModuleInterface, Ro
 			->action("verify")
 			->params([
 				1 => "service"
+			]);
+		
+		$router->when("/^permissions\/?([a-z0-9-_]+)?\/?([a-z0-9-_]+)?/i")
+			->module("account")
+			->controller("permissions")
+			->action("list")
+			->params([
+				1 => "resource",
+				2 => "resourceId"
 			]);
 			
 		$router->when("/^sign-out\.json$/i")

@@ -7,6 +7,7 @@ import {AccountInterface} from "./account/account.interface";
 import {AccountService} from "./account/account.service";
 import {NotificationInterface} from "./notifications/notification.interface";
 import {NotificationsService} from "./notifications/notifications.service";
+import {UIMenuItemInterface} from "./ui/ui-menu/ui-menu-item.interface";
 
 @Component({
 	selector: 'app-root',
@@ -19,8 +20,25 @@ export class AppComponent implements OnInit, OnDestroy
 	private routerSub:Subscription;
 	private loadingSub:Subscription;
 
+	private navMenuItem = { title: "Navigation", hideTitle: true, icon: "menu", onClick: this.toggleNavMenu.bind(this) };
+	private accountMenuItem = { title: "Account", hideTitle: true, icon: "face", onClick: this.toggleAccountMenu.bind(this) };
+	private notificationsMenuItem = { title: "Notifications", hideTitle: true, icon: "notifications", onClick: this.toggleNotificationMenu.bind(this) };
+
 	loading:boolean = false;
 	account:AccountInterface;
+
+	navOpen:boolean = false;
+	accountOpen:boolean = false;
+	notificationsOpen:boolean = false;
+
+	menuItems:UIMenuItemInterface[] = [
+		this.navMenuItem,
+
+		{ spacer: true },
+
+		this.accountMenuItem,
+		this.notificationsMenuItem
+	];
 
 	constructor(
 		private App:AppService,
@@ -38,7 +56,7 @@ export class AppComponent implements OnInit, OnDestroy
 			let error = e instanceof NavigationError;
 			let end = e instanceof NavigationEnd;
 
-			if (e instanceof NavigationStart) {
+			if (started) {
 				this.App.setLoading(true);
 			} else if (canceled || error || end) {
 				this.App.setLoading(false);
@@ -53,5 +71,35 @@ export class AppComponent implements OnInit, OnDestroy
 		this.accountSub.unsubscribe();
 		this.routerSub.unsubscribe();
 		this.loadingSub.unsubscribe();
+	}
+
+	toggleNavMenu(item:UIMenuItemInterface) {
+		this.navOpen = !this.navOpen;
+		this.accountOpen = false;
+		this.notificationsOpen = false;
+
+		this.adjustMenuIcons();
+	}
+
+	toggleAccountMenu() {
+		this.accountOpen = !this.accountOpen;
+		this.navOpen = false;
+		this.notificationsOpen = false;
+
+		this.adjustMenuIcons();
+	}
+
+	toggleNotificationMenu() {
+		this.notificationsOpen = !this.notificationsOpen;
+		this.navOpen = false;
+		this.accountOpen = false;
+		
+		this.adjustMenuIcons();
+	}
+
+	private adjustMenuIcons() {
+		this.navMenuItem.icon = this.navOpen ? "close" : "menu";
+		this.accountMenuItem.icon = this.accountOpen ? "close" : "face";
+		this.notificationsMenuItem.icon = this.notificationsOpen ? "close" : "notifications";
 	}
 }

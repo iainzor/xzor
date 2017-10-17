@@ -1,5 +1,16 @@
-:host { 
+:host {
 	display: block;
+}
+
+.content { 
 	padding-top: 80px;
-	padding-bottom: 10px;
+	padding-bottom: 20px;
+}
+
+:host([compact]) .content {
+	padding-top: 20px;
+}
+
+:host([darken]) .content {
+	background-color: rgba(0,0,0,.1);
 }
