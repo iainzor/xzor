@@ -1,8 +1,10 @@
 <?php
 return [
-	"membership.type" => [
+	[
+		"key"			=> "membership.type",
 		"label"			=> "Membership Type",
 		"description"	=> "Select the condition in which people can join your team",
+		"defaultValue"	=> "open",
 		"fieldType"		=> "radio",
 		"options"		=> [
 			[
@@ -22,7 +24,8 @@ return [
 			]
 		]
 	],
-	"membership.password" => [
+	[
+		"key"			=> "membership.password",
 		"label"			=> "Password",
 		"description"	=> "Enter the password required to join your team",
 		"fieldType"		=> "text",

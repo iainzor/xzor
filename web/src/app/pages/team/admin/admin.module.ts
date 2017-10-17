@@ -2,7 +2,7 @@ import {NgModule} from "@angular/core";
 import {RouterModule, Router} from "@angular/router";
 
 import {TeamFormModule} from "../../../teams/team-form/team-form.module";
-import {TeamMembershipSettingsModule} from "../../../teams/team-membership-settings/team-membership-settings.module";
+import {TeamSettingsFormModule} from "../../../teams/team-settings-form/team-settings-form.module";
 import {UIModule} from "../../../ui/ui.module";
 
 import {AdminComponent} from "./admin.component";
@@ -22,7 +22,7 @@ import {MembersComponent} from "./members.component";
 			}
 		]),
 		TeamFormModule,
-		TeamMembershipSettingsModule,
+		TeamSettingsFormModule,
 		UIModule
 	],
 	declarations: [

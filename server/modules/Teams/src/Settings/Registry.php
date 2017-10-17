@@ -1,7 +1,8 @@
 <?php
 namespace Teams\Settings;
 
-use Teams\DbModel,
+use Database\Query\QueryParams,
+	Teams\DbModel,
 	Teams\DbTable;
 
 class Registry implements \JsonSerializable
@@ -27,6 +28,12 @@ class Registry implements \JsonSerializable
 		$this->teamSettings = $teamSettings;
 	}
 	
+	/**
+	 * Load all available settings for a team
+	 * 
+	 * @param \Teams\DbModel\Team $team
+	 * @return \Teams\Settings\Container
+	 */
 	public function loadForTeam(DbModel\Team $team) : Container 
 	{
 		$results = $this->teamSettings->load($team);
@@ -34,6 +41,41 @@ class Registry implements \JsonSerializable
 		$container->addAll($results);
 		
 		return $container;
+	}
+	
+	/**
+	 * Attach settings to all provided teams
+	 * 
+	 * @param array $teams
+	 */
+	public function attachToAll(array $teams)
+	{
+		$ids = array_map(function(DbModel\Team $team) { return $team->id; }, $teams);
+		$map = array_combine($ids, $teams);
+		$results = $this->teamSettings->fetchAll(new QueryParams([
+			"teamId" => $ids
+		]));
+		
+		foreach ($results as $setting) {
+			if (isset($this->settings[$setting->key])) {
+				$def = $this->settings[$setting->key];
+				$team = $map[$setting->teamId];
+				
+				if ($def->isPublic) {
+					$team->settings[$setting->key] = $setting->value;
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Get all registered settings
+	 * 
+	 * @return SettingDefinition[]
+	 */
+	public function getAll() : array
+	{
+		return $this->settings;
 	}
 	
 	/**
@@ -48,6 +90,6 @@ class Registry implements \JsonSerializable
 	
 	public function jsonSerialize() : array 
 	{
-		return $this->settings;
+		return array_values($this->settings);
 	}
 }

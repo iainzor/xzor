@@ -21,5 +21,4 @@ class TeamSettings extends AbstractTable
 			"teamId" => $team->id
 		]));
 	}
-
 }

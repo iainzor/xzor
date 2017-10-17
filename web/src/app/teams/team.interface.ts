@@ -11,6 +11,6 @@ export interface TeamInterface
 	tagPosition?:string;
 
 	theme?:ThemeInterface;
-	
 	member?:TeamMemberInterface;
+	settings?:{[key:string]: any};
 }

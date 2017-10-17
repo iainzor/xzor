@@ -1,4 +1,10 @@
-<ul class="nav flex-column" [theme]="account?.theme" [z]="3">
+<ul class="nav flex-column" [class.open]="open" [theme]="account?.theme" [z]="3">
+	<li class="nav-item account" *ngIf="account?.isValid">
+		<a class="nav-link" routerLink="/account" routerLinkActive="active">
+			<ui-icon icon="face"></ui-icon>
+			<span>{{account.name}}</span>
+		</a>
+	</li>
 	<li class="nav-item">
 		<a class="nav-link" routerLink="/games" routerLinkActive="active">
 			<ui-icon icon="videogame_asset"></ui-icon>
@@ -15,6 +21,15 @@
 		<a class="nav-link" routerLink="/teams" routerLinkActive="active">
 			<ui-icon icon="group"></ui-icon>
 			<span>Teams</span>
+		</a>
+	</li>
+
+	<li class="spacer"></li>
+
+	<li class="nav-item" *ngIf="account?.isValid">
+		<a href="#" class="nav-link" (click)="signOut($event)">
+			<ui-icon icon="exit_to_app"></ui-icon>
+			<span>Sign Out</span>
 		</a>
 	</li>
 </ul>

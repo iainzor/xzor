@@ -8,7 +8,8 @@ use Account\Account,
 	Teams\DbModel,
 	Teams\DbTable,
 	Teams\TeamSaver,
-	Teams\TeamOperations;
+	Teams\TeamOperations,
+	Teams\Settings;
 
 class TeamForm extends AbstractForm 
 {
@@ -38,19 +39,26 @@ class TeamForm extends AbstractForm
 	private $teamOps;
 	
 	/**
+	 * @var Settings\Registry
+	 */
+	private $settings;
+	
+	/**
 	 * Constructor
 	 * 
 	 * @param Account $account
 	 * @param TeamSaver $saver
 	 * @param DbTable\Teams $teams
 	 * @param TeamOperations $teamOps
+	 * @param Settings\Registry $settings
 	 */
-	public function __construct(Account $account, TeamSaver $saver, DbTable\Teams $teams, TeamOperations $teamOps)
+	public function __construct(Account $account, TeamSaver $saver, DbTable\Teams $teams, TeamOperations $teamOps, Settings\Registry $settings)
 	{
 		$this->account = $account;
 		$this->saver = $saver;
 		$this->teams = $teams;
 		$this->teamOps = $teamOps;
+		$this->settings = $settings;
 		
 		$this->validate("name", [
 			new Validator\NotEmpty("Please provide a name for your team")
@@ -58,6 +66,9 @@ class TeamForm extends AbstractForm
 		$this->validate("slug", [
 			new Validator\NotEmpty("Please provider a URL to your team"),
 			new Validator\Callback([$this, "validateSlug"])
+		]);
+		$this->validate("settings", [
+			new Validator\Callback([$this, "validateSettings"])
 		]);
 	}
 	
@@ -76,7 +87,7 @@ class TeamForm extends AbstractForm
 	 */
 	public function getFieldNames() : array 
 	{
-		return ["name", "description", "slug", "theme", "tag", "tagPosition", "member"];
+		return ["name", "description", "slug", "theme", "tag", "tagPosition", "member", "settings"];
 	}
 	
 	/**
@@ -106,6 +117,33 @@ class TeamForm extends AbstractForm
 		return $isValid;
 	}
 	
+	/**
+	 * Validate the team settings
+	 * 
+	 * @param Field $field
+	 * @param \Teams\Forms\TeamForm $form
+	 * @return bool
+	 */
+	public function validateSettings(Field $field, TeamForm $form) : bool
+	{
+		$isValid = true;
+		$settings = $form->getValue("settings");
+		
+		foreach ($this->settings->getAll() as $def) {
+			$value = isset($settings[$def->key]) ? $settings[$def->key] : null;
+			
+			if (!$def->isValid($value, $settings)) {
+				$isValid = false;
+			}
+		}
+		
+		if (!$isValid) {
+			$field->setError("Please provide all required settings");
+		}
+		
+		return $isValid;
+	}
+	
 	public function onValidated() 
 	{
 		$isNew = $this->team && $this->team->id ? false : true;
@@ -116,7 +154,8 @@ class TeamForm extends AbstractForm
 			"slug" => $this->getValue("slug"),
 			"description" => $this->getValue("description"),
 			"tag" => $this->getValue("tag"),
-			"tagPosition" => $this->getValue("tagPosition")
+			"tagPosition" => $this->getValue("tagPosition"),
+			"settings" => $this->getValue("settings")
 		]);
 		$team->theme = new DbModel\TeamTheme($this->getValue("theme"));
 		

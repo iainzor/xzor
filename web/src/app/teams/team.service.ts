@@ -56,7 +56,7 @@ export class TeamService
 		}
 	}
 
-	loadSettings() : Promise<any> {
+	loadSettings() : Promise<{[key:string]:any}> {
 		return this.Xzor.get("t/"+ this._team.slug +"/settings.json");
 	}
 }

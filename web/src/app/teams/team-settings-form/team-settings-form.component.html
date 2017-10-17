@@ -1,0 +1,6 @@
+<div *ngFor="let def of definitions">
+	<team-setting *ngIf="isVisible(def)"
+		[definition]="def" 
+		[(value)]="team.settings[def.key]">
+	</team-setting>
+</div>

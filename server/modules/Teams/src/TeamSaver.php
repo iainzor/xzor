@@ -14,6 +14,11 @@ class TeamSaver
 	private $themes;
 	
 	/**
+	 * @var DbTable\TeamSettings
+	 */
+	private $settings;
+	
+	/**
 	 * @var TeamLoader
 	 */
 	private $loader;
@@ -23,11 +28,14 @@ class TeamSaver
 	 * 
 	 * @param \Teams\DbTable\Teams $teams
 	 * @param \Teams\DbTable\TeamThemes $themes
+	 * @param \Teams\DbTable\TeamSettings $settings
+	 * @param \Teams\TeamLoader $loader
 	 */
-	public function __construct(DbTable\Teams $teams, DbTable\TeamThemes $themes, TeamLoader $loader)
+	public function __construct(DbTable\Teams $teams, DbTable\TeamThemes $themes, DbTable\TeamSettings $settings, TeamLoader $loader)
 	{
 		$this->teams = $teams;
 		$this->themes = $themes;
+		$this->settings = $settings;
 		$this->loader = $loader;
 	}
 	
@@ -65,6 +73,14 @@ class TeamSaver
 				"background", 
 				"text"
 			]);
+		}
+		
+		foreach ($team->settings as $key => $value) {
+			$this->settings->insert([
+				"teamId" => $team->id,
+				"key" => $key,
+				"value" => $value
+			], ["value"]);
 		}
 		
 		return $this->loader->loadById($team->id);

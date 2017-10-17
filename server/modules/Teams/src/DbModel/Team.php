@@ -26,6 +26,11 @@ class Team extends AbstractModel
 	 */
 	public $member;
 	
+	/**
+	 * @var array
+	 */
+	public $settings = [];
+	
 	public function displayName(string $name) : string 
 	{
 		switch ($this->tagPosition) {

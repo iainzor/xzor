@@ -3,7 +3,7 @@ import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {UIModule} from "../../ui/ui.module";
 
-import {TeamMembershipSettingsComponent} from "./team-membership-settings.component";
+import {TeamSettingsFormComponent} from "./team-settings-form.component";
 import {TeamSettingModule} from "../team-setting/team-setting.module";
 
 @NgModule({
@@ -14,13 +14,11 @@ import {TeamSettingModule} from "../team-setting/team-setting.module";
 		TeamSettingModule
 	],
 	declarations: [
-		TeamMembershipSettingsComponent
+		TeamSettingsFormComponent
 	],
 	exports: [
-		TeamMembershipSettingsComponent
+		TeamSettingsFormComponent
 	]
 })
-export class TeamMembershipSettingsModule
-{
-
-}
+export class TeamSettingsFormModule
+{}

@@ -4,6 +4,7 @@ import {FormsModule} from "@angular/forms";
 
 import {UIModule} from "../../ui/ui.module";
 import {XzorModule} from "../../xzor/xzor.module";
+import {TeamSettingsFormModule} from "../team-settings-form/team-settings-form.module";
 import {TeamFormComponent} from "./team-form.component";
 
 @NgModule({
@@ -11,7 +12,8 @@ import {TeamFormComponent} from "./team-form.component";
 		CommonModule,
 		FormsModule,
 		UIModule,
-		XzorModule
+		XzorModule,
+		TeamSettingsFormModule
 	],
 	declarations: [
 		TeamFormComponent

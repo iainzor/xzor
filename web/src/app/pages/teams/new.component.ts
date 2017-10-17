@@ -10,6 +10,10 @@ import {TeamInterface} from "../../teams/team.interface";
 })
 export class NewComponent
 {
+	team:TeamInterface = {
+		
+	};
+
 	constructor(private Router:Router) {}
 
 	onTeamSave(team:TeamInterface) {

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, OnDestroy} from "@angular/core";
-import {Router, NavigationStart} from "@angular/router";
+import {Router, ActivatedRoute, NavigationStart} from "@angular/router";
 import {Subscription} from "rxjs";
 
 import {AccountInterface} from "./account/account.interface";
@@ -13,15 +13,13 @@ import {UIMenuItemInterface} from "./ui/ui-menu/ui-menu-item.interface";
 export class AppMenuComponent implements OnInit, OnDestroy
 {
 	private navMenuItem = { title: "Navigation", hideTitle: true, icon: "menu", onClick: this.toggleNavMenu.bind(this) };
-	private accountMenuItem = { title: "Account", hideTitle: true, icon: "face", onClick: this.toggleAccountMenu.bind(this) };
+	private signInMenuItem = { title: "Sign In", icon: "face", routerLink: ["/sign-in"], queryParams: {} };
 	private notificationsMenuItem = { title: "Notifications", hideTitle: true, icon: "notifications", onClick: this.toggleNotificationMenu.bind(this) };
 	
 	private routerSub:Subscription;
 
-	@Input() account:AccountInterface;
-
+	account:AccountInterface;
 	navOpen:boolean = false;
-	accountOpen:boolean = false;
 	notificationsOpen:boolean = false;
 
 	menuItems:UIMenuItemInterface[] = [
@@ -29,21 +27,25 @@ export class AppMenuComponent implements OnInit, OnDestroy
 
 		{ spacer: true },
 
-		this.accountMenuItem,
+		this.signInMenuItem,
 		this.notificationsMenuItem
 	];
 
-	constructor(private Router:Router) {}
+	constructor(private Router:Router, private Route:ActivatedRoute) {}
+
+	@Input("account") set _account(account:AccountInterface) {
+		this.account = account;
+		this.adjustMenu();
+	}
 
 	ngOnInit() {
 		this.routerSub = this.Router.events.subscribe((event) => {
 			if (event instanceof NavigationStart) {
 				this.navOpen = false;
-				this.accountOpen = false;
 				this.notificationsOpen = false;
-				this.adjustMenuIcons();
 			}
-		});	
+			this.adjustMenu();
+		});
 	}
 
 	ngOnDestroy() {
@@ -56,35 +58,47 @@ export class AppMenuComponent implements OnInit, OnDestroy
 
 	toggleNavMenu(item:UIMenuItemInterface) {
 		this.navOpen = !this.navOpen;
-		this.accountOpen = false;
 		this.notificationsOpen = false;
 
-		this.adjustMenuIcons();
+		this.adjustMenu();
 	}
 
 	toggleAccountMenu() {
-		this.accountOpen = !this.accountOpen;
 		this.navOpen = false;
 		this.notificationsOpen = false;
 
-		this.adjustMenuIcons();
+		this.adjustMenu();
 	}
 
 	toggleNotificationMenu() {
 		this.notificationsOpen = !this.notificationsOpen;
 		this.navOpen = false;
-		this.accountOpen = false;
 		
-		this.adjustMenuIcons();
+		this.adjustMenu();
 	}
 
 	onMenuOpenChange() {
-		this.adjustMenuIcons();
+		this.adjustMenu();
 	}
 
-	private adjustMenuIcons() {
+	private adjustMenu() {
 		this.navMenuItem.icon = this.navOpen ? "close" : "menu";
-		this.accountMenuItem.icon = this.accountOpen ? "close" : "face";
 		this.notificationsMenuItem.icon = this.notificationsOpen ? "close" : "notifications";
+		this.signInMenuItem.queryParams = {
+			redirectTo: this.Router.url
+		};
+
+		let items:any = [
+			this.navMenuItem,
+			{spacer: true}
+		];
+
+		if (!this.account || !this.account.isValid) {
+			items.push(this.signInMenuItem);
+		}
+
+		items.push(this.notificationsMenuItem);
+
+		this.menuItems = items;
 	}
 }

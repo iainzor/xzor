@@ -44,6 +44,7 @@ export class TeamFormComponent implements OnInit, OnDestroy
 			this.slug = team.slug;
 		}
 	}
+	@Output() teamChange:EventEmitter<TeamInterface> = new EventEmitter<TeamInterface>();
 	@Output() save:EventEmitter<TeamInterface> = new EventEmitter<TeamInterface>();
 
 	constructor(private Account:AccountService, private Teams:TeamsService) {}
@@ -54,6 +55,7 @@ export class TeamFormComponent implements OnInit, OnDestroy
 				this.team.member = {
 					name: account.name
 				};
+				this.teamChange.emit(this.team);
 			}
 		});
 	}
@@ -69,6 +71,7 @@ export class TeamFormComponent implements OnInit, OnDestroy
 			if (form.isValid) {
 				this.team = form.data.team;
 				this.save.emit(this.team);
+				this.teamChange.emit(this.team);
 			} else {
 				this.errors = {};
 				for (let name in form.fields) {

@@ -28,19 +28,26 @@ class TeamLoader
 	private $members;
 	
 	/**
+	 * @var Settings\Registry
+	 */
+	private $settings;
+	
+	/**
 	 * Constructor
 	 * 
 	 * @param Account $account
 	 * @param \Teams\DbTable\Teams $teams
 	 * @param \Teams\DbTable\TeamThemes $themes
 	 * @param \Teams\DbTable\TeamMembers $members
+	 * @param \Teams\Settings\Registry $settings
 	 */
-	public function __construct(Account $account, DbTable\Teams $teams, DbTable\TeamThemes $themes, DbTable\TeamMembers $members)
+	public function __construct(Account $account, DbTable\Teams $teams, DbTable\TeamThemes $themes, DbTable\TeamMembers $members, Settings\Registry $settings)
 	{
 		$this->account = $account;
 		$this->teams = $teams;
 		$this->themes = $themes;
 		$this->members = $members;
+		$this->settings = $settings;
 	}
 	
 	/**
@@ -133,6 +140,7 @@ class TeamLoader
 	private function _processAll(array $teams) : array
 	{
 		$this->themes->attachToAll($teams);
+		$this->settings->attachToAll($teams);
 		$this->members->determineMembership($this->account, $teams);
 		
 		return $teams;

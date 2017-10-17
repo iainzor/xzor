@@ -22,6 +22,9 @@ export class AdminComponent implements OnInit, OnDestroy
 	ngOnInit() {
 		this.teamSub = this.Team.subscribe((team) => {
 			this.team = team;
+			this.Team.loadSettings().then((settings) => {
+				team.settings = settings;
+			});
 			this.generatePages();
 		});
 	}

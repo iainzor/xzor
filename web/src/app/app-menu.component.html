@@ -3,6 +3,5 @@
 	<ui-menu [items]="menuItems"></ui-menu>				
 </header>
 
-<app-nav [account]="account" [(open)]="navOpen" (openChange)="onMenuOpenChange()"></app-nav>
-<account-menu [account]="account" [(open)]="accountOpen" (openChange)="onMenuOpenChange()"></account-menu>
+<app-nav [account]="account" [open]="navOpen"></app-nav>
 <notifications-menu [(open)]="notificationsOpen" (openChange)="onMenuOpenChange()"></notifications-menu>

@@ -5,6 +5,7 @@ import {XzorService} from "../xzor/xzor.service";
 import {TeamInterface} from "./team.interface";
 import {TeamMemberInterface} from "./team-member.interface";
 import {TeamFormInterface} from "./team-form/team-form.interface";
+import {TeamSettingDefinition} from "./team-setting/team-setting-definition";
 
 @Injectable()
 export class TeamsService
@@ -34,7 +35,7 @@ export class TeamsService
 		return this.Xzor.get("t/"+ slug +"/members.json");
 	}
 
-	loadAvailableSettings() : Promise<any> {
+	loadAvailableSettings() : Promise<TeamSettingDefinition[]> {
 		return this.Xzor.get("teams/available-settings.json");
 	}
 }

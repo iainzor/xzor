@@ -7,15 +7,49 @@
 .nav {
 	flex-grow: 1;
 	padding-top: 60px;
-	min-width: 200px;
+	width: 200px;
+	transform: translateX(-200px);
+	opacity: 0;
 }
+.nav.open {
+	transform: translateX(0);
+	opacity: 1;
+}
+	.nav .spacer {
+		flex-grow: 1;
+	}
 
 	.nav a { 
 		display: flex;
 		flex-grow: 1;
 		align-items: center;
 		text-decoration: none;
+		padding: 0 20px;
+		height: 60px;
 	}
 		.nav a > ui-icon {
 			margin-right: 15px;
 		}
+
+
+.account {
+	display: flex;
+	flex-direction: column;	
+	height: 120px;
+	background-color: rgba(0,0,0,.5);
+	position: relative;
+}
+	.account > a {
+		height: auto;
+		padding-bottom: 15px;
+		align-items: flex-end;
+	}
+
+
+@media (min-width: 1600px) {
+	.nav {
+		padding-top: 0;
+		transform: translateX(0);
+		opacity: 1;
+	}
+}

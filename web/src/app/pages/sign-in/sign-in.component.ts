@@ -36,7 +36,6 @@ export class SignInComponent implements OnInit, OnDestroy
 			title: "Success",
 			message: "You were signed in successfully"
 		});
-		console.log("Navigating to /"+ this.redirectTo);
-		this.Router.navigateByUrl("/"+ this.redirectTo);
+		this.Router.navigateByUrl(this.redirectTo);
 	}
 }

@@ -23,3 +23,6 @@ ul {
 			padding: 15px;
 		}
 
+			ul > li > a > ui-icon + span {
+				margin-left: 10px;
+			}

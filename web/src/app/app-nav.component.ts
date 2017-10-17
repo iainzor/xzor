@@ -7,6 +7,7 @@ import {NotificationsService} from "./notifications/notifications.service";
 import {NotificationInterface} from "./notifications/notification.interface";
 import {AppService} from "./app.service";
 import {AccountInterface} from "./account/account.interface";
+import {AccountService} from "./account/account.service";
 
 @Component({
 	selector: "app-nav",
@@ -24,15 +25,18 @@ import {AccountInterface} from "./account/account.interface";
 			})),
 			transition("hidden <=> visible", animate(".2s ease-in-out"))
 		])
-	],
-	host: {
-		"[@navTrigger]": "open ? 'visible' : 'hidden'"
-	}
+	]
 })
 export class AppNavComponent
 {
 	@Input() account:AccountInterface;
-
 	@Input() open:boolean = false;
-	@Output() openChange:EventEmitter<boolean> = new EventEmitter<boolean>();
+
+	constructor(private Account:AccountService) {}
+
+	signOut(e:MouseEvent) {
+		e.preventDefault();
+
+		this.Account.signOut();
+	}
 }
