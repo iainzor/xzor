@@ -25,7 +25,10 @@ import {AccountService} from "./account/account.service";
 			})),
 			transition("hidden <=> visible", animate(".2s ease-in-out"))
 		])
-	]
+	],
+	host: {
+		"[class.open]": "open"
+	}
 })
 export class AppNavComponent
 {
