@@ -8,4 +8,6 @@ use Database\Model\AbstractModel,
 class TeamTheme extends AbstractModel implements ThemeInterface
 {
 	use ThemeTrait;
+	
+	public $teamId;
 }

@@ -50,12 +50,21 @@ class TeamController
 		return $loader->loadAll();
 	}
 	
-	public function settingsAction(Settings\Registry $registry, AccountPermissions $permissions)
+	public function settingsAction(Request $request, Settings\Registry $registry, AccountPermissions $permissions)
 	{
+		$canManage = $permissions->isAllowed("manage", "team", $this->team->slug);
+				
 		$settings = $registry->loadForTeam($this->team);
-		$settings->showPrivateSettings(
-			$permissions->isAllowed("manage", "team", $this->team->slug)
-		);
+		$settings->showPrivateSettings($canManage);
+		
+		if ($request->methodIsPost() && $canManage) {
+			$data = [];
+			foreach ($settings->getVisible() as $def) {
+				$data[$def->key] = $request->inputGet($def->key) ?: $def->defaultValue;
+			}
+			
+			$registry->saveForTeam($this->team, $data);
+		}
 		
 		return $settings;
 	}

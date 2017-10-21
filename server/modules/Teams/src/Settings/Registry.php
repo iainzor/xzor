@@ -32,15 +32,39 @@ class Registry implements \JsonSerializable
 	 * Load all available settings for a team
 	 * 
 	 * @param \Teams\DbModel\Team $team
-	 * @return \Teams\Settings\Container
+	 * @return \Teams\Settings\Collection
 	 */
-	public function loadForTeam(DbModel\Team $team) : Container 
+	public function loadForTeam(DbModel\Team $team) : Collection 
 	{
 		$results = $this->teamSettings->load($team);
-		$container = new Container($team, $this->settings);
+		$container = new Collection($team, $this->settings);
 		$container->addAll($results);
 		
 		return $container;
+	}
+	
+	/**
+	 * Save settings for a team
+	 * 
+	 * @param \Teams\DbModel\Team $team
+	 * @param array $settings  An array of [key => value] pairs
+	 * @return bool
+	 */
+	public function saveForTeam(DbModel\Team $team, array $settings) : bool
+	{
+		try {
+			foreach ($settings as $key => $value) {
+				$this->teamSettings->insert([
+					"teamId" => $team->id,
+					"key" => $key,
+					"value" => $value
+				], ["value"]);
+			}
+		} catch (\Exception $e) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	/**

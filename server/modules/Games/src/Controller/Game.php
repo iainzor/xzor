@@ -55,7 +55,7 @@ class Game
 					"gameId" => $this->game->id,
 					"key" => $key,
 					"value" => $value
-				], ["key"]);
+				], ["value"]);
 			}
 		}
 		
