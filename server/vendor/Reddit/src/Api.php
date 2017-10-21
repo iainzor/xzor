@@ -36,6 +36,7 @@ class Api
 			CURLOPT_TIMEOUT => 3,
 			CURLOPT_SSL_VERIFYHOST => false,
 			CURLOPT_SSL_VERIFYPEER => false,
+			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_HTTPHEADER => [
 				"User-Agent: ". $this->agent->toString()
 			]
@@ -53,7 +54,7 @@ class Api
 			throw new \Exception("No response from reddit");
 		}
 		
-		return json_decode($response, true);
+		return json_decode($response, true) ?: [];
 	}
 	
 	/**
