@@ -35,9 +35,9 @@ class Team extends AbstractModel
 	{
 		switch ($this->tagPosition) {
 			case self::TAG_LEFT:
-				return $this->tag . $name;
+				return $this->tag ." ". $name;
 			case self::TAG_RIGHT:
-				return $name . $this->tag;
+				return $name ." ". $this->tag;
 			case self::TAG_HIDDEN:
 			default:
 				return $name;
