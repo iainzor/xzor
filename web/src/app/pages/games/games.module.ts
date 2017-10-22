@@ -3,10 +3,10 @@ import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 
 import {UIModule} from "../../ui/ui.module";
-import {GameComponentsModule} from "../game-components.module";
-import {GamesComponent} from "./games/games.component";
-import {AddComponent} from "./games/add.component";
-import {AllComponent} from "./games/all.component";
+import {GameComponentsModule} from "../../games/game-components.module";
+import {GamesComponent} from "./games.component";
+import {AddComponent} from "./add.component";
+import {AllComponent} from "./all.component";
 
 @NgModule({
 	imports: [
@@ -30,5 +30,5 @@ import {AllComponent} from "./games/all.component";
 		AllComponent
 	]
 })
-export class GamesPagesModule
+export class GamesModule
 {}

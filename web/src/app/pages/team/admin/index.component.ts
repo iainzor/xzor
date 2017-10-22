@@ -1,6 +1,7 @@
 import {Component, OnInit, OnDestroy} from "@angular/core";
 import {Subscription} from "rxjs";
 
+import {NotificationsService} from "../../../notifications/notifications.service";
 import {TeamService} from "../../../teams/team.service";
 import {TeamInterface} from "../../../teams/team.interface";
 
@@ -14,7 +15,10 @@ export class IndexComponent implements OnInit, OnDestroy
 	
 	team:TeamInterface;
 
-	constructor(private Team:TeamService) {}
+	constructor(
+		private Notifications:NotificationsService,
+		private Team:TeamService
+	) {}
 
 	ngOnInit() {
 		this.teamSub = this.Team.subscribe((team) => {
@@ -24,5 +28,12 @@ export class IndexComponent implements OnInit, OnDestroy
 
 	ngOnDestroy() {
 		this.teamSub.unsubscribe();
+	}
+
+	onSave(team:TeamInterface) {
+		this.Notifications.push({
+			title: "Success",
+			message: "Your team, "+ team.name +", has been updated successfully"
+		});
 	}
 }

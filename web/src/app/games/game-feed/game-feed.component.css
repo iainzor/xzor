@@ -3,17 +3,17 @@
 	position: relative;
 }
 
-xzor-logo {
-	position: absolute;
-	left: 50%;
-	margin-left: -50px;
+.loading {
 	z-index: 0;
 	opacity: 0;
 	visibility: hidden;
 	transition: .2s ease-in-out;
+	display: flex;
+	align-items: center;
 }
+	.loading > xzor-logo { margin-right: 5px; }
 
-xzor-logo.visible {
+.loading.visible {
 	opacity: 1;
 	visibility: visible;
 }

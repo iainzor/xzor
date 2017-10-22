@@ -31,7 +31,7 @@ import {CanManageTeam} from "./can-manage-team";
 				children: [
 					{ path: "", component: OverviewComponent },
 					{ path: "join", component: JoinComponent, canActivate: [CanJoinTeam] },
-					{ path: "manage", loadChildren: "./admin/admin.module#AdminModule", canActivate: [CanManageTeam] }
+					{ path: "manage", loadChildren: "./admin/team-admin.module#TeamAdminModule", canActivate: [CanManageTeam] }
 				]
 			}
 		]),

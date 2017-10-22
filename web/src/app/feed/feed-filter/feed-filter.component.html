@@ -1,5 +1,5 @@
 <div class="row" *ngIf="feed">
-	<div class="col col-auto" *ngFor="let provider of providers">
+	<div class="col col-auto" *ngFor="let provider of feed.providers">
 		<a href="#" (click)="toggleProvider($event, provider)">
 			<ui-card class="provider" [class.active]="provider.active" [theme]="provider.theme">
 				<ui-icon [icon]="provider.active ? 'check_box' : 'check_box_outline_blank'"></ui-icon>

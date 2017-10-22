@@ -4,11 +4,11 @@ import {Subscription} from "rxjs";
 import {AccountInterface} from "../../../account/account.interface";
 import {AccountService} from "../../../account/account.service";
 import {UINavPageInterface} from "../../../ui/ui-nav/ui-nav-page.interface";
-import {GameInterface} from "../../game.interface";
-import {GameService} from "../../game.service";
+import {GameInterface} from "../../../games/game.interface";
+import {GameService} from "../../../games/game.service";
 
 @Component({
-	selector: "page-game-admin",
+	selector: "pages-game-admin",
 	templateUrl: "./admin.component.html",
 	styleUrls: ["./admin.component.css"]
 })

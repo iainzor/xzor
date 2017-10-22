@@ -3,11 +3,11 @@ import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 
 import {UIModule} from "../../ui/ui.module";
-import {GameComponentsModule} from "../game-components.module";
-import {GameService} from "../game.service";
-import {GameResolver} from "../game.resolver";
-import {GameComponent} from "./game/game.component";
-import {OverviewComponent} from "./game/overview.component";
+import {GameComponentsModule} from "../../games/game-components.module";
+import {GameService} from "../../games/game.service";
+import {GameResolver} from "../../games/game.resolver";
+import {GameComponent} from "./game.component";
+import {OverviewComponent} from "./overview.component";
 
 @NgModule({
 	imports: [
@@ -19,7 +19,7 @@ import {OverviewComponent} from "./game/overview.component";
 				resolve: { game: GameResolver },
 				children: [
 					{ path: "", component: OverviewComponent },
-					{ path: "manage", loadChildren: "./admin-pages.module#GameAdminPagesModule" }
+					{ path: "manage", loadChildren: "./admin/game-admin.module#GameAdminModule" }
 				]
 			}
 		]),
@@ -35,5 +35,5 @@ import {OverviewComponent} from "./game/overview.component";
 		GameResolver
 	]
 })
-export class GamePagesModule
+export class GameModule
 {}

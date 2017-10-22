@@ -31,5 +31,5 @@ import {MembersComponent} from "./members.component";
 		MembersComponent
 	]
 })
-export class AdminModule
+export class TeamAdminModule
 {}

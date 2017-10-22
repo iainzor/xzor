@@ -11,17 +11,7 @@ import {ProviderInterface} from "../provider.interface";
 })
 export class FeedFilterComponent
 {
-	feed:Feed;
-	items:FeedItem<any>[] = [];
-	providers:ProviderInterface[] = [];
-
-	@Input("feed") set _feed(feed:Feed) {
-		this.feed = feed;
-
-		if (feed) {
-			this.providers = feed.providers.filter((provider) => provider.results.length > 0);
-		}
-	}
+	@Input() feed:Feed;
 
 	toggleProvider(e:MouseEvent, provider:ProviderInterface) {
 		e.preventDefault();

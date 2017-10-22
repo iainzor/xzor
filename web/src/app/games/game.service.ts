@@ -1,4 +1,5 @@
 import {Injectable} from "@angular/core";
+import {URLSearchParams} from "@angular/http";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 import {ReplaySubject} from "rxjs/ReplaySubject";
@@ -26,10 +27,15 @@ export class GameService
 		return this.game;
 	}
 
-	feed() : Promise<Feed> {
+	feed(fresh:boolean = false) : Promise<Feed> {
+		let params = new URLSearchParams();
+		if (fresh) {
+			params.set("fresh", "1");
+		}
+
 		return new Promise<Feed>((resolve) => {
 			this.Xzor
-				.get("g/"+ this.game.slug +"/feed.json")
+				.get("g/"+ this.game.slug +"/feed.json", params)
 				.then((response) => {
 					resolve(
 						new Feed(response)
