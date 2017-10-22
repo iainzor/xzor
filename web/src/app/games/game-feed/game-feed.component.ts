@@ -18,7 +18,7 @@ export class GameFeedComponent implements OnInit, OnDestroy
 
 	loading:boolean = false;
 	refreshing:boolean = false;
-	loadIntervalTime:number = 5000;
+	loadIntervalTime:number = 60000;
 	game:GameInterface;
 	feed:Feed;
 
