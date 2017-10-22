@@ -46,8 +46,8 @@ class GameFeedCollector implements ProviderCollectorInterface
 		$items = [];
 		
 		if ($gameName) {
-			$response = $this->api->get("streams.json", [
-				"game" => $game->slug
+			$response = $this->api->get("search/streams.json", [
+				"query" => $game->slug
 			]);
 			$streams = isset($response["streams"]) ? $response["streams"] : [];
 
