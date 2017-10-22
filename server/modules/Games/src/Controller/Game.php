@@ -2,6 +2,7 @@
 namespace Games\Controller;
 
 use Account\Account,
+	Cache\Cache,
 	Database\Query\QueryParams,
 	Feed\Feed,
 	Http\Route,
@@ -11,7 +12,6 @@ use Account\Account,
 	Games\DbTable\GameSettings,
 	Games\Feed\GameFeedDefinition,
 	Games\Feed\ProviderConfigLoader,
-	Games\Feed\ProviderConfigSaver,
 	Games\GameSaver;
 
 class Game
@@ -62,11 +62,20 @@ class Game
 		return $settings->findForGame($this->game);
 	}
 	
-	public function feedAction(Feed $feed, GameFeedDefinition $definition)
+	public function feedAction(Cache $cache, Request $request, Feed $feed, GameFeedDefinition $definition)
 	{
-		$collector = $feed->collector($definition);
+		$cacheKey = "game-". $this->game->id ."-feed";
+		$fresh = (bool) $request->inputGet("fresh");
 		
-		return $collector->collect($this->game->slug);
+		if (!$fresh && $stale = $cache->get($cacheKey)) {
+			return $stale;
+		}
+		
+		$collector = $feed->collector($definition);
+		$results = $collector->collect($this->game->slug);
+		$cache->put($cacheKey, $results->jsonSerialize(), 600);
+		
+		return $results;
 	}
 	
 	public function feedProvidersAction(ProviderConfigLoader $loader)
