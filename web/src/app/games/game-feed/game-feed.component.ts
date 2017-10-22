@@ -14,8 +14,11 @@ import {GameService} from "../game.service";
 export class GameFeedComponent implements OnInit, OnDestroy
 {
 	private gameSub:Subscription;
+	private interval:any;
 
 	loading:boolean = false;
+	refreshing:boolean = false;
+	loadIntervalTime:number = 5000;
 	game:GameInterface;
 	feed:Feed;
 
@@ -23,16 +26,38 @@ export class GameFeedComponent implements OnInit, OnDestroy
 
 	ngOnInit() {
 		this.gameSub = this.Game.subscribe((game) => {
-			this.loading = true;
-
-			this.Game.feed().then((feed) => {
-				this.feed = feed;
-				this.loading = false;
+			this.game = game;
+			this.load().then(() => {
+				this.nextInterval();
 			});
 		});
 	}
 
 	ngOnDestroy() {
 		this.gameSub.unsubscribe();
+		clearTimeout(this.interval);
+	}
+
+	nextInterval() {
+		this.load(true).then(() => {
+			this.interval = setTimeout(this.nextInterval.bind(this), this.loadIntervalTime);
+		});
+	}
+
+	load(fresh:boolean = false) : Promise<Feed> {
+		this.loading = true;
+		this.refreshing = fresh;
+
+		let p = this.Game.feed(fresh);
+		p.then((feed) => {
+			if (this.feed) {
+				this.feed.merge(feed);
+			} else {
+				this.feed = feed;
+			}
+			
+			this.loading = false;
+		});
+		return p;
 	}
 }

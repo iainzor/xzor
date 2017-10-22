@@ -3,11 +3,12 @@ import {Subscription} from "rxjs";
 
 import {AccountInterface} from "../../../account/account.interface";
 import {AccountService} from "../../../account/account.service";
-import {GameInterface} from "../../game.interface";
-import {GameService} from "../../game.service";
+import {GameInterface} from "../../../games/game.interface";
+import {GameService} from "../../../games/game.service";
+import {NotificationsService} from "../../../notifications/notifications.service";
 
 @Component({
-	selector: "page-game-admin-index",
+	selector: "pages-game-admin-index",
 	templateUrl: "./index.component.html"
 })
 export class IndexComponent implements OnInit, OnDestroy
@@ -17,7 +18,8 @@ export class IndexComponent implements OnInit, OnDestroy
 	game:GameInterface;
 
 	constructor(
-		private Game:GameService
+		private Game:GameService,
+		private Notifications:NotificationsService
 	) {}
 
 	ngOnInit() {
@@ -28,5 +30,11 @@ export class IndexComponent implements OnInit, OnDestroy
 
 	ngOnDestroy() {
 		this.gameSub.unsubscribe();
+	}
+
+	onSave(game:GameInterface) {
+		this.Notifications.push({
+			message: "Changes to "+ game.title +" have been saved successfully"
+		});
 	}
 }

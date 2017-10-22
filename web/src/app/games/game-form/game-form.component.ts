@@ -16,7 +16,7 @@ export class GameFormComponent
 {
 	@Input() game:GameInterface;
 	@Output() gameChange:EventEmitter<GameInterface> = new EventEmitter<GameInterface>();
-	
+	@Output() save:EventEmitter<GameInterface> = new EventEmitter<GameInterface>();
 	@Output() cancel:EventEmitter<GameInterface> = new EventEmitter<GameInterface>();
 
 	loading:boolean = false;
@@ -36,7 +36,8 @@ export class GameFormComponent
 			this.isValid = response.isValid;
 
 			if (response.isValid) {
-				this.Router.navigate(["/g", this.game.slug]);
+				this.save.emit(this.game);
+				this.gameChange.emit(this.game);
 			}
 		});
 	}

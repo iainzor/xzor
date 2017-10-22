@@ -6,16 +6,17 @@
 			<ui-card z="1">
 				<div class="form-group">
 					<label>Game Title</label>
-					<input type="text" class="form-control" [class.is-invalid]="errors.title" name="title" [ngModel]="game.title" maxlength="64" (ngModelChange)="onTitleChange($event)">
+					<input type="text" class="form-control" [class.is-invalid]="errors.title" name="title" [(ngModel)]="game.title" maxlength="64">
 					<div class="invalid-feedback" *ngIf="errors.title">{{errors.title}}</div>
 				</div>
 
 				<div class="form-group" *ngIf="!game.id">
-					<label>Path</label>
-					<div class="input-group">
-						<code class="input-group-addon">{{environment.baseUrl}}/g/</code>
-						<input type="text" class="form-control" [class.is-invalid]="errors.slug" name="slug" [ngModel]="game.slug" (ngModelChange)="onSlugChange($event)" autocomplete="off" maxlength="32">
-					</div>
+					<label>URL</label>
+					<xzor-url-picker 
+						section="t" 
+						[watch]="game.title" 
+						[(uri)]="game.slug" 
+						[error]="errors.slug"></xzor-url-picker>
 					
 					<div class="invalid-feedback" *ngIf="errors.slug">{{errors.slug}}</div>
 					

@@ -14,7 +14,6 @@ import {FeedComponentsService} from "./feed/feed-components.service";
 import {ImagesService} from "./images/images.service";
 import {NotificationsService} from "./notifications/notifications.service";
 import {NotificationsMenuModule} from "./notifications/notifications-menu/notifications-menu.module";
-import {NotificationsToastModule} from "./notifications/notifications-toast/notifications-toast.module";
 import {AppComponent} from "./app.component";
 import {AppMenuComponent} from "./app-menu.component";
 import {AppNavComponent} from "./app-nav.component";
@@ -42,8 +41,6 @@ import {PagesModule} from "./pages/pages.module";
 		RouterModule.forRoot([
 			{ path: "", loadChildren: "./dashboard/dashboard.module#DashboardModule" },
 			{ path: "account", loadChildren: "./account/pages/account-pages.module#AccountPagesModule" },
-			{ path: "games", loadChildren: "./games/pages/games-pages.module#GamesPagesModule" },
-			{ path: "g/:slug", loadChildren: "./games/pages/game-pages.module#GamePagesModule" },
 			{ path: "people", loadChildren: "./people/people.module#PeopleModule" },
 			{ path: "p/:slug", loadChildren: "./people/person.module#PersonModule" },
 			{ path: "sources", loadChildren: "./sources/sources.module#SourcesModule" }
@@ -51,7 +48,6 @@ import {PagesModule} from "./pages/pages.module";
 
 		AccountMenuModule,
 		NotificationsMenuModule,
-		NotificationsToastModule,
 		UIModule,
 		VendorsModule,
 		XzorModule,

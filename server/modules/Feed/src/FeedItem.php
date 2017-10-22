@@ -11,6 +11,11 @@ class FeedItem
 	/**
 	 * @var string
 	 */
+	public $key;
+	
+	/**
+	 * @var string
+	 */
 	public $title;
 	
 	/**
@@ -37,5 +42,6 @@ class FeedItem
 		$this->title = $title;
 		$this->url = $url;
 		$this->data = $data;
+		$this->key = substr(md5($title.$url), 8, 16);
 	}
 }

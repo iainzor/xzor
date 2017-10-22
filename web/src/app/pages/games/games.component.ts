@@ -3,14 +3,14 @@ import {Component, OnInit, OnDestroy} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 
-import {AppService} from "../../../app.service";
-import {AccountService} from "../../../account/account.service";
-import {AccountInterface} from "../../../account/account.interface";
-import {UINavPageInterface} from "../../../ui/ui-nav/ui-nav-page.interface";
-import {routeAnimation} from "../../../ui/utilities/route-animation";
-import {GamesService} from "../../games.service";
-import {GameInterface} from "../../game.interface";
-import {GameSearchResponseInterface} from "../../game-search-response.interface";
+import {AppService} from "../../app.service";
+import {AccountService} from "../../account/account.service";
+import {AccountInterface} from "../../account/account.interface";
+import {UINavPageInterface} from "../../ui/ui-nav/ui-nav-page.interface";
+import {routeAnimation} from "../../ui/utilities/route-animation";
+import {GamesService} from "../../games/games.service";
+import {GameInterface} from "../../games/game.interface";
+import {GameSearchResponseInterface} from "../../games/game-search-response.interface";
 
 const GameListEnterAnimations = [
 	style({
@@ -26,7 +26,7 @@ const GameListEnterAnimations = [
 ];
 
 @Component({
-    selector: "page-games",
+    selector: "pages-games",
     templateUrl: "./games.component.html",
 	styleUrls: ["./games.component.css"],
 	animations: [

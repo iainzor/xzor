@@ -1,11 +1,11 @@
 import {Component, OnInit, OnDestroy} from "@angular/core";
 import {Subscription} from "rxjs";
 
-import {GameInterface} from "../../game.interface";
-import {GameService} from "../../game.service";
+import {GameInterface} from "../../games/game.interface";
+import {GameService} from "../../games/game.service";
 
 @Component({
-	selector: "page-game-overview",
+	selector: "pages-game-overview",
 	templateUrl: "./overview.component.html"
 })
 export class OverviewComponent implements OnInit, OnDestroy

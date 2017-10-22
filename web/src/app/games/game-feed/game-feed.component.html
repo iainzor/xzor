@@ -1,4 +1,16 @@
-<xzor-logo [spinning]="true" [class.visible]="loading"></xzor-logo>
+<div class="row">
+	<div class="col">
+		<feed-filter [feed]="feed"></feed-filter>
+	</div>
+	<div class="col-auto loading" [class.visible]="loading">
+		<xzor-logo [spinning]="loading" size="30"></xzor-logo>
+		<small *ngIf="refreshing">Refreshing</small>
+		<small *ngIf="!refreshing">Loading Feed</small>
+	</div>
+</div>
 
-<feed-filter [feed]="feed"></feed-filter>
 <feed-quilt [feed]="feed"></feed-quilt>
+
+<p class="lead" *ngIf="feed && feed.isEmpty">
+	No feeds have been configured for <strong>{{game.title}}</strong>
+</p>

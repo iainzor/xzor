@@ -3,11 +3,11 @@ import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 
 import {ProviderInterface} from "../../../feed/provider.interface";
-import {GameInterface} from "../../game.interface";
-import {GameService} from "../../game.service";
+import {GameInterface} from "../../../games/game.interface";
+import {GameService} from "../../../games/game.service";
 
 @Component({
-	selector: "page-game-admin-feeds",
+	selector: "pages-game-admin-feeds",
 	templateUrl: "./feeds.component.html"
 })
 export class FeedsComponent implements OnInit, OnDestroy

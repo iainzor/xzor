@@ -2,14 +2,14 @@ import {Component, OnInit, OnDestroy} from "@angular/core";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
 
-import {routeAnimation} from "../../../ui/utilities/route-animation";
+import {routeAnimation} from "../../ui/utilities/route-animation";
 
-import {AccountService} from "../../../account/account.service";
-import {AccountInterface} from "../../../account/account.interface";
-import {GameInterface} from "../../game.interface";
+import {AccountService} from "../../account/account.service";
+import {AccountInterface} from "../../account/account.interface";
+import {GameInterface} from "../../games/game.interface";
 
 @Component({
-	selector: "page-games-add",
+	selector: "pages-games-add",
 	templateUrl: "./add.component.html",
 	styleUrls: ["./add.component.css"]
 })
@@ -44,5 +44,9 @@ export class AddComponent implements OnInit, OnDestroy
 
 	ngOnDestroy() {
 		this.accountSub.unsubscribe();
+	}
+
+	onSave(game:GameInterface) {
+		this.Router.navigate(["/g", game.slug]);
 	}
 }

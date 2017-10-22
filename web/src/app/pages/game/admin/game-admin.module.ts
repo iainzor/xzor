@@ -2,13 +2,13 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 
-import {UIModule} from "../../ui/ui.module";
-import {GameFeedManagerModule} from "../game-feed-manager/game-feed-manager.module";
-import {GameFormModule} from "../game-form/game-form.module";
-import {GameFeedProvidersResolver} from "../game-feed-providers.resolver";
-import {AdminComponent} from "./admin/admin.component";
-import {IndexComponent} from "./admin/index.component";
-import {FeedsComponent} from "./admin/feeds.component";
+import {UIModule} from "../../../ui/ui.module";
+import {GameFeedManagerModule} from "../../../games/game-feed-manager/game-feed-manager.module";
+import {GameFormModule} from "../../../games/game-form/game-form.module";
+import {GameFeedProvidersResolver} from "../../../games/game-feed-providers.resolver";
+import {AdminComponent} from "./admin.component";
+import {IndexComponent} from "./index.component";
+import {FeedsComponent} from "./feeds.component";
 
 @NgModule({
 	imports: [
@@ -37,5 +37,5 @@ import {FeedsComponent} from "./admin/feeds.component";
 		GameFeedProvidersResolver
 	]
 })
-export class GameAdminPagesModule
+export class GameAdminModule
 {}

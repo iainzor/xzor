@@ -2,17 +2,17 @@ import {Component, OnInit, OnDestroy} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 
-import {routeAnimation} from "../../../ui/utilities/route-animation";
-import {UINavPageInterface} from "../../../ui/ui-nav/ui-nav-page.interface";
-import {AppService} from "../../../app.service";
-import {AccountInterface} from "../../../account/account.interface";
-import {AccountService} from "../../../account/account.service";
-import {NotificationsService} from "../../../notifications/notifications.service";
-import {GameService} from "../../game.service";
-import {GameInterface} from "../../game.interface";
+import {routeAnimation} from "../../ui/utilities/route-animation";
+import {UINavPageInterface} from "../../ui/ui-nav/ui-nav-page.interface";
+import {AppService} from "../../app.service";
+import {AccountInterface} from "../../account/account.interface";
+import {AccountService} from "../../account/account.service";
+import {NotificationsService} from "../../notifications/notifications.service";
+import {GameService} from "../../games/game.service";
+import {GameInterface} from "../../games/game.interface";
 
 @Component({
-	selector: "page-game",
+	selector: "pages-game",
 	templateUrl: "./game.component.html",
 	styleUrls: ["./game.component.css"],
 	animations: [
@@ -65,7 +65,7 @@ export class GameComponent implements OnInit, OnDestroy
 		if (this.game) {
 			pages = [
 				{ title: "Overview", path: ["/g", this.game.slug], activeExact: true },
-				{ title: "Forums", path: ["/g", this.game.slug, "forums"] }
+				//{ title: "Forums", path: ["/g", this.game.slug, "forums"] }
 			];
 
 			if (this.account && this.account.isValid) {
