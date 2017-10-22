@@ -16,6 +16,11 @@ class Collector
 	private $definition;
 	
 	/**
+	 * @var int
+	 */
+	public $lifetime = 60;
+	
+	/**
 	 * Constructor
 	 * 
 	 * @param \Cache\Cache $cache
@@ -46,7 +51,7 @@ class Collector
 			if (!$results) {
 				try {
 					$results = $provider->getCollector()->collect($resourceId);
-					$this->cache->put($cacheKey, $results);
+					$this->cache->put($cacheKey, $results, $this->lifetime);
 				} catch (\Exception $e) {
 					$results = [];
 				}
