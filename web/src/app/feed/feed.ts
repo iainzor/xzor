@@ -4,22 +4,24 @@ import {ProviderInterface} from "./provider.interface";
 
 export class Feed
 {
-	private _results:FeedItem<any>[] = [];
+	private _merged:Feed[] = [];
+
+	items:FeedItem<any>[] = [];
 
 	constructor(public providers:ProviderInterface[]) {
 		providers.forEach((provider) => { 
 			provider.active = true; 
 		});
 
-		this.generateResults();
+		this.generate();
 	}
 
 	get isEmpty() : boolean {
-		return this._results.length === 0;
+		return this.items.length === 0;
 	}
 	
 	get results() : FeedItem<any>[] {
-		return this._results.filter((result) => result.provider.active).sort((a, b) => {
+		return this.items.filter((result) => result.provider.active).sort((a, b) => {
 			if (a.result.timestamp === b.result.timestamp) {
 				return 0;
 			} else {
@@ -28,45 +30,35 @@ export class Feed
 		});
 	}
 
-	generateResults() {
-		this._results = [];
+	empty() {
+		this._merged = [];
+		this.providers = [];
+		this.items = [];
+	}
+
+	generate() : FeedItem<any>[] {
+		let providers = [];
 
 		this.providers.forEach((provider) => {
 			provider.results.forEach((item) => {
-				this._results.push(
+				this.items.push(
 					new FeedItem<any>(provider, item)
 				);
 			});
 		});
+
+		this._merged.forEach((feed) => {
+			this.providers = this.providers.concat(feed.providers);
+		});
+
+		return this.items;
 	}
 
 	merge(feed:Feed) {
-		feed.providers.forEach((providerA) => {
-			let providerFound = false;
-
-			this.providers.forEach((providerB) => {
-				if (providerA.name === providerB.name) {
-					providerFound = true;
-
-					providerA.results.forEach((itemA) => {
-						let itemFound = false;
-
-						providerB.results.forEach((itemB) => {
-							if (itemA.key === itemB.key) {
-								itemFound = true;
-							}
-						});
-
-						if (!itemFound) {
-							providerB.results.push(itemA);
-						}
-					});
-				}
-			});
-
-			if (!providerFound) {
-				this.providers.push(providerA);
-			}
-		});
+		if (this._merged.indexOf(feed) < 0) {
+			this._merged.push(feed);
+		}
+		
+		this.generate();
 	}
 }

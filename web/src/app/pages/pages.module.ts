@@ -4,6 +4,7 @@ import {RouterModule} from "@angular/router";
 @NgModule({
 	imports: [
 		RouterModule.forRoot([
+			{ path: "", loadChildren: "./dashboard/dashboard.module#DashboardModule" },
 			{ path: "games", loadChildren: "./games/games.module#GamesModule" },
 			{ path: "g/:slug", loadChildren: "./game/game.module#GameModule" },
 			{ path: "sign-in", loadChildren: "./sign-in/sign-in.module#SignInModule" },

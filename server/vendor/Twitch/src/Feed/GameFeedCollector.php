@@ -47,10 +47,9 @@ class GameFeedCollector implements ProviderCollectorInterface
 		
 		if ($gameName) {
 			$response = $this->api->get("search/streams.json", [
-				"query" => $game->slug
+				"query" => $gameName
 			]);
 			$streams = isset($response["streams"]) ? $response["streams"] : [];
-
 
 			foreach ($streams as $stream) {
 				$created = strtotime($stream["created_at"]);
@@ -60,7 +59,8 @@ class GameFeedCollector implements ProviderCollectorInterface
 				$items[] = new FeedItem($created, $title, $url, [
 					"displayName" => $stream["channel"]["display_name"],
 					"preview" => $stream["preview"],
-					"viewers" => $stream["viewers"]
+					"viewers" => $stream["viewers"],
+					"game" => $stream["game"]
 				]);
 			}
 		}

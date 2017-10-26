@@ -11,4 +11,5 @@ export interface GameInterface
 	coverImage?:string;
 	following?:boolean;
 	role?:GameRoleInterface;
+	active?:boolean;
 }

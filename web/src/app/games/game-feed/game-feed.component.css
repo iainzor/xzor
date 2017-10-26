@@ -10,6 +10,7 @@
 	transition: .2s ease-in-out;
 	display: flex;
 	align-items: center;
+	align-self: flex-start;
 }
 	.loading > xzor-logo { margin-right: 5px; }
 

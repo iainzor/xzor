@@ -1,7 +1,9 @@
 <?php
 namespace Games;
 
-use Account\Account;
+use Account\Account,
+	Database\Query\QueryExpr,
+	Database\Query\QueryParams;
 
 class GamesLoader
 {
@@ -63,15 +65,39 @@ class GamesLoader
 	}
 	
 	/**
-	 * Search for games matching the query string
+	 * Search for games matching a set of parameters
 	 * 
-	 * @param string $search
+	 * @param array $conditions
+	 * @param int $maxResults
+	 * @param int $resultOffset
 	 */
-	public function search(string $search = "") : array
+	public function loadList(array $params = [], int $maxResults = 24, int $resultOffset = 0) : array
 	{
-		$games = $this->gamesTable->findAll($search);
+		$conditions = [];
+		$orderings = ["`title` ASC"];
+		$inputParams = [];
 		
-		return $this->process($search, $games);
+		if (isset($params["q"])) {
+			$q = $params["q"];
+			$conditions[] = new QueryExpr("`slug` LIKE :slug OR `title` LIKE :title");
+			$inputParams[":slug"] = $q ."%";
+			$inputParams[":title"] = "%". $q ."%";
+		}
+		
+		if (isset($params["following"]) && $this->account->isValid) {
+			$value = (bool) $params["following"] ? "IS NOT NULL" : "IS NULL";
+			$conditions[] = new QueryExpr("(
+				SELECT f.gameId 
+				FROM `game_followers` AS `f` 
+				WHERE f.accountId = :accountId AND f.gameId = games.id
+			) {$value}");
+			$inputParams[":accountId"] = $this->account->id;
+		}
+		
+		$queryParams = new QueryParams($conditions, $orderings, $maxResults, $resultOffset);
+		$games = $this->gamesTable->fetchAll($queryParams, $inputParams);
+		
+		return $this->process($queryParams, $games);
 	}
 	
 	/**
@@ -82,28 +108,29 @@ class GamesLoader
 	 */
 	public function load(string $slug) : Model\Game
 	{
-		$game = $this->gamesTable->find($slug);
+		$params = new QueryParams([
+			"slug" => $slug
+		]);
 		
-		$this->process("", [$game]);
+		$game = $this->gamesTable->fetch($params);
+		
+		$this->process($params, [$game]);
 		
 		return $game;
 	}
 	
 	/**
-	 * @param string $search
+	 * @param QueryParams $params
 	 * @param Model\Game[] $games
 	 * @return Model\Game[]
 	 */
-	private function process(string $search, array $games) : array
+	private function process(QueryParams $params, array $games) : array
 	{
 		$this->followersTable->isFollowing($games, $this->account);
 		$this->roleAssigner->assignAll($games, $this->account);
 		$this->imageLoader->attachCoverImages($games);
 		$this->themeLoader->attachThemes($games);
 		
-		return [
-			"q" => $search,
-			"results" => $games
-		];
+		return $games;
 	}
 }

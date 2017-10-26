@@ -3,11 +3,12 @@ namespace Games\DbTable;
 
 use Database\Driver\MySQL\AbstractTable,
 	Database\PDO,
+	Database\Table,
 	Database\Query\QueryParams,
 	Database\Query\QueryExpr,
 	Games\Model\Game;
 
-class Games extends AbstractTable
+class Games extends AbstractTable implements Table\MetadataProviderInterface
 {
 	const NAME = "games";
 	
@@ -16,6 +17,15 @@ class Games extends AbstractTable
 	public function getModelClass(): string { return Game::class; }
 	
 	public function getPrimaryKeys() : array { return ["id"]; }
+	
+	public function populateMetadata(Table\Metadata $metadata) 
+	{
+		$metadata->setColumns([
+			"id" => [
+				"valueParser" => "intval"
+			]
+		]);
+	}
  
 	/**
 	 * Find all games matching a search string

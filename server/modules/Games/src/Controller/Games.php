@@ -1,17 +1,18 @@
 <?php
 namespace Games\Controller;
 
-use Games\GamesLoader,
+use Database\Query\QueryParams,
+	Database\Query\QueryExpr,
+	Database\PDO,
+	Games\GamesLoader,
 	Games\GameSaver,
 	Http\Request;
 
 class Games
 {
-	public function listAction(GamesLoader $loader, Request $request) : array
+	public function listAction(PDO $db, GamesLoader $loader, Request $request) : array
 	{	
-		return $loader->search(
-			(string) $request->inputGet("q")
-		);
+		return $loader->loadList($request->inputGetAll(), 10);
 	}
 	
 	public function addAction(GameSaver $saver, Request $request) : GameSaver

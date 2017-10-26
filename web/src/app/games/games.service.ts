@@ -16,12 +16,19 @@ export class GamesService
 		params.set("q", q);
 		
 		return new Promise<GameSearchResponseInterface>((resolve, reject) => {
-			this.Xzor.get("games.json", params).then(
-				(response) => { 
-					resolve(response); 
-				}
-			);
+			this.loadList(params).then((games) => {
+				resolve({
+					q: q,
+					results: games
+				});
+			});
 		});
+	}
+
+	loadList(params?:URLSearchParams) : Promise<GameInterface[]> {
+		params = params || new URLSearchParams();
+
+		return this.Xzor.get("games.json", params);
 	}
 
 	load(slug:string) : Promise<GameInterface> {

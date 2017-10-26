@@ -39,7 +39,6 @@ import {PagesModule} from "./pages/pages.module";
 		FormsModule,
 		HttpModule,
 		RouterModule.forRoot([
-			{ path: "", loadChildren: "./dashboard/dashboard.module#DashboardModule" },
 			{ path: "account", loadChildren: "./account/pages/account-pages.module#AccountPagesModule" },
 			{ path: "people", loadChildren: "./people/people.module#PeopleModule" },
 			{ path: "p/:slug", loadChildren: "./people/person.module#PersonModule" },

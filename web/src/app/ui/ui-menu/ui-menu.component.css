@@ -12,6 +12,7 @@ ul {
 }
 	ul > li {
 		display: flex;
+		position: relative;
 	}
 
 	ul > li.spacer {
@@ -21,8 +22,33 @@ ul {
 		ul > li > a {
 			display: flex;
 			padding: 15px;
+			white-space: nowrap;
 		}
 
-			ul > li > a > ui-icon + span {
+			ui-icon + span {
 				margin-left: 10px;
 			}
+
+			span + ui-icon {
+				margin-left: 10px;
+			}
+
+ul.children {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 10;
+	background-color: #212121;
+	flex-direction: column;
+	min-width: 120px;
+	padding: 10px;
+}
+	ul.children > li {
+		margin-bottom: 10px;
+	}
+	ul.children > li:last-child {
+		margin-bottom: 0;
+	}
+		ul.children > li > a {
+			padding: 10px 15px 10px 10px;
+		}

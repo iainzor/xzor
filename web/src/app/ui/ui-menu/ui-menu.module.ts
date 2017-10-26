@@ -4,11 +4,13 @@ import {RouterModule} from "@angular/router";
 
 import {UIMenuComponent} from "./ui-menu.component";
 import {UIIconModule} from "../ui-icon/ui-icon.module";
+import {DirectivesModule} from "../directives.module";
 
 @NgModule({
 	imports: [
 		CommonModule,
 		RouterModule,
+		DirectivesModule,
 		UIIconModule
 	],
 	declarations: [

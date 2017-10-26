@@ -73,7 +73,7 @@ class Game
 		
 		$collector = $feed->collector($definition);
 		$results = $collector->collect($this->game->slug);
-		$cache->put($cacheKey, $results->jsonSerialize(), 600);
+		$cache->put($cacheKey, $results->jsonSerialize(), 28800);
 		
 		return $results;
 	}
