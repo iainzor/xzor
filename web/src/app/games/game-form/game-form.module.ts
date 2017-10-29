@@ -6,7 +6,6 @@ import {RouterModule} from "@angular/router";
 import {UIModule} from "../../ui/ui.module";
 import {XzorURLPickerModule} from "../../xzor/xzor-url-picker/xzor-url-picker.module";
 import {GameImageEditorModule} from "../game-image-editor/game-image-editor.module";
-import {GameTileModule} from "../game-tile/game-tile.module";
 import {GameFormComponent} from "./game-form.component";
 
 @NgModule({
@@ -17,7 +16,6 @@ import {GameFormComponent} from "./game-form.component";
 		UIModule,
 		
 		GameImageEditorModule,
-		GameTileModule,
 
 		XzorURLPickerModule
 	],

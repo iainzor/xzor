@@ -50,7 +50,12 @@
 		<div class="col-md-6">
 			<div class="form-group preview" *ngIf="game.title">
 				<label>Preview</label>
-				<game-tile [game]="game" z="2"></game-tile>
+				<ui-tile [theme]="game.theme" [image]="game.coverImage">
+					<h5>{{game.title}}</h5>
+					<p *ngIf="game.description">
+						{{game.description}}
+					</p>
+				</ui-tile>
 			</div>
 		</div>
 	</div>

@@ -1,0 +1,42 @@
+:host {
+	display: flex;
+	flex-direction: column;
+}
+
+:host(.clickable) {
+	cursor: pointer;
+}
+
+ui-card {
+	padding: 0;
+	position: relative;
+	flex-grow: 1;
+}
+	ui-card > .content {
+		padding: 20px;
+		position: relative;
+		z-index: 1;
+	}
+	ui-card:hover > .content {
+		text-shadow: 0 2px 5px rgba(0,0,0,.35);
+	}
+
+	ui-card > ui-image {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 0;
+		overflow: hidden;
+		opacity: .25;
+	}
+
+	ui-card:hover > ui-image {
+		opacity: .5;
+	}
+
+	ui-card > .content,
+	ui-card > ui-image {
+		transition: all .3s ease-in-out;
+	}

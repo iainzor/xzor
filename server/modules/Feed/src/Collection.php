@@ -26,8 +26,8 @@ class Collection implements \JsonSerializable
 		$ops = new StringOperations();
 		$slug = $ops->hyphenate($provider->getName());
 		
-		if (!isset($this->results[$slug])) {
-			$this->providers[] = $provider;
+		if (!isset($this->providers[$slug])) {
+			$this->providers[$slug] = $provider;
 			$this->results[$slug] = [];
 		}
 		
@@ -36,17 +36,24 @@ class Collection implements \JsonSerializable
 	
 	public function jsonSerialize() : array
 	{
-		$ops = new StringOperations();
+		$data = [
+			"providers" => [],
+			"results" => []
+		];
 		
-		return array_map(function(ProviderDefinitionInterface $provider) use ($ops) {
-			$slug = $ops->hyphenate($provider->getName());
-
-			return [
+		foreach ($this->providers as $slug =>$provider) {
+			$data["providers"][] = [
 				"name" => $provider->getName(),
 				"slug" => $slug,
 				"theme" => $provider->getTheme(),
-				"results" => $this->results[$slug]
 			];
-		}, $this->providers);
+			$data["results"] = array_merge($data["results"], array_map(function(FeedItem $item) use ($slug) {
+				$item->provider = $slug;
+				
+				return $item;
+			}, $this->results[$slug]));
+		}
+		
+		return $data;
 	}
 }

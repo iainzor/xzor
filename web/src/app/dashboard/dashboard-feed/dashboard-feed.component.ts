@@ -19,7 +19,7 @@ export class DashboardFeedComponent
 
 	account:AccountInterface;
 	games:GameInterface[] = [];
-	feed:Feed = new Feed([]);
+	feed:Feed = new Feed();
 	
 	gamesMenu:UIMenuItemInterface = {
 		title: "Games",
@@ -64,7 +64,6 @@ export class DashboardFeedComponent
 
 	generateFeed() {
 		this.feed.empty();
-
 		this.games.forEach((game) => {
 			if (this.gameFeeds[game.id] && game.active) {
 				this.feed.merge(
@@ -72,8 +71,6 @@ export class DashboardFeedComponent
 				);
 			}
 		});
-
-		console.log(this.feed);
 
 		this.generateMenuItems();
 	}

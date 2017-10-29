@@ -1,5 +1,7 @@
-<div class="row" *ngIf="feed">
-	<div class="col-md-6 col-lg-4 feed-item" *ngFor="let item of feed.results">
-		<feed-item [item]="item"></feed-item>
+<ui-tile-grid *ngIf="feed">
+	<div class="col-md-6 col-lg-4 feed-item" *ngFor="let item of feed.items">
+		<ui-tile [theme]="item.theme" [image]="item.image">
+			<feed-item [item]="item"></feed-item>
+		</ui-tile>
 	</div>
-</div>
+</ui-tile-grid>

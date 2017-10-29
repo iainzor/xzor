@@ -1,0 +1,9 @@
+:host /deep/ ui-tile {
+	margin-bottom: 30px;
+	flex-grow: 1;
+}
+
+.row /deep/ [class^=col] {
+	display: flex;
+	flex-direction: column;
+}

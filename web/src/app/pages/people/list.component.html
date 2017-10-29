@@ -1,0 +1,9 @@
+<div class="container">
+	<ui-tile-grid>
+		<div class="col-md-4 col-sm-6" *ngFor="let person of people">
+			<ui-tile [link]="['/p', person.slug]" [theme]="person.theme">
+				<h5>{{person.name}}</h5>
+			</ui-tile>
+		</div>
+	</ui-tile-grid>
+</div>

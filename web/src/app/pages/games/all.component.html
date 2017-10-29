@@ -1,4 +1,7 @@
 <div class="container">
+	<game-list [games]="response?.results"></game-list>
+
+	<!--
 	<div class="row games" [@gameList]="response?.results.length">
 		<div class="col-lg-4 col-sm-6 game-col" *ngFor="let game of response?.results">
 			<a class="game" 
@@ -12,4 +15,5 @@
 			</a>
 		</div>
 	</div>
+	-->
 </div>

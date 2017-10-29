@@ -16,5 +16,6 @@ export class FeedFilterComponent
 	toggleProvider(e:MouseEvent, provider:ProviderInterface) {
 		e.preventDefault();
 		provider.active = !provider.active;
+		this.feed.generate();
 	}
 }

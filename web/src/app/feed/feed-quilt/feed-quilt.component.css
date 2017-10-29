@@ -1,9 +1,0 @@
-.feed-item {
-	display: flex;
-	flex-direction: column;
-}
-
-feed-item { 
-	margin-bottom: 30px; 
-	flex-grow: 1;
-}

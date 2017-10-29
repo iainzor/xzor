@@ -11,10 +11,28 @@ import {UIControlsModule} from "./ui-controls/ui-controls.module";
 import {UIFileSelectorModule} from "./ui-file-selector/ui-file-selector.module";
 import {UIHeaderModule} from "./ui-header/ui-header.module";
 import {UIIconModule} from "./ui-icon/ui-icon.module";
+import {UIImageModule} from "./ui-image/ui-image.module";
 import {UIMenuModule} from "./ui-menu/ui-menu.module";
 import {UINavModule} from "./ui-nav/ui-nav.module";
 import {UIThemeEditorModule} from "./ui-theme-editor/ui-theme-editor.module";
-import {UIToastModule} from "./ui-toast/ui-toast.module";
+import {UITileModule} from "./ui-tile/ui-tile.module";
+import {UITileGridModule} from "./ui-tile-grid/ui-tile-grid.module";
+
+let EXPORTABLES = [
+	UIButtonModule,
+	UICardModule,
+	UIColorPickerModule,
+	UIControlsModule,
+	UIFileSelectorModule,
+	UIHeaderModule,
+	UIIconModule,
+	UIImageModule,
+	UIMenuModule,
+	UINavModule,
+	UIThemeEditorModule,
+	UITileGridModule,
+	UITileModule
+];
 
 @NgModule({
 	imports: [
@@ -24,31 +42,9 @@ import {UIToastModule} from "./ui-toast/ui-toast.module";
 		XzorModule,
 		DirectivesModule,
 
-		UIButtonModule,
-		UICardModule,
-		UIColorPickerModule,
-		UIControlsModule,
-		UIFileSelectorModule,
-		UIHeaderModule,
-		UIIconModule,
-		UIMenuModule,
-		UINavModule,
-		UIThemeEditorModule,
-		UIToastModule
+		...EXPORTABLES
 	],
-	exports: [
-		UIButtonModule,
-		UICardModule,
-		UIColorPickerModule,
-		UIControlsModule,
-		UIFileSelectorModule,
-		UIHeaderModule,
-		UIIconModule,
-		UIMenuModule,
-		UINavModule,
-		UIThemeEditorModule,
-		UIToastModule
-	]
+	exports: EXPORTABLES
 })
 export class ComponentsModule
 {

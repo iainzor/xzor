@@ -60,14 +60,13 @@ class GameFeedCollector implements ProviderCollectorInterface
 					? $post["data"]["thumbnail"]
 					: null;
 
-				$items[] = new FeedItem($created, $title, $url, [
+				$items[] = new FeedItem($created, $title, $url, $thumbnail, [
 					"permalink" => $this->api->url($post["data"]["permalink"]),
 					"subreddit" => $post["data"]["subreddit"],
 					"upVotes" => $post["data"]["ups"],
 					"downVotes" => $post["data"]["downs"],
 					"score" => $post["data"]["score"],
-					"comments" => $post["data"]["num_comments"],
-					"thumbnail" => $thumbnail
+					"comments" => $post["data"]["num_comments"]
 				]);
 			}
 		}

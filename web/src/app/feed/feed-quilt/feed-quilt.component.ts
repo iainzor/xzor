@@ -7,7 +7,6 @@ import {FeedItemInterface} from "../feed-item.interface";
 @Component({
 	selector: "feed-quilt",
 	templateUrl: "./feed-quilt.component.html",
-	styleUrls: ["./feed-quilt.component.css"],
 	animations: [
 		trigger("feedItem", [
 			transition("* => *", [

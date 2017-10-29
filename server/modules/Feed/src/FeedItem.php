@@ -4,6 +4,11 @@ namespace Feed;
 class FeedItem
 {
 	/**
+	 * @var string
+	 */
+	public $provider;
+	
+	/**
 	 * @var int
 	 */
 	public $timestamp;
@@ -24,6 +29,11 @@ class FeedItem
 	public $url;
 	
 	/**
+	 * @var string
+	 */
+	public $image;
+	
+	/**
 	 * @var array
 	 */
 	public $data = [];
@@ -34,13 +44,15 @@ class FeedItem
 	 * @param int $timestamp
 	 * @param string $title
 	 * @param string $url
+	 * @param string $image
 	 * @param array $data
 	 */
-	public function __construct(int $timestamp, string $title, string $url, array $data = [])
+	public function __construct(int $timestamp, string $title, string $url, string $image = null, array $data = [])
 	{
 		$this->timestamp = $timestamp;
 		$this->title = $title;
 		$this->url = $url;
+		$this->image = $image;
 		$this->data = $data;
 		$this->key = substr(md5($title.$url), 8, 16);
 	}

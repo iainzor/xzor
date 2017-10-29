@@ -40,8 +40,6 @@ import {PagesModule} from "./pages/pages.module";
 		HttpModule,
 		RouterModule.forRoot([
 			{ path: "account", loadChildren: "./account/pages/account-pages.module#AccountPagesModule" },
-			{ path: "people", loadChildren: "./people/people.module#PeopleModule" },
-			{ path: "p/:slug", loadChildren: "./people/person.module#PersonModule" },
 			{ path: "sources", loadChildren: "./sources/sources.module#SourcesModule" }
 		]),
 

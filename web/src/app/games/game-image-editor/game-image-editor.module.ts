@@ -5,7 +5,6 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {UIModule} from "../../ui/ui.module";
 import {ImageUploaderModule} from "../../images/image-uploader/image-uploader.module";
 import {GameImageEditorComponent} from "./game-image-editor.component";
-import {GameImageModule} from "../game-image/game-image.module";
 
 @NgModule({
 	imports: [
@@ -13,8 +12,7 @@ import {GameImageModule} from "../game-image/game-image.module";
 		ReactiveFormsModule,
 
 		ImageUploaderModule,
-		UIModule,
-		GameImageModule
+		UIModule
 	],
 	declarations: [
 		GameImageEditorComponent

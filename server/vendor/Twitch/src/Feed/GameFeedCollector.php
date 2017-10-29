@@ -55,10 +55,11 @@ class GameFeedCollector implements ProviderCollectorInterface
 				$created = strtotime($stream["created_at"]);
 				$title = $stream["channel"]["status"];
 				$url = $stream["channel"]["url"];
+				$images = $stream["preview"];
+				$image = isset($images) ? $images["medium"] : null;
 
-				$items[] = new FeedItem($created, $title, $url, [
+				$items[] = new FeedItem($created, $title, $url, $image, [
 					"displayName" => $stream["channel"]["display_name"],
-					"preview" => $stream["preview"],
 					"viewers" => $stream["viewers"],
 					"game" => $stream["game"]
 				]);

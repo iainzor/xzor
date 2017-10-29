@@ -4,9 +4,9 @@ import {Component, OnInit, OnDestroy, Input, ElementRef} from "@angular/core";
 import {ImageInterface} from "../../images/image.interface";
 
 @Component({
-	selector: "game-image",
-	template: `<img [@image]="imageState" [attr.src]="url" (load)="onImageLoad()">`,
-	styleUrls: ["./game-image.component.css"],
+	selector: "ui-image",
+	templateUrl: "./ui-image.component.html",
+	styleUrls: ["./ui-image.component.css"],
 	animations: [
 		trigger("image", [
 			state("loading", style({
@@ -19,11 +19,11 @@ import {ImageInterface} from "../../images/image.interface";
 		])
 	]
 })
-export class GameImageComponent implements OnInit, OnDestroy, EventListenerObject
+export class UIImageComponent implements OnInit, OnDestroy, EventListenerObject
 {
 	imageState:string = "loading";
 
-	@Input() url:string;
+	@Input() src:string;
 	@Input() scale:boolean = false;
 
 	constructor(private ElRef:ElementRef) {}
@@ -42,7 +42,7 @@ export class GameImageComponent implements OnInit, OnDestroy, EventListenerObjec
 	}
 
 	scaleImage() {
-		if (this.scale) {
+		if (this.scale && this.src) {
 			let el:HTMLElement = this.ElRef.nativeElement;
 			let img:HTMLImageElement = el.querySelector("img");
 			let parent = el.parentElement;

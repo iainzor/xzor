@@ -2,14 +2,14 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 
-import {TeamTileModule} from "../team-tile/team-tile.module";
 import {TeamListComponent} from "./team-list.component";
+import {UIModule} from "../../ui/ui.module";
 
 @NgModule({
 	imports: [
 		CommonModule,
 		RouterModule,
-		TeamTileModule
+		UIModule
 	],
 	declarations: [
 		TeamListComponent
