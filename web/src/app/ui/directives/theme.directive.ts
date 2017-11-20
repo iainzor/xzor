@@ -53,7 +53,7 @@ export class ThemeDirective implements OnInit, OnDestroy
 		if (this.themeName === CUSTOM_THEME) {
 			return this.theme;
 		} else if (this.themeName === DEFAULT_THEME) {
-			return this.defaultTheme;
+			return {};
 		} else {
 			return this.Themes.get(this.themeName);
 		}

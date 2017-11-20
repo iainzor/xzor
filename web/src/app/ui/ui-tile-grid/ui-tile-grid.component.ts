@@ -1,4 +1,5 @@
-import {Component} from "@angular/core";
+import {Component, AfterContentInit, QueryList, ContentChildren, ElementRef, TemplateRef} from "@angular/core";
+import {UITileComponent} from "../ui-tile/ui-tile.component";
 
 @Component({
 	selector: "ui-tile-grid",
@@ -6,4 +7,5 @@ import {Component} from "@angular/core";
 	styleUrls: ["./ui-tile-grid.component.css"]
 })
 export class UITileGridComponent
-{}
+{
+}

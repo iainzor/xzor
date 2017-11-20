@@ -65,7 +65,7 @@ export class GameComponent implements OnInit, OnDestroy
 		if (this.game) {
 			pages = [
 				{ title: "Overview", path: ["/g", this.game.slug], activeExact: true },
-				//{ title: "Forums", path: ["/g", this.game.slug, "forums"] }
+				{ title: "Forums", path: ["/g", this.game.slug, "forums"] }
 			];
 
 			if (this.account && this.account.isValid) {

@@ -11,25 +11,16 @@ import {ThemeInterface} from "../theme.interface";
 		"(mouseenter)": "z = 3",
 		"(mouseleave)": "z = 1",
 		"(mousedown)": "z = 5",
-		"(mouseup)": "z = 3",
-		"(click)": "onClick($event)",
-		"[class.clickable]": "link"
+		"(mouseup)": "z = 3"
 	}
 })
 export class UITileComponent
 {
-	@Input() theme:ThemeInterface;
+	@Input() cardTheme:ThemeInterface;
 	@Input() image:string;
 	@Input() link:any;
 
 	z:number = 1;
 
 	constructor(private Router:Router) {}
-
-	onClick(e:MouseEvent) {
-		if (this.link) {
-			e.preventDefault();
-			this.Router.navigate(this.link);
-		}
-	}
 }

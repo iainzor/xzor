@@ -3,8 +3,10 @@
 	flex-direction: column;
 }
 
-:host(.clickable) {
-	cursor: pointer;
+:host > a {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
 }
 
 ui-card {

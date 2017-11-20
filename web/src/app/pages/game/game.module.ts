@@ -3,11 +3,13 @@ import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 
 import {UIModule} from "../../ui/ui.module";
+import {ForumsModule} from "../../forums/forums.module";
 import {GameComponentsModule} from "../../games/game-components.module";
 import {GameService} from "../../games/game.service";
 import {GameResolver} from "../../games/game.resolver";
 import {GameComponent} from "./game.component";
-import {OverviewComponent} from "./overview.component";
+import {IndexComponent} from "./index.component";
+import {ForumsComponent} from "./forums.component";
 
 @NgModule({
 	imports: [
@@ -18,17 +20,20 @@ import {OverviewComponent} from "./overview.component";
 				component: GameComponent, 
 				resolve: { game: GameResolver },
 				children: [
-					{ path: "", component: OverviewComponent },
+					{ path: "", component: IndexComponent },
+					{ path: "forums", component: ForumsComponent },
 					{ path: "manage", loadChildren: "./admin/game-admin.module#GameAdminModule" }
 				]
 			}
 		]),
 		UIModule,
+		ForumsModule,
 		GameComponentsModule
 	],
 	declarations: [
 		GameComponent,
-		OverviewComponent
+		IndexComponent,
+		ForumsComponent
 	],
 	providers: [
 		GameService,

@@ -1,6 +1,18 @@
-<ui-card [theme]="theme" [z]="z">
-	<div class="content">
-		<ng-content></ng-content>
-	</div>
-	<ui-image [src]="image" [scale]="true"></ui-image>
-</ui-card>
+<ng-template [ngIf]="link">
+	<a [routerLink]="link">
+		<ng-container *ngTemplateOutlet="card"></ng-container>
+	</a>
+</ng-template>
+
+<ng-template [ngIf]="!link">
+	<ng-container *ngTemplateOutlet="card"></ng-container>
+</ng-template>
+
+<ng-template #card>
+	<ui-card [theme]="cardTheme" [z]="z">
+		<div class="content">
+			<ng-content></ng-content>
+		</div>
+		<ui-image [src]="image" [scale]="true"></ui-image>
+	</ui-card>
+</ng-template>

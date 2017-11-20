@@ -5,18 +5,16 @@ import {GameInterface} from "../../games/game.interface";
 import {GameService} from "../../games/game.service";
 
 @Component({
-	selector: "pages-game-overview",
-	templateUrl: "./overview.component.html"
+	selector: "pages-game-forums",
+	templateUrl: "./forums.component.html"
 })
-export class OverviewComponent implements OnInit, OnDestroy
+export class ForumsComponent implements OnInit, OnDestroy
 {
 	private gameSub:Subscription;
 
 	game:GameInterface;
 
-	constructor(
-		private Game:GameService
-	) {}
+	constructor(private Game:GameService) {}
 
 	ngOnInit() {
 		this.gameSub = this.Game.subscribe((game) => {

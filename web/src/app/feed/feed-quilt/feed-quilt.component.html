@@ -1,7 +1,9 @@
 <ui-tile-grid *ngIf="feed">
-	<div class="col-md-6 col-lg-4 feed-item" *ngFor="let item of feed.items">
-		<ui-tile [theme]="item.theme" [image]="item.image">
-			<feed-item [item]="item"></feed-item>
-		</ui-tile>
-	</div>
+	<ui-tile *ngFor="let item of feed.items" 
+		class="col-md-6 col-lg-4 feed-item" 
+		[cardTheme]="item.theme" 
+		[image]="item.image"
+	>
+		<feed-item [item]="item"></feed-item>
+	</ui-tile>
 </ui-tile-grid>

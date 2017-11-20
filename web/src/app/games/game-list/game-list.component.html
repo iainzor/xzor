@@ -1,8 +1,6 @@
 <ui-tile-grid>
-	<div class="col-md-4 col-sm-6" *ngFor="let game of games">
-		<ui-tile [link]="['/g', game.slug]" [theme]="game.theme" [image]="game.coverImage">
-			<h5>{{game.title}}</h5>
-			<p class="desc" *ngIf="game.description">{{game.description}}</p>
-		</ui-tile>
-	</div>
+	<ui-tile *ngFor="let game of games" class="col-md-4 col-sm-6" [link]="['/g', game.slug]" [cardTheme]="game.theme" [image]="game.coverImage">
+		<h5>{{game.title}}</h5>
+		<p class="desc" *ngIf="game.description">{{game.description}}</p>
+	</ui-tile>
 </ui-tile-grid>

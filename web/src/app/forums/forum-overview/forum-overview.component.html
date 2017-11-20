@@ -1,0 +1,14 @@
+<ng-template [ngIf]="forums">
+	<ui-card *ngIf="!forums.length">
+		<p class="lead">
+			No forums could be found
+		</p>
+	</ui-card>
+
+	<ui-tile-grid *ngIf="forums.length > 0">
+		<ui-tile class="col-md-6 col-lg-4" *ngFor="let forum of forums" [link]="[forum.id]" [cardTheme]="forum.theme">
+			<h4>{{forum.title}}</h4>
+			<p *ngIf="forum.description">{{forum.description}}</p>
+		</ui-tile>
+	</ui-tile-grid>
+</ng-template>
